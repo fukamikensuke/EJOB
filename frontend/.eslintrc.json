@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "next",
+    "prettier",
+    "plugin:import/typescript",
+    "plugin:import/warnings"
+  ],
+  "plugins": [],
+  "rules": {
+    "no-var": "error",
+    "no-unused-vars": "warn",
+    "no-console": "warn"
+  }
+}
