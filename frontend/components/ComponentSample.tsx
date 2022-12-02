@@ -1,5 +1,9 @@
 import React from "react";
 
-export const ComponentSample = () => {
-  return <p>Component Sample</p>;
+type Props = {
+  text: string;
+};
+
+export const ComponentSample = ({ text }: Props) => {
+  return <h2>{text}</h2>;
 };

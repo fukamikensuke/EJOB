@@ -7,7 +7,7 @@ export default function Home() {
   console.log("temp");
   return (
     <>
-      <ComponentSample />
+      <ComponentSample text={"ComponentSample!!!!!"} />
       <Stack>
         <Link href="/about">about!!!!!!!</Link>
         <Link href="/user/1">user 1</Link>
