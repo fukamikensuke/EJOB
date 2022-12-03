@@ -26,11 +26,11 @@ cnxn = pyodbc.connect(
 
 cur = cnxn.cursor()
 
-# cur.execute("DROP TABLE IF EXISTS Intern_detail")
-# cur.execute("DROP TABLE IF EXISTS Selection_detail")
-# cur.execute("DROP TABLE IF EXISTS Job_type")
-# cur.execute("DROP TABLE IF EXISTS Period")
-# cur.execute("DROP TABLE IF EXISTS Season")
+# cur.execute("DROP TABLE IF EXISTS intern_detail")
+# cur.execute("DROP TABLE IF EXISTS selection_detail")
+# cur.execute("DROP TABLE IF EXISTS job_type")
+# cur.execute("DROP TABLE IF EXISTS period")
+# cur.execute("DROP TABLE IF EXISTS season")
 
 
 # cur.execute("CREATE TABLE intern_detail(id INT IDENTITY PRIMARY KEY,company_name NVARCHAR(128) NOT NULL,period_id INT NOT NULL,jpb_id INT NOT NULL,salary INT NOT NULL,thoughts NVARCHAR(256) NOT NULL,selection_id INT NOT NULL,user_id INT NOT NULL)")
