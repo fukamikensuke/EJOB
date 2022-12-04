@@ -33,9 +33,9 @@ class Intern_info(BaseModel):
     evaluation: int
     developEx: int
     internEx: int
-    internTestPreparation: str
+    internTestPreparation: Union[str, None] = None
     isSelectionExemption: int
-    selectionExemptionContents: str
+    selectionExemptionContents: Union[str, None] = None
     impressions: str
 
 @app.get("/intern-info-list/{filter}")
