@@ -26,14 +26,14 @@ def get_select_filed():
 
 @app.post("/user-info")
 def post_intern_info(
-    campany:str = Form(),
-    year :int = Form(),
+    company : str = Form(),
+    year : int = Form(),
     internType : int = Form(),
     period : int = Form(),
     jobType : int = Form(),
     salary : int = Form(),
     internContens : str = Form(),
-    evalication : int = Form(),
+    evaluation : int = Form(),
     developEx : int = Form(),
     internEx : int = Form(),
     internTestPreparation : str = Form(),
