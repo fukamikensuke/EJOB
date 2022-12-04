@@ -1,8 +1,42 @@
 from fastapi import FastAPI,Form
 import sqlite3
+from pydantic import BaseModel
+from typing import Union
+import cruds.input as input
+from dotenv import load_dotenv
+import os
+import pyodbc
+from dotenv import load_dotenv
+# 環境変数の読み込み
 
+load_dotenv()
+# TODO .env内容をリストして入力（修正Lｖ.1)
+env_list = []
+env_list.append(os.getenv("SERVER"))
+env_list.append(os.getenv("DATABASE"))
+env_list.append(os.getenv("USERNAME_CUS"))
+env_list.append(os.getenv("PASSWORD"))
+env_list.append(os.getenv("DRIVER"))
+print(os.getenv("SERVER"))
+print(env_list)
 app = FastAPI()
 
+
+class Intern_info(BaseModel):
+    company: str
+    year: int
+    intenrType: int
+    period: int
+    jobType: int
+    salary: int
+    internContents: str
+    evaluation: int
+    developEx: int
+    internEx: int
+    internTestPreparation: Union[str, None] = None
+    isSelectionExemption: int
+    selectionExemptionContents: Union[str, None] = None
+    impressions: str
 
 @app.get("/intern-info-list/{filter}")
 def get_intern_list_filter(filter :str):
@@ -25,19 +59,12 @@ def get_select_filed():
     return out_put
 
 @app.post("/intern-info")
-def post_intern_info(
-    company : str = Form(),
-    year : int = Form(),
-    internType : int = Form(),
-    period : int = Form(),
-    jobType : int = Form(),
-    salary : int = Form(),
-    internContents : str = Form(),
-    evaluation : int = Form(),
-    developEx : int = Form(),
-    internEx : int = Form(),
-    internTestPreparation : str = Form(),
-    isSelectionExemption : int = Form(),
-    impressions : str = Form()
-):
+def post_intern_info(intern_info:Intern_info):
+    input.post_intern_info(env_list,Intern_info.company,Intern_info.year,Intern_info.intenrType,Intern_info.period,Intern_info.jobType,Intern_info.salary,Intern_info.internContents,Intern_info.evaluation,Intern_info.developEx,Intern_info.internEx,Intern_info.internTestPreparation,Intern_info.isSelectionExemption,Intern_info.selectionExemptionContents,Intern_info.impressions)
+    return intern_info
+
+@app.get("/test")
+def post_intern_info():
+    print(env_list)
+    input.post_intern_info(env_list,"LINE",2,3,1,1,1600,"API設計を行った",3,3,2,"Atcorder",1,"1発内々定","楽しかった")
     return "OK"

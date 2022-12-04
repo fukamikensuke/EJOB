@@ -35,4 +35,4 @@ frontend/.vercel
 frontend/*.tsbuildinfo
 frontend/next-env.d.ts
 
-backend/cruds/.env
+backend/.env
