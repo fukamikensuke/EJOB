@@ -1,11 +1,11 @@
 export const filterData = {
   data: {
     evaluation: [
-      { id: 1, text: "1" },
-      { id: 2, text: "2" },
-      { id: 3, text: "3" },
-      { id: 4, text: "4" },
-      { id: 5, text: "5" },
+      { id: 1, text: "1(とても不満足)" },
+      { id: 2, text: "2(少し不満足)" },
+      { id: 3, text: "3(普通)" },
+      { id: 4, text: "4(良かった)" },
+      { id: 5, text: "5(とても良かった)" },
     ],
     internType: [
       { id: 1, text: "サマーインターン" },
@@ -100,4 +100,21 @@ export const inputFormData = {
     { id: 4, text: "3回" },
     { id: 5, text: "4回以上" },
   ],
+};
+
+export const displayInternInfo = {
+  company: "株式会社#####",
+  year: "2022年",
+  internType: "サマーインターン",
+  period: "5日間",
+  jobType: "Web エンジニア",
+  salary: "1500円",
+  internContents: "インターンの内容",
+  evaluation: "4(良かった)",
+  developEx: "1回",
+  internEx: "",
+  internTestPreparation: "",
+  isSelectionExemption: "あり",
+  selectionExemptionContents: "こんな免除があったよ",
+  impressions: "総じて満足！",
 };
