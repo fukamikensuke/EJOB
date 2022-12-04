@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 # 環境変数の読み込み
 
 load_dotenv()
+## .env内容をリストして入力（修正Lｖ.1)
 env_list = []
 env_list.append(os.getenv("SERVER"))
 env_list.append(os.getenv("DATABASE"))
