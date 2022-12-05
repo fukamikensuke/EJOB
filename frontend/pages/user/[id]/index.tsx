@@ -11,7 +11,7 @@ export default function UserInfo() {
 
   return (
     <>
-      <Header isLogin={false} />
+      <Header />
       <Center>
         <Text fontSize="3xl">userid {id} さんの投稿したインターン情報</Text>
       </Center>

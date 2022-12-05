@@ -6,7 +6,7 @@ import { CustomTable } from "../components/Table/CustomTable";
 export default function Home() {
   return (
     <>
-      <Header isLogin={false} />
+      <Header />
       <HStack>
         <Box w="25%" alignSelf="flex-start">
           <Filter />
