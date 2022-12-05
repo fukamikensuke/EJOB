@@ -1,6 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Link } from "@chakra-ui/react";
+import { Text, Center } from "@chakra-ui/react";
+import { UserTable } from "../../../components/Table/UserTable";
+import { Header } from "../../../components/Header/Header";
+import { VSpacer } from "../../../components/Spacer/Spacer";
 
 export default function UserInfo() {
   const router = useRouter();
@@ -8,8 +11,12 @@ export default function UserInfo() {
 
   return (
     <>
-      <p>user id: {id}</p>
-      <Link href="/">home</Link>
+      <Header isLogin={false} />
+      <Center>
+        <Text fontSize="3xl">userid {id} さんの投稿したインターン情報</Text>
+      </Center>
+      <VSpacer size={10} />
+      <UserTable />
     </>
   );
 }
