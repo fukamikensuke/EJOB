@@ -5,7 +5,7 @@ import { InputForm } from "../components/inputForm/InputForm";
 export default function Post() {
   return (
     <>
-      <Header isLogin={false} />
+      <Header />
       <Container maxW="3xl">
         <InputForm />
       </Container>

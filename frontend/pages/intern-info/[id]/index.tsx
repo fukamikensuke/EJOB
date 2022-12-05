@@ -9,7 +9,7 @@ export default function DisplayInternInfo() {
 
   return (
     <>
-      <Header isLogin={false} />
+      <Header />
       <Container maxW="2xl">
         <p>id {id} に関するインターン情報</p>
         <InternInfo />

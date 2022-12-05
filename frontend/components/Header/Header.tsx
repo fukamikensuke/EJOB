@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import {
   Box,
   HStack,
@@ -15,12 +16,10 @@ import {
   PopoverCloseButton,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { loginState } from "../../store/Recoil";
 import { FcGoogle } from "react-icons/fc";
 import { PlusSquareIcon } from "@chakra-ui/icons";
-
-type Props = {
-  isLogin: boolean;
-};
+import { useAuth } from "../../hooks/useAuth";
 
 type Size = {
   imageSize: number;
@@ -30,7 +29,10 @@ type Size = {
   loginButtonSize: string;
   avatarSize: string;
 };
-export const Header = ({ isLogin }: Props) => {
+export const Header = () => {
+  const { login, logout } = useAuth();
+  const loginStatus = useRecoilValue(loginState);
+
   const mediaType = useBreakpointValue({ base: "phone", md: "pc" });
   const [size, setSize] = useState<Size>({
     imageSize: 12,
@@ -76,7 +78,7 @@ export const Header = ({ isLogin }: Props) => {
             {/* TODO: サービス名を入れる */}
             <Text fontSize={size.headerTextSize}>すごいヘッダー</Text>
           </HStack>
-          {isLogin ? (
+          {loginStatus.isLogin ? (
             <HStack w={size.stackSizeSmall}>
               <PlusSquareIcon boxSize={size.imageSize} />
               <Popover>
@@ -94,7 +96,14 @@ export const Header = ({ isLogin }: Props) => {
                   <PopoverBody>
                     <VStack>
                       <Button variant="ghost">投稿情報</Button>
-                      <Button variant="ghost">ログアウト</Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          logout();
+                        }}
+                      >
+                        ログアウト
+                      </Button>
                     </VStack>
                   </PopoverBody>
                 </PopoverContent>
@@ -107,6 +116,9 @@ export const Header = ({ isLogin }: Props) => {
               borderColor="white"
               variant="outline"
               size={size.loginButtonSize}
+              onClick={() => {
+                login();
+              }}
             >
               ログイン
             </Button>
