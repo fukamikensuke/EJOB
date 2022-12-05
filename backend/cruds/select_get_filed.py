@@ -26,23 +26,49 @@ def select_get_filed(env_list: list):
         + env_list[3]
     )
     cur = cnxn.cursor()
-    cur.execute("SELECT * FROM intern_detail WHERE id = %d" % id)
+    cur.execute("SELECT * FROM period ")
+    period_data = []
     for row in cur:
-        output_data = {
-            "companyName": row[1],
-            "year": row[2],
-            "internType": row[3],
-            "period": row[4],
-            "job": row[5],
-            "salary": row[6],
-            "internContents": row[7],
-            "evaluation": row[8],
-            "developEx": row[10],
-            "internEx": row[11],
-            "internTestPreparation": row[12],
-            "isSelectionExemption": row[13],
-            "selectionExemptionContents": row[14],
-            "impressions": row[9],
-        }
+        period_data.append({"id": row[0], "text": row[1]})
+
+    cur.execute("SELECT * FROM season ")
+    season_data = []
+    for row in cur:
+        season_data.append({"id": row[0], "text": row[1]})
+
+    cur.execute("SELECT * FROM job_type ")
+    job_data = []
+    for row in cur:
+        job_data.append({"id": row[0], "text": row[1]})
+
+    cur.execute("SELECT * FROM evaluation ")
+    evaluation_data = []
+    for row in cur:
+        evaluation_data.append({"id": row[0], "text": row[1]})
+
+    cur.execute("SELECT * FROM year ")
+    year_data = []
+    for row in cur:
+        year_data.append({"id": row[0], "text": row[1]})
+
+    cur.execute("SELECT * FROM develop_ex ")
+    develop_ex_data = []
+    for row in cur:
+        develop_ex_data.append({"id": row[0], "text": row[1]})
+
+    cur.execute("SELECT * FROM intern_ex ")
+    intern_ex_data = []
+    for row in cur:
+        intern_ex_data.append({"id": row[0], "text": row[1]})
+
+    output_data = [
+        {"displayName": "期間", "tableName": "period", "data": period_data},
+        {"displayName": "インターン種別", "tableName": "season", "data": season_data},
+        {"displayName": "職種", "tableName": "job_type", "data": job_data},
+        {"displayName": "評価", "tableName": "evaluation", "data": evaluation_data},
+        {"displayName": "年度", "tableName": "year", "data": year_data},
+        {"displayName": "開発回数", "tableName": "develop_ex", "data": develop_ex_data},
+        {"displayName": "インターン回数", "tableName": "intern_ex", "data": intern_ex_data},
+    ]
     cur.commit()
     return output_data

@@ -5,6 +5,7 @@ from typing import Union
 import cruds.input as input
 import cruds.intern_get_list as intern_get_list
 import cruds.intern_get_detail as intern_get_detail
+import cruds.select_get_filed as select_get_filed
 from dotenv import load_dotenv
 import os
 import pyodbc
@@ -60,15 +61,9 @@ def get_intern_list_id(id: int):
 
 
 @app.get("/search-status")
-def get_intern_list():
-    out_put = {
-        "data": {
-            "internType": {"id": 1, "text": "サマーインターン"},
-            "period": {"id": 1, "text": "2週間"},
-            "jobType": {"id": 1, "text": "フロントエンジニア"},
-        }
-    }
-    return out_put
+def get_search_status():
+    search_data = {"data": select_get_filed.select_get_filed(env_list)}
+    return search_data
 
 
 @app.get("/input-select-filed")
