@@ -44,11 +44,11 @@ export const filterData = {
 
 export const inputFormData = {
   evaluation: [
-    { id: 1, text: "1" },
-    { id: 2, text: "2" },
-    { id: 3, text: "3" },
-    { id: 4, text: "4" },
-    { id: 5, text: "5" },
+    { id: 1, text: "1(とても不満足)" },
+    { id: 2, text: "2(少し不満足)" },
+    { id: 3, text: "3(普通)" },
+    { id: 4, text: "4(良かった)" },
+    { id: 5, text: "5(とても良かった)" },
   ],
   year: [
     { id: 1, text: "2020年" },
@@ -118,3 +118,32 @@ export const displayInternInfo = {
   selectionExemptionContents: "こんな免除があったよ",
   impressions: "総じて満足！",
 };
+
+export const tableDataList = [
+  {
+    id: 1,
+    company: "ONE CAREER",
+    evaluation: "4(良かった)",
+    period: "2日間",
+    jobType: "Web エンジニア",
+    salary: "なし",
+  },
+  ,
+  {
+    id: 2,
+    company: "BrainPad",
+    evaluation: "4(良かった)",
+    period: "5日間",
+    jobType: "Web エンジニア",
+    salary: "1500円",
+  },
+  ,
+  {
+    id: 3,
+    company: "DWANGO",
+    evaluation: "4(良かった)",
+    period: "1ヶ月以上",
+    jobType: "フロントエンドエンジニア",
+    salary: "1000円",
+  },
+];

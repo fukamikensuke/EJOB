@@ -8,6 +8,7 @@ import {
   Box,
   Button,
   Center,
+  VStack,
   HStack,
   InputGroup,
   Input,
@@ -22,7 +23,7 @@ export const Filter = () => {
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
 
   return (
-    <>
+    <VStack>
       <Accordion allowMultiple>
         <AccordionItem>
           <AccordionButton>
@@ -80,7 +81,7 @@ export const Filter = () => {
               <HStack>
                 <Text>時給</Text>
                 <InputGroup w={36}>
-                  <Input placeholder="時給" />
+                  <Input type="number" placeholder="時給" />
                 </InputGroup>
                 <Text>円以上</Text>
               </HStack>
@@ -94,6 +95,7 @@ export const Filter = () => {
           検索
         </Button>
       </Center>
-    </>
+      <VSpacer size={4} />
+    </VStack>
   );
 };

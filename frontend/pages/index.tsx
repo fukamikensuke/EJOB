@@ -1,19 +1,20 @@
-import { Link, Stack, HStack } from "@chakra-ui/react";
 import React from "react";
-
-import { ComponentSample } from "../components/ComponentSample";
-
+import { Header } from "../components/Header/Header";
+import { Filter } from "../components/Filter/Filter";
+import { Box, HStack } from "@chakra-ui/react";
+import { CustomTable } from "../components/Table/CustomTable";
 export default function Home() {
-  console.log("temp");
   return (
     <>
-      <ComponentSample text={"ComponentSample!!!!!"} />
-      <Stack>
-        <Link href="/about">about!!!!!!!</Link>
-        <Link href="/user/1">user 1</Link>
-        <Link href="/user/2">user 2</Link>
-        <Link href="/user/3">user 3</Link>
-      </Stack>
+      <Header isLogin={false} />
+      <HStack>
+        <Box w="25%" alignSelf="flex-start">
+          <Filter />
+        </Box>
+        <Box w="75%" alignSelf="flex-start">
+          <CustomTable />
+        </Box>
+      </HStack>
     </>
   );
 }
