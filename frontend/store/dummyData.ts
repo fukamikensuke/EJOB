@@ -36,7 +36,7 @@ export const filterData = {
       { id: 8, text: "組み込みソフトウェアエンジニア" },
       { id: 9, text: "機械学習エンジニア" },
       { id: 10, text: "データサイエンティスト" },
-      { id: 10, text: "その他" },
+      { id: 11, text: "その他" },
     ],
     salary: [], // 選択としないため null で良い
   },
@@ -84,7 +84,7 @@ export const inputFormData = {
     { id: 8, text: "組み込みソフトウェアエンジニア" },
     { id: 9, text: "機械学習エンジニア" },
     { id: 10, text: "データサイエンティスト" },
-    { id: 10, text: "その他" },
+    { id: 11, text: "その他" },
   ],
   developEx: [
     { id: 1, text: "0回" },

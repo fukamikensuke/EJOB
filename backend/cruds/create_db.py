@@ -26,20 +26,86 @@ cnxn = pyodbc.connect(
 
 cur = cnxn.cursor()
 
-cur.execute("DROP TABLE IF EXISTS intern_detail")
-cur.execute("DROP TABLE IF EXISTS selection_detail")
+# cur.execute("DROP TABLE IF EXISTS intern_detail")
+# cur.execute("DROP TABLE IF EXISTS selection_detail")
 # cur.execute("DROP TABLE IF EXISTS job_type")
-# cur.execute("DROP TABLE IF EXISTS Period")
-# cur.execute("DROP TABLE IF EXISTS Season")
+# cur.execute("DROP TABLE IF EXISTS period")
+# cur.execute("DROP TABLE IF EXISTS season")
+# cur.execute("DROP TABLE IF EXISTS evaluation")
+# cur.execute("DROP TABLE IF EXISTS year")
+# cur.execute("DROP TABLE IF EXISTS develop_ex")
+# cur.execute("DROP TABLE IF EXISTS intern_ex")
 
-
-cur.execute("CREATE TABLE intern_detail(id INT IDENTITY PRIMARY KEY,company_name NVARCHAR(128) NOT NULL,year INT NOT NULL ,internType INT NOT NULL, period_id INT NOT NULL,jpb_id INT NOT NULL,salary INT NOT NULL,internContents NVARCHAR(256),evaluation INT NOT NULL,thoughts NVARCHAR(256) NOT NULL,sum_output INT NOT NULL ,sum_intern INT NOT NULL ,prepare_text NVARCHAR(256),skip_presence  INT NOT NULL ,skip_detail NVARCHAR(256),user_id INT NOT NULL)")
+# cur.execute("CREATE TABLE intern_detail(id INT IDENTITY PRIMARY KEY,company_name NVARCHAR(128) NOT NULL,year INT NOT NULL ,internType INT NOT NULL, period_id INT NOT NULL,jpb_id INT NOT NULL,salary INT NOT NULL,internContents NVARCHAR(256),evaluation INT NOT NULL,thoughts NVARCHAR(256) NOT NULL,sum_output INT NOT NULL ,sum_intern INT NOT NULL ,prepare_text NVARCHAR(256),skip_presence  INT NOT NULL ,skip_detail NVARCHAR(256),user_id INT NOT NULL)")
 # cur.execute("CREATE TABLE selection_detail (id  INT IDENTITY PRIMARY KEY,sum_output INT NOT NULL,sum_intern INT NOT NULL,prepare_text NVARCHAR(256),skip_presence INT NOT NULL ,skip_detail NVARCHAR(256))")
-# cur.execute("CREATE TABLE job_type (id  INT IDENTITY PRIMARY KEY,job_name NVARCHAR(128) NOT NULL)")
-# cur.execute("CREATE TABLE period (id  INT IDENTITY PRIMARY KEY,period_text INT NOT NULL)")
-# cur.execute("CREATE TABLE season (id  INT IDENTITY PRIMARY KEY,season_name NVARCHAR(128) NOT NULL)")
+# cur.execute(
+#     "CREATE TABLE job_type (id  INT IDENTITY PRIMARY KEY,job_name NVARCHAR(256) NOT NULL)"
+# )
+# cur.execute(
+#     "CREATE TABLE period (id  INT IDENTITY PRIMARY KEY,period_text NVARCHAR(256) NOT NULL)"
+# )
+# cur.execute(
+#     "CREATE TABLE season (id  INT IDENTITY PRIMARY KEY,season_name NVARCHAR(256)NOT NULL)"
+# )
+# cur.execute(
+#     "CREATE TABLE evaluation (id  INT IDENTITY PRIMARY KEY,text NVARCHAR(256) NOT NULL)"
+# )
+# cur.execute(
+#     "CREATE TABLE year (id  INT IDENTITY PRIMARY KEY,text NVARCHAR(256) NOT NULL)"
+# )
+# cur.execute(
+#     "CREATE TABLE develop_ex (id  INT IDENTITY PRIMARY KEY,text NVARCHAR(256) NOT NULL)"
+# )
+# cur.execute(
+#     "CREATE TABLE intern_ex (id  INT IDENTITY PRIMARY KEY,text NVARCHAR(256) NOT NULL)"
+# )
 
-print("OK")
+# period_data = ["1日", "2日", "3日", "4日", "5日", "1週間", "2週間", "3週間", "4週間", "それ以上"]
+# period_sql = "INSERT INTO period VALUES (?)"
+# for i in period_data:
+#     cur.execute(period_sql, i)
+
+# season_data = ["サマーインターン", "ウィンターインターン", "通年インターン", "その他"]
+# season_sql = "INSERT INTO season VALUES (?)"
+# for i in season_data:
+#     cur.execute(season_sql, i)
+
+# job_data = [
+#     "SE",
+#     "Web エンジニア",
+#     "ネイティブアプリエンジニア",
+#     "フロントエンドエンジニア",
+#     "バックエンドエンジニア",
+#     "インフラエンジニア",
+#     "フルスタックエンジニア",
+#     "組み込みソフトウェアエンジニア",
+#     "機械学習エンジニア",
+#     "データサイエンティスト",
+#     "その他",
+# ]
+# job_sql = "INSERT INTO job_type VALUES (?)"
+# for i in job_data:
+#     cur.execute(job_sql, i)
+
+# evaluation_data = ["1(とても不満足)", "2(少し不満足)", "3(普通)", "4(良かった)", "5(とても良かった)"]
+# evaluation_sql = "INSERT INTO evaluation VALUES (?)"
+# for i in evaluation_data:
+#     cur.execute(evaluation_sql, i)
+
+# year_data = ["2020年", "2021年", "2022年"]
+# year_sql = "INSERT INTO year VALUES(?)"
+# for i in year_data:
+#     cur.execute(year_sql, i)
+
+# count_data = ["0回", "1回", "2回", "3回", "4回"]
+# intern_sql = "INSERT INTO intern_ex VALUES(?)"
+# develop_sql = "INSERT INTO develop_ex VALUES(?)"
+# for i in count_data:
+#     cur.execute(develop_sql, i)
+#     cur.execute(intern_sql, i)
+
+
+# print("OK")
 cur.commit()
 
 cur.close()
