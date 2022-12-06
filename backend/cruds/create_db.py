@@ -60,7 +60,7 @@ cur = cnxn.cursor()
 #     "CREATE TABLE intern_ex (id  INT IDENTITY PRIMARY KEY,text NVARCHAR(256) NOT NULL)"
 # )
 
-# period_data = ["1日", "2日", "3日", "4日", "5日", "1週間", "2週間", "3週間", "4週間", "それ以上"]
+# period_data = ["1日", "2日", "3日", "4日", "5日", "1週間", "2週間", "3週間", "4週間", "4週間以上"]
 # period_sql = "INSERT INTO period VALUES (?)"
 # for i in period_data:
 #     cur.execute(period_sql, i)
@@ -97,7 +97,7 @@ cur = cnxn.cursor()
 # for i in year_data:
 #     cur.execute(year_sql, i)
 
-# count_data = ["0回", "1回", "2回", "3回", "4回"]
+# count_data = ["0回", "1回", "2回", "3回", "4回以上"]
 # intern_sql = "INSERT INTO intern_ex VALUES(?)"
 # develop_sql = "INSERT INTO develop_ex VALUES(?)"
 # for i in count_data:

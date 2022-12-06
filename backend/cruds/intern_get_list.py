@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 
 def get_intern_info(env_list: list):
+    # TODO cnxn 自体が引数にできそう（修正Lｖ.1)
     cnxn = pyodbc.connect(
         "DRIVER="
         + env_list[4]
@@ -33,5 +34,6 @@ def get_intern_info(env_list: list):
                 "salary": row[6],
             }
         )
+    # TODO ここ index じゃなくて、カラム名とかからデータとれないのだろうか！？(取れそう)
     cur.commit()
     return output_data
