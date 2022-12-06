@@ -1,12 +1,17 @@
-from fastapi import FastAPI,Form
+from fastapi import FastAPI, Form
 import sqlite3
 from pydantic import BaseModel
 from typing import Union
 import cruds.input as input
+import cruds.intern_get_list as intern_get_list
+import cruds.intern_get_detail as intern_get_detail
+import cruds.select_get_filed as select_get_filed
+import cruds.delete as delete
+import cruds.delete as de
 from dotenv import load_dotenv
 import os
 import pyodbc
-from dotenv import load_dotenv
+
 # 環境変数の読み込み
 
 load_dotenv()
@@ -38,33 +43,92 @@ class Intern_info(BaseModel):
     selectionExemptionContents: Union[str, None] = None
     impressions: str
 
-@app.get("/intern-info-list/{filter}")
-def get_intern_list_filter(filter :str):
-    out_put = {"data" :{1:{"companyName":1,"evaluation":1,"year":1,"internType":2,"period":2,"job":1,"salraly":1500}}}
-    return out_put
 
-@app.get("/intern-info-list/{uid}")
-def get_intern_list_id(uid :int):
-    out_put = {"data" :{1:{"companyName":1,"evaluation":1,"year":1,"internType":2,"period":2,"job":1,"salraly":1500}}}
-    return out_put
+@app.get("/intern-info-list/{filter}")
+def get_intern_list_filter(filter: str):
+    info_list = {"data": intern_get_list.get_intern_info(env_list)}
+    return info_list["data"][0]["id"]
+
+
+@app.get("/intern-info-list-uid/{uid}")
+def get_intern_list_filter(uid: int):
+    info_list = {"data": intern_get_list.get_intern_info(env_list)}
+    return info_list["data"][0]["id"]
+
+
+@app.get("/intern-info/{id}")
+def get_intern_list_id(id: int):
+    intern_detail = {"data": intern_get_detail.get_intern_detail(id, env_list)}
+    return intern_detail
+
 
 @app.get("/search-status")
-def get_intern_list():
-    out_put = {"data" :{"internType":{"id":1,"text":"サマーインターン"},"period":{"id":1,"text":"2週間"},"jobType":{"id":1,"text":"フロントエンジニア"}}}
-    return out_put
+def get_search_status():
+    search_data = {"data": select_get_filed.select_get_filed(env_list)}
+    return search_data
+
+
+@app.delete("/intern-info/delete/{intern_id}")
+def get_intern_list_id(intern_id: int):
+    delete.delete_intern_info(env_list, intern_id)
+    return {200: "OK"}
+
 
 @app.get("/input-select-filed")
 def get_select_filed():
-    out_put = {"data" :{"year":{"id":1,"text":"サマーインターン"},"internType":{"id":1,"text":"サマーインターン"},"period":{"id":1,"text":"2週間"},"jobType":{"id":1,"text":"フロントエンジニア"},"developEx":{"id":1,"text":"０回"},"internEx":{"id":1,"text":"0回"}}}
+    out_put = {
+        "data": {
+            "year": {"id": 1, "text": "サマーインターン"},
+            "internType": {"id": 1, "text": "サマーインターン"},
+            "period": {"id": 1, "text": "2週間"},
+            "jobType": {"id": 1, "text": "フロントエンジニア"},
+            "developEx": {"id": 1, "text": "０回"},
+            "internEx": {"id": 1, "text": "0回"},
+        }
+    }
     return out_put
 
+
 @app.post("/intern-info")
-def post_intern_info(intern_info:Intern_info):
-    input.post_intern_info(env_list,Intern_info.company,Intern_info.year,Intern_info.intenrType,Intern_info.period,Intern_info.jobType,Intern_info.salary,Intern_info.internContents,Intern_info.evaluation,Intern_info.developEx,Intern_info.internEx,Intern_info.internTestPreparation,Intern_info.isSelectionExemption,Intern_info.selectionExemptionContents,Intern_info.impressions)
+def post_intern_info(intern_info: Intern_info):
+    input.post_intern_info(
+        env_list,
+        Intern_info.company,
+        Intern_info.year,
+        Intern_info.intenrType,
+        Intern_info.period,
+        Intern_info.jobType,
+        Intern_info.salary,
+        Intern_info.internContents,
+        Intern_info.evaluation,
+        Intern_info.developEx,
+        Intern_info.internEx,
+        Intern_info.internTestPreparation,
+        Intern_info.isSelectionExemption,
+        Intern_info.selectionExemptionContents,
+        Intern_info.impressions,
+    )
     return intern_info
+
 
 @app.get("/test")
 def post_intern_info():
     print(env_list)
-    input.post_intern_info(env_list,"LINE",2,3,1,1,1600,"API設計を行った",3,3,2,"Atcorder",1,"1発内々定","楽しかった")
+    input.post_intern_info(
+        env_list,
+        "株式会社ゲームフリーク",
+        2,
+        3,
+        1,
+        1,
+        1600,
+        "API設計を行った",
+        3,
+        3,
+        2,
+        "Atcorder",
+        1,
+        "1発内々定",
+        "余裕う",
+    )
     return "OK"
