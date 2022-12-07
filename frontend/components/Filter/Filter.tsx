@@ -33,7 +33,7 @@ export const Filter = () => {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data.evaluation} />
+            <CheckboxItem props={filterData.data[0].data} />
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
@@ -44,7 +44,7 @@ export const Filter = () => {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data.jobType} />
+            <CheckboxItem props={filterData.data[3].data} />
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
@@ -55,7 +55,7 @@ export const Filter = () => {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data.internType} />
+            <CheckboxItem props={filterData.data[1].data} />
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
@@ -66,7 +66,7 @@ export const Filter = () => {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data.period} />
+            <CheckboxItem props={filterData.data[2].data} />
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
