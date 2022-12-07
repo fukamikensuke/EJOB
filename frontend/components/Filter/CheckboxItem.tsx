@@ -1,14 +1,21 @@
-import { Checkbox, VStack } from "@chakra-ui/react";
 import React from "react";
+import { VStack, Checkbox } from "@chakra-ui/react";
 
+// TODO: setState のバケツリレーを辞めたい
 type Props = {
-  props: { id: number; text: string }[];
+  AccordionData: { id: number; text: string }[];
 };
-export const CheckboxItem = ({ props }: Props) => {
+
+export const CheckboxItem = ({ AccordionData }: Props) => {
   return (
     <VStack>
-      {props.map((prop) => {
-        return <Checkbox key={prop.id}>{prop.text}</Checkbox>;
+      {AccordionData.map((prop) => {
+        return (
+          // TODO: 型定義の修正 (as の使用をうまく避けたい)
+          <Checkbox key={prop.id} value={prop.id}>
+            {prop.text}
+          </Checkbox>
+        );
       })}
     </VStack>
   );

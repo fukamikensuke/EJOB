@@ -15,60 +15,29 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
-import { CheckboxItem } from "./CheckboxItem";
 import { filterData } from "../../store/dummyData";
+import { CustomAccordionItem } from "./CustomAccordionItem";
 
-// TODO: refactor もっといい感じに書けそう
 export const Filter = () => {
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
+
+  // TODO: filterData を API で取得 (GET search-status/)
+  // TODO: ボタン選択時に postFilterData を送信する
 
   return (
     <VStack>
       <Accordion allowMultiple>
-        <AccordionItem>
-          <AccordionButton>
-            <Box flex="1" textAlign="center">
-              総合評価
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data[0].data} />
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <AccordionButton>
-            <Box flex="1" textAlign="center">
-              職種
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data[3].data} />
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <AccordionButton>
-            <Box flex="1" textAlign="center">
-              インターン種別
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data[1].data} />
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <AccordionButton>
-            <Box flex="1" textAlign="center">
-              期間
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel p={4}>
-            <CheckboxItem props={filterData.data[2].data} />
-          </AccordionPanel>
-        </AccordionItem>
+        {/* XXX: Array であることは保証されているはずなのに…  */}
+        {filterData.data.map(
+          (
+            data: { id: string; data: { id: number; text: string }[] },
+            index: number
+          ) => {
+            if (index <= 3) {
+              return <CustomAccordionItem key={index} id={index} item={data} />;
+            }
+          }
+        )}
         <AccordionItem>
           <AccordionButton>
             <Box flex="1" textAlign="center">
