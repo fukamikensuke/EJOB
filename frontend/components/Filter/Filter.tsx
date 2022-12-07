@@ -29,7 +29,11 @@ export const Filter = () => {
   }, [selectedFilterData]);
 
   // TODO: filterData を API で取得 (GET search-status/)
-  // TODO: ボタン選択時に postFilterData を送信する
+
+  const handleClick = () => {
+    // TODO: ボタン選択時に postFilterData を送信する
+    console.log(selectedFilterData);
+  };
 
   return (
     <>
@@ -88,7 +92,11 @@ export const Filter = () => {
         </Accordion>
         <VSpacer size={2} />
         <Center>
-          <Button colorScheme="blue" isDisabled={isSearchDisable}>
+          <Button
+            colorScheme="blue"
+            isDisabled={isSearchDisable}
+            onClick={handleClick}
+          >
             検索
           </Button>
         </Center>
