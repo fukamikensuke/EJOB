@@ -11,6 +11,22 @@ export const filterData = {
       ],
     },
     {
+      id: "jobType",
+      data: [
+        { id: 1, text: "SE" },
+        { id: 2, text: "Web エンジニア" },
+        { id: 3, text: "ネイティブアプリエンジニア" },
+        { id: 4, text: "フロントエンドエンジニア" },
+        { id: 5, text: "バックエンドエンジニア" },
+        { id: 6, text: "インフラエンジニア" },
+        { id: 7, text: "フルスタックエンジニア" },
+        { id: 8, text: "組み込みソフトウェアエンジニア" },
+        { id: 9, text: "機械学習エンジニア" },
+        { id: 10, text: "データサイエンティスト" },
+        { id: 11, text: "その他" },
+      ],
+    },
+    {
       id: "internType",
       data: [
         { id: 1, text: "サマーインターン" },
@@ -32,22 +48,6 @@ export const filterData = {
         { id: 8, text: "3週間" },
         { id: 9, text: "4週間" },
         { id: 10, text: "それ以上" },
-      ],
-    },
-    {
-      id: "jobType",
-      data: [
-        { id: 1, text: "SE" },
-        { id: 2, text: "Web エンジニア" },
-        { id: 3, text: "ネイティブアプリエンジニア" },
-        { id: 4, text: "フロントエンドエンジニア" },
-        { id: 5, text: "バックエンドエンジニア" },
-        { id: 6, text: "インフラエンジニア" },
-        { id: 7, text: "フルスタックエンジニア" },
-        { id: 8, text: "組み込みソフトウェアエンジニア" },
-        { id: 9, text: "機械学習エンジニア" },
-        { id: 10, text: "データサイエンティスト" },
-        { id: 11, text: "その他" },
       ],
     },
     {
