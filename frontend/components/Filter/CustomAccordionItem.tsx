@@ -17,14 +17,21 @@ const AccordionItemDict = {
 };
 
 type Props = {
-  id: number;
+  index: number;
   item: {
     id: string;
     data: { id: number; text: string }[];
   };
+  selectedData: (number | null)[];
+  setState: React.Dispatch<React.SetStateAction<(number | null)[]>>;
 };
 
-export const CustomAccordionItem = ({ item }: Props) => {
+export const CustomAccordionItem = ({
+  index,
+  item,
+  selectedData,
+  setState,
+}: Props) => {
   return (
     <AccordionItem>
       <AccordionButton>
@@ -43,7 +50,12 @@ export const CustomAccordionItem = ({ item }: Props) => {
         <AccordionIcon />
       </AccordionButton>
       <AccordionPanel p={4}>
-        <CheckboxItem AccordionData={item.data} />
+        <CheckboxItem
+          index={index}
+          AccordionData={item.data}
+          selectedData={selectedData}
+          setState={setState}
+        />
       </AccordionPanel>
     </AccordionItem>
   );
