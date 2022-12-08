@@ -53,5 +53,6 @@ def get_intern_detail(id: int, env_list: list):
             "impressions": row[9],
         }
     cur.commit()
+    _cur.commit()
     cnxn.close()
     return output_data

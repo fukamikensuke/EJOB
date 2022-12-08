@@ -22,7 +22,7 @@ def get_intern_info(env_list: list):
     cur.execute("SELECT * FROM intern_detail")
     output_data = []
     for row in cur:
-        print(row[0], row[1])
+        print(row)
         # _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])
         # (year_data,) = _cur.fetchone()
         # _cur.execute("SELECT job_name FROM job_type WHERE id = %d" % row[5])
@@ -31,13 +31,13 @@ def get_intern_info(env_list: list):
         # (season_data,) = _cur.fetchone()
         # _cur.execute("SELECT period_text FROM period WHERE id = %d" % row[4])
         # (period_data,) = _cur.fetchone()
-        # _cur.execute("SELECT text FROM evaluation WHERE id = %d" % row[8])
-        # (evaluation_data,) = _cur.fetchone()
+        _cur.execute("SELECT text FROM evaluation WHERE id = %d" % row[8])
+        (evaluation_data,) = _cur.fetchone()
         output_data.append(
             {
                 "id": row[0],
                 "companyName": row[1],
-                "evaluation": row[8],  # evaluation_data,
+                "evaluation": evaluation_data,
                 "year": row[2],  # year_data,
                 "internType": row[3],  # season_data,
                 "period": row[4],  # period_data,
