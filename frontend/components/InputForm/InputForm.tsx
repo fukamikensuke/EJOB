@@ -68,7 +68,7 @@ export const InputForm = () => {
   // ラジオボタンの変更の検出
   useEffect(() => {
     let newData = { ...enteredInfo };
-    newData.isSelectionExemption = radioButtonValue as unknown as number;
+    newData.isSelectionExemption = radioButtonValue as unknown as number; //FIXME: 型の修正
     setEnteredInfo(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioButtonValue]);
@@ -98,7 +98,7 @@ export const InputForm = () => {
           placeholder="年"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.year = event.target.value as unknown as number;
+            newData.year = event.target.value as unknown as number; //FIXME: 型の修正
             setEnteredInfo(newData);
           }}
         >
@@ -119,7 +119,7 @@ export const InputForm = () => {
           placeholder="インターン種別"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.internType = event.target.value as unknown as number;
+            newData.internType = event.target.value as unknown as number; //FIXME: 型の修正
             setEnteredInfo(newData);
           }}
         >
@@ -140,7 +140,7 @@ export const InputForm = () => {
           placeholder="期間"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.period = event.target.value as unknown as number;
+            newData.period = event.target.value as unknown as number; //FIXME: 型の修正
             setEnteredInfo(newData);
           }}
         >
@@ -161,7 +161,7 @@ export const InputForm = () => {
           placeholder="職種"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.jobType = event.target.value as unknown as number;
+            newData.jobType = event.target.value as unknown as number; //FIXME: 型の修正
             setEnteredInfo(newData);
           }}
         >
@@ -214,7 +214,7 @@ export const InputForm = () => {
           placeholder="総合評価"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.evaluation = event.target.value as unknown as number;
+            newData.evaluation = event.target.value as unknown as number; //FIXME: 型の修正
             setEnteredInfo(newData);
           }}
         >
@@ -239,7 +239,7 @@ export const InputForm = () => {
           placeholder="開発経験"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.developEx = event.target.value as unknown as number;
+            newData.developEx = event.target.value as unknown as number; //FIXME: 型の修正
             setEnteredInfo(newData);
           }}
         >
@@ -260,7 +260,7 @@ export const InputForm = () => {
           placeholder="インターンへの参加経験"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.internEx = event.target.value as unknown as number;
+            newData.internEx = event.target.value as unknown as number; //FIXME: 型の修正
             setEnteredInfo(newData);
           }}
         >
