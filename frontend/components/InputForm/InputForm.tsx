@@ -58,7 +58,6 @@ export const InputForm = () => {
   });
   const [radioButtonValue, setValue] = useState<string>("");
 
-  console.log(enteredInfo);
   // style 用の変数の定義
   const WLarge = "85%";
   const WSmall = "15%";
@@ -92,6 +91,7 @@ export const InputForm = () => {
       setIsSearchDisable(true);
     }
   }, [enteredInfo]);
+
   return (
     <>
       <Text fontSize="2xl">インターン情報について教えて下さい</Text>
@@ -117,7 +117,11 @@ export const InputForm = () => {
           placeholder="年"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.year = event.target.value as unknown as number; //FIXME: 型の修正
+            if (event.target.value === "") {
+              newData.year = -1;
+            } else {
+              newData.year = event.target.value as unknown as number; //FIXME: 型の修正
+            }
             setEnteredInfo(newData);
           }}
         >
@@ -138,7 +142,11 @@ export const InputForm = () => {
           placeholder="インターン種別"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.internType = event.target.value as unknown as number; //FIXME: 型の修正
+            if (event.target.value === "") {
+              newData.internType = -1;
+            } else {
+              newData.internType = event.target.value as unknown as number; //FIXME: 型の修正
+            }
             setEnteredInfo(newData);
           }}
         >
@@ -159,7 +167,11 @@ export const InputForm = () => {
           placeholder="期間"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.period = event.target.value as unknown as number; //FIXME: 型の修正
+            if (event.target.value === "") {
+              newData.period = -1;
+            } else {
+              newData.period = event.target.value as unknown as number; //FIXME: 型の修正
+            }
             setEnteredInfo(newData);
           }}
         >
@@ -180,7 +192,11 @@ export const InputForm = () => {
           placeholder="職種"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.jobType = event.target.value as unknown as number; //FIXME: 型の修正
+            if (event.target.value === "") {
+              newData.jobType = -1;
+            } else {
+              newData.jobType = event.target.value as unknown as number; //FIXME: 型の修正
+            }
             setEnteredInfo(newData);
           }}
         >
@@ -233,7 +249,11 @@ export const InputForm = () => {
           placeholder="総合評価"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.evaluation = event.target.value as unknown as number; //FIXME: 型の修正
+            if (event.target.value === "") {
+              newData.evaluation = -1;
+            } else {
+              newData.evaluation = event.target.value as unknown as number; //FIXME: 型の修正
+            }
             setEnteredInfo(newData);
           }}
         >
@@ -258,7 +278,11 @@ export const InputForm = () => {
           placeholder="開発経験"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.developEx = event.target.value as unknown as number; //FIXME: 型の修正
+            if (event.target.value === "") {
+              newData.developEx = -1;
+            } else {
+              newData.developEx = event.target.value as unknown as number; //FIXME: 型の修正
+            }
             setEnteredInfo(newData);
           }}
         >
@@ -279,7 +303,11 @@ export const InputForm = () => {
           placeholder="インターンへの参加経験"
           onChange={(event) => {
             let newData = { ...enteredInfo };
-            newData.internEx = event.target.value as unknown as number; //FIXME: 型の修正
+            if (event.target.value === "") {
+              newData.internEx = -1;
+            } else {
+              newData.internEx = event.target.value as unknown as number; //FIXME: 型の修正
+            }
             setEnteredInfo(newData);
           }}
         >
