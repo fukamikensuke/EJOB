@@ -1,6 +1,7 @@
 // FIXME: 下のルールを有効にできるようにする
+// 時給入力の「円」を child として渡しているとこで出ている
 /* eslint-disable react/no-children-prop */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Center,
   HStack,
@@ -12,9 +13,9 @@ import {
   Text,
   Textarea,
   Button,
+  Select,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
-import { SelectForm } from "./SelectForm";
 import { inputFormData } from "../../store/dummyData";
 
 type EnteredInfoType = {
@@ -55,6 +56,7 @@ export const InputForm = () => {
     impressions: "",
     userId: "",
   });
+  const [radioButtonValue, setValue] = useState<string>("");
 
   console.log(enteredInfo);
   // style 用の変数の定義
@@ -62,6 +64,14 @@ export const InputForm = () => {
   const WSmall = "15%";
   const spaceBetweenItems = 4;
   const spaceBetweenTitle = 16;
+
+  // ラジオボタンの変更の検出
+  useEffect(() => {
+    let newData = { ...enteredInfo };
+    newData.isSelectionExemption = radioButtonValue as unknown as number;
+    setEnteredInfo(newData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [radioButtonValue]);
 
   return (
     <>
@@ -81,41 +91,89 @@ export const InputForm = () => {
         />
       </HStack>
       <VSpacer size={spaceBetweenItems} />
-      <SelectForm
-        title="参加年度"
-        placeholder="年"
-        data={inputFormData.year}
-        isRequire={true}
-        WLarge={WLarge}
-        WSmall={WSmall}
-      />
+      <HStack>
+        <Text w={WSmall}>参加年度※</Text>
+        <Select
+          w={WLarge}
+          placeholder="年"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.year = event.target.value as unknown as number;
+            setEnteredInfo(newData);
+          }}
+        >
+          {inputFormData.year.map((item) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Select>
+      </HStack>
       <VSpacer size={spaceBetweenItems} />
-      <SelectForm
-        title="インターン種別"
-        placeholder="インターン種別"
-        data={inputFormData.internType}
-        isRequire={true}
-        WLarge={WLarge}
-        WSmall={WSmall}
-      />
+      <HStack>
+        <Text w={WSmall}>インターン種別※</Text>
+        <Select
+          w={WLarge}
+          placeholder="インターン種別"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.internType = event.target.value as unknown as number;
+            setEnteredInfo(newData);
+          }}
+        >
+          {inputFormData.internType.map((item) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Select>
+      </HStack>
       <VSpacer size={spaceBetweenItems} />
-      <SelectForm
-        title="期間"
-        placeholder="期間"
-        data={inputFormData.period}
-        isRequire={true}
-        WLarge={WLarge}
-        WSmall={WSmall}
-      />
+      <HStack>
+        <Text w={WSmall}>期間※</Text>
+        <Select
+          w={WLarge}
+          placeholder="期間"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.period = event.target.value as unknown as number;
+            setEnteredInfo(newData);
+          }}
+        >
+          {inputFormData.period.map((item) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Select>
+      </HStack>
       <VSpacer size={spaceBetweenItems} />
-      <SelectForm
-        title="職種"
-        placeholder="職種"
-        data={inputFormData.jobType}
-        isRequire={true}
-        WLarge={WLarge}
-        WSmall={WSmall}
-      />
+      <HStack>
+        <Text w={WSmall}>職種※</Text>
+        <Select
+          w={WLarge}
+          placeholder="職種"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.jobType = event.target.value as unknown as number;
+            setEnteredInfo(newData);
+          }}
+        >
+          {inputFormData.jobType.map((item) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Select>
+      </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
         <Text w={WSmall}>報酬(時給換算)※</Text>
@@ -149,36 +207,72 @@ export const InputForm = () => {
         />
       </HStack>
       <VSpacer size={spaceBetweenItems} />
-      <SelectForm
-        title="総合評価"
-        placeholder="総合評価"
-        data={inputFormData.evaluation}
-        isRequire={true}
-        WLarge={WLarge}
-        WSmall={WSmall}
-      />
+      <HStack>
+        <Text w={WSmall}>総合評価※</Text>
+        <Select
+          w={WLarge}
+          placeholder="総合評価"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.evaluation = event.target.value as unknown as number;
+            setEnteredInfo(newData);
+          }}
+        >
+          {inputFormData.evaluation.map((item) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Select>
+      </HStack>
       <VSpacer size={spaceBetweenTitle} />
 
       <Text fontSize="2xl">インターン選考時の状況について教えてください</Text>
 
       <VSpacer size={spaceBetweenItems} />
-      <SelectForm
-        title="選考時の趣味開発やハッカソン等での開発経験"
-        placeholder="開発経験"
-        data={inputFormData.developEx}
-        isRequire={false}
-        WLarge={"70%"}
-        WSmall={"30%"}
-      />
+      <HStack>
+        <Text w={"30%"}>選考時の趣味開発やハッカソン等での開発経験</Text>
+        <Select
+          w={"70%"}
+          placeholder="開発経験"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.developEx = event.target.value as unknown as number;
+            setEnteredInfo(newData);
+          }}
+        >
+          {inputFormData.developEx.map((item) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Select>
+      </HStack>
       <VSpacer size={spaceBetweenItems} />
-      <SelectForm
-        title="選考時のインターンへの参加経験"
-        placeholder="インターンへの参加経験"
-        data={inputFormData.internEx}
-        isRequire={false}
-        WLarge={"70%"}
-        WSmall={"30%"}
-      />
+      <HStack>
+        <Text w={"30%"}>選考時のインターンへの参加経験</Text>
+        <Select
+          w={"70%"}
+          placeholder="インターンへの参加経験"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.internEx = event.target.value as unknown as number;
+            setEnteredInfo(newData);
+          }}
+        >
+          {inputFormData.internEx.map((item) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Select>
+      </HStack>
       <VSpacer size={spaceBetweenItems} />
       <Text>インターンの選考対策として行ったことがあれば教えてください</Text>
       <VSpacer size={spaceBetweenItems} />
@@ -194,7 +288,7 @@ export const InputForm = () => {
       <VSpacer size={spaceBetweenItems} />
       <Text>インターンに参加したことでその先の選考の免除があったか</Text>
       <VSpacer size={spaceBetweenItems} />
-      <RadioGroup>
+      <RadioGroup onChange={setValue}>
         <HStack>
           <Radio value="1">あり</Radio>
           <Radio value="0">なし</Radio>
