@@ -17,9 +17,47 @@ import { VSpacer } from "../Spacer/Spacer";
 import { SelectForm } from "./SelectForm";
 import { inputFormData } from "../../store/dummyData";
 
+type EnteredInfoType = {
+  company: string;
+  year: number;
+  internType: number;
+  period: number;
+  jobType: number;
+  salary: number;
+  internContents: string;
+  evaluation: number; //1-5
+  developEx: number; // 入力は必須ではないため、未入力のときは -1 を送る
+  internEx: number; // 入力は必須ではないため、未入力のときは -1 を送る
+  internTestPreparation: string;
+  isSelectionExemption: number; // 0 or 1
+  selectionExemptionContents: string;
+  impressions: string;
+  userId: string;
+};
+
+// TODO: 入力周りの refactor する
 export const InputForm = () => {
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
+  const [enteredInfo, setEnteredInfo] = useState<EnteredInfoType>({
+    company: "",
+    year: -1,
+    internType: -1,
+    period: -1,
+    jobType: -1,
+    salary: -1,
+    internContents: "",
+    evaluation: -1, //1-5
+    developEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
+    internEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
+    internTestPreparation: "",
+    isSelectionExemption: -1, // 0 or 1
+    selectionExemptionContents: "",
+    impressions: "",
+    userId: "",
+  });
 
+  console.log(enteredInfo);
+  // style 用の変数の定義
   const WLarge = "85%";
   const WSmall = "15%";
   const spaceBetweenItems = 4;
@@ -32,7 +70,15 @@ export const InputForm = () => {
       <VSpacer size={spaceBetweenItems} />
       <HStack>
         <Text w={WSmall}>企業名※</Text>
-        <Input w={WLarge} placeholder="企業名" />
+        <Input
+          w={WLarge}
+          placeholder="企業名"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.company = event.target.value;
+            setEnteredInfo(newData);
+          }}
+        />
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <SelectForm
@@ -75,7 +121,15 @@ export const InputForm = () => {
         <Text w={WSmall}>報酬(時給換算)※</Text>
         <HStack w={WLarge}>
           <InputGroup size="md">
-            <Input type="number" placeholder="時給" />
+            <Input
+              type="number"
+              placeholder="時給"
+              onChange={(event) => {
+                let newData = { ...enteredInfo };
+                newData.salary = event.target.value as unknown as number; //FIXME: 型の修正
+                setEnteredInfo(newData);
+              }}
+            />
             <InputRightAddon children="円" />
           </InputGroup>
         </HStack>
@@ -83,7 +137,16 @@ export const InputForm = () => {
       <VSpacer size={spaceBetweenItems} />
       <HStack>
         <Text w={WSmall}>インターンの内容※</Text>
-        <Textarea w={WLarge} size="lg" placeholder="インターン内容" />
+        <Textarea
+          w={WLarge}
+          size="lg"
+          placeholder="インターン内容"
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.internContents = event.target.value;
+            setEnteredInfo(newData);
+          }}
+        />
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <SelectForm
@@ -119,7 +182,15 @@ export const InputForm = () => {
       <VSpacer size={spaceBetweenItems} />
       <Text>インターンの選考対策として行ったことがあれば教えてください</Text>
       <VSpacer size={spaceBetweenItems} />
-      <Textarea size="lg" placeholder="内容" />
+      <Textarea
+        size="lg"
+        placeholder="内容"
+        onChange={(event) => {
+          let newData = { ...enteredInfo };
+          newData.internTestPreparation = event.target.value;
+          setEnteredInfo(newData);
+        }}
+      />
       <VSpacer size={spaceBetweenItems} />
       <Text>インターンに参加したことでその先の選考の免除があったか</Text>
       <VSpacer size={spaceBetweenItems} />
@@ -130,7 +201,15 @@ export const InputForm = () => {
         </HStack>
       </RadioGroup>
       <VSpacer size={spaceBetweenItems} />
-      <Textarea size="lg" placeholder="免除となった内容" />
+      <Textarea
+        size="lg"
+        placeholder="免除となった内容"
+        onChange={(event) => {
+          let newData = { ...enteredInfo };
+          newData.selectionExemptionContents = event.target.value;
+          setEnteredInfo(newData);
+        }}
+      />
 
       <VSpacer size={spaceBetweenTitle} />
 
@@ -138,7 +217,15 @@ export const InputForm = () => {
       <VSpacer size={spaceBetweenItems} />
       <Text>全体の感想(参加して良かったことや改善点など)※</Text>
       <VSpacer size={spaceBetweenItems} />
-      <Textarea size="lg" placeholder="感想" />
+      <Textarea
+        size="lg"
+        placeholder="感想"
+        onChange={(event) => {
+          let newData = { ...enteredInfo };
+          newData.impressions = event.target.value;
+          setEnteredInfo(newData);
+        }}
+      />
 
       <VSpacer size={spaceBetweenItems} />
       <Center>
