@@ -73,6 +73,25 @@ export const InputForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioButtonValue]);
 
+  // 必須項目がすべて選択されているかの判定
+  useEffect(() => {
+    console.log(enteredInfo);
+    if (
+      enteredInfo.company !== "" &&
+      enteredInfo.year !== -1 &&
+      enteredInfo.internType !== -1 &&
+      enteredInfo.period !== -1 &&
+      enteredInfo.jobType !== -1 &&
+      enteredInfo.salary !== -1 &&
+      enteredInfo.internContents !== "" &&
+      enteredInfo.evaluation != -1 &&
+      enteredInfo.impressions !== ""
+    ) {
+      setIsSearchDisable(false);
+    } else {
+      setIsSearchDisable(true);
+    }
+  }, [enteredInfo]);
   return (
     <>
       <Text fontSize="2xl">インターン情報について教えて下さい</Text>
