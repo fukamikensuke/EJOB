@@ -54,5 +54,6 @@ def select_get_filed(env_list: list):
         "developEx": develop_ex_data,
         "internEx": intern_ex_data,
     }
+
     cur.commit()
     return output_data

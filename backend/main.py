@@ -6,6 +6,7 @@ import cruds.input as input
 import cruds.intern_get_list as intern_get_list
 import cruds.intern_get_detail as intern_get_detail
 import cruds.select_get_filed as select_get_filed
+import cruds.input_select_filed as input_select_field
 from dotenv import load_dotenv
 import os
 import pyodbc
@@ -45,7 +46,7 @@ class Intern_info(BaseModel):
 @app.get("/intern-info-list/{filter}")
 def get_intern_list_filter(filter: str):
     info_list = {"data": intern_get_list.get_intern_info(env_list)}
-    return info_list["data"][0]["id"]
+    return info_list
 
 
 @app.get("/intern-info-list-uid/{uid}")
@@ -68,17 +69,8 @@ def get_search_status():
 
 @app.get("/input-select-filed")
 def get_select_filed():
-    out_put = {
-        "data": {
-            "year": {"id": 1, "text": "サマーインターン"},
-            "internType": {"id": 1, "text": "サマーインターン"},
-            "period": {"id": 1, "text": "2週間"},
-            "jobType": {"id": 1, "text": "フロントエンジニア"},
-            "developEx": {"id": 1, "text": "０回"},
-            "internEx": {"id": 1, "text": "0回"},
-        }
-    }
-    return out_put
+    select_filed = {"data": input_select_field.select_get_filed(env_list)}
+    return select_filed
 
 
 @app.post("/intern-info")
