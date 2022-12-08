@@ -37,6 +37,7 @@ type EnteredInfoType = {
 };
 
 // TODO: 入力周りの refactor する
+// TODO: render が多すぎて performance が低い
 export const InputForm = () => {
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
   const [enteredInfo, setEnteredInfo] = useState<EnteredInfoType>({
