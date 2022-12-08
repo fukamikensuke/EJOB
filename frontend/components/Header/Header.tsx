@@ -71,7 +71,7 @@ export const Header = () => {
           <HStack w={size.stackSizeLarge}>
             <Image
               boxSize={size.imageSize}
-              // NOTE: ログイン時の画像 URL は isLogin に応じてこのファイルで取得する(Recoil を使用する予定)
+              // NOTE: ヘッダー画像を追加する
               src="https://bit.ly/dan-abramov"
               alt="logo"
             />
@@ -86,8 +86,8 @@ export const Header = () => {
                   {/* TODO: _hover を作用させる */}
                   <Avatar
                     size={size.avatarSize}
-                    name="###"
-                    src="https://bit.ly/dan-abramov"
+                    name={loginStatus.name}
+                    src={loginStatus.photoURL}
                   />
                 </PopoverTrigger>
                 <PopoverContent p={0}>
