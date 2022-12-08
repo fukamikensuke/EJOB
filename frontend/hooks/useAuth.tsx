@@ -17,17 +17,11 @@ export const useAuth = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        if (user.displayName) {
-          setLogin({
-            isLogin: true,
-            name: user.displayName,
-          });
-        } else {
-          setLogin({
-            isLogin: true,
-            name: "No User Name",
-          });
-        }
+        setLogin({
+          isLogin: true,
+          name: user.displayName ? user.displayName : "No User Name",
+          photoURL: user.photoURL ? user.photoURL : "No Image",
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -42,6 +36,7 @@ export const useAuth = () => {
     setLogin({
       isLogin: false,
       name: "Not Login",
+      photoURL: "No Image",
     });
   };
 

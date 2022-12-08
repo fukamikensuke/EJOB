@@ -5,5 +5,6 @@ export const loginState = atom({
   default: {
     isLogin: false,
     name: "Not Login",
+    photoURL: "No Image",
   },
 });
