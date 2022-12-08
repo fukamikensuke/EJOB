@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import {
   Box,
@@ -32,6 +33,7 @@ type Size = {
 export const Header = () => {
   const { login, logout } = useAuth();
   const loginStatus = useRecoilValue(loginState);
+  const router = useRouter();
 
   const mediaType = useBreakpointValue({ base: "phone", md: "pc" });
   const [size, setSize] = useState<Size>({
@@ -80,7 +82,12 @@ export const Header = () => {
           </HStack>
           {loginStatus.isLogin ? (
             <HStack w={size.stackSizeSmall}>
-              <PlusSquareIcon boxSize={size.imageSize} />
+              <PlusSquareIcon
+                boxSize={size.imageSize}
+                onClick={() => {
+                  router.push("/post");
+                }}
+              />
               <Popover>
                 <PopoverTrigger>
                   {/* TODO: _hover を作用させる */}
