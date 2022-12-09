@@ -1,6 +1,4 @@
-import os
 import pyodbc
-from dotenv import load_dotenv
 
 
 def select_get_filed(env_list: list):
