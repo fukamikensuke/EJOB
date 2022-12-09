@@ -20,14 +20,18 @@ export default function UserInfo() {
 
   return (
     <>
-      <Header />
-      <Center>
-        <Text fontSize="3xl">
-          {loginStatus.name} さんの投稿したインターン情報
-        </Text>
-      </Center>
-      <VSpacer size={10} />
-      <UserTable />
+      {id === loginStatus.uid && (
+        <>
+          <Header />
+          <Center>
+            <Text fontSize="3xl">
+              {loginStatus.name} さんの投稿したインターン情報
+            </Text>
+          </Center>
+          <VSpacer size={10} />
+          <UserTable />{" "}
+        </>
+      )}
     </>
   );
 }
