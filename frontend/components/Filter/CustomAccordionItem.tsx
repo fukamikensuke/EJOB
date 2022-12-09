@@ -8,22 +8,14 @@ import {
 } from "@chakra-ui/react";
 import { CheckboxItem } from "./CheckboxItem";
 
-const AccordionItemDict = {
-  evaluation: "総合評価",
-  internType: "インターン種別",
-  period: "期間",
-  jobType: "職種",
-  salary: "給与",
-};
-
 type Props = {
   index: number;
   item: {
-    id: string;
+    displayName: string;
     data: { id: number; text: string }[];
   };
   selectedData: (number | null)[];
-  setState: React.Dispatch<React.SetStateAction<(number | null)[]>>;
+  setState: Dispatch<SetStateAction<(number | null)[]>>;
 };
 
 export const CustomAccordionItem = ({
@@ -36,7 +28,8 @@ export const CustomAccordionItem = ({
     <AccordionItem>
       <AccordionButton>
         <Box flex="1" textAlign="center">
-          {
+          {item.displayName}
+          {/* {
             AccordionItemDict[
               item.id as
                 | "evaluation"
@@ -45,7 +38,7 @@ export const CustomAccordionItem = ({
                 | "jobType"
                 | "salary"
             ]
-          }
+          } */}
         </Box>
         <AccordionIcon />
       </AccordionButton>
