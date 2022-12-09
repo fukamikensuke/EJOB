@@ -21,6 +21,7 @@ export const useAuth = () => {
           isLogin: true,
           name: user.displayName ? user.displayName : "No User Name",
           photoURL: user.photoURL ? user.photoURL : "No Image",
+          uid: user.uid,
         });
       })
       .catch((error) => {
@@ -37,6 +38,7 @@ export const useAuth = () => {
       isLogin: false,
       name: "Not Login",
       photoURL: "No Image",
+      uid: "No UserName",
     });
   };
 
