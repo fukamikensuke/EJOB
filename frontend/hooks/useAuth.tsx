@@ -17,12 +17,17 @@ export const useAuth = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        setLogin({
+        const loginData = {
           isLogin: true,
           name: user.displayName ? user.displayName : "No User Name",
           photoURL: user.photoURL ? user.photoURL : "No Image",
           uid: user.uid,
-        });
+        };
+
+        setLogin(loginData);
+
+        // ログイン情報の保存
+        localStorage.setItem("loginStatus", JSON.stringify(loginData));
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -40,6 +45,9 @@ export const useAuth = () => {
       photoURL: "No Image",
       uid: "No UserName",
     });
+
+    // ログイン情報の削除
+    localStorage.remove("loginStatus");
   };
 
   return { login, logout };
