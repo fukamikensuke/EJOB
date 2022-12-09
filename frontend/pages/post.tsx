@@ -23,7 +23,7 @@ export default function Post() {
       <Header />
       <Container maxW="3xl">
         {loginStatus.isLogin ? (
-          <InputForm />
+          <InputForm isEdit={false}/>
         ) : (
           <Container maxW="xl">
             <VSpacer size={8} />
