@@ -35,7 +35,7 @@ const handleDelete = (id: number) => {
   // TODO: 削除に関する API の記述
   console.log(`delete of id:${id}`);
 
-  return false;
+  return true;
 };
 
 const tableBody = (props: TableItem) => {
@@ -89,6 +89,7 @@ const tableBody = (props: TableItem) => {
                         description: `${props.company} に関する投稿を削除しました`,
                         status: "success",
                         duration: 7000,
+                        position: "top",
                         isClosable: true,
                       });
 
@@ -99,6 +100,7 @@ const tableBody = (props: TableItem) => {
                         description: `${props.company} に関する投稿を削除に失敗しました`,
                         status: "error",
                         duration: 7000,
+                        position: "top",
                         isClosable: true,
                       });
                     }
