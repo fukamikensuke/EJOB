@@ -102,7 +102,14 @@ export const Header = () => {
                   <PopoverCloseButton />
                   <PopoverBody>
                     <VStack>
-                      <Button variant="ghost">投稿情報</Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          router.push(`/user/${loginStatus.uid}`);
+                        }}
+                      >
+                        投稿情報
+                      </Button>
                       <Button
                         variant="ghost"
                         onClick={() => {
