@@ -44,6 +44,8 @@ export const Header = () => {
     loginButtonSize: "md",
     avatarSize: "md",
   });
+
+  // mediaType の変更による style の変更
   useEffect(() => {
     if (mediaType === "phone") {
       setSize({
