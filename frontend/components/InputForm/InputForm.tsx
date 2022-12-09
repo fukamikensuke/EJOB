@@ -2,6 +2,8 @@
 // 時給入力の「円」を child として渡しているとこで出ている
 /* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { loginState } from "../../store/Recoil";
 import {
   Center,
   HStack,
@@ -38,26 +40,70 @@ type EnteredInfoType = {
 
 // TODO: 入力周りの refactor する
 // TODO: render が多すぎて performance が低い
-export const InputForm = () => {
+
+type Props = {
+  isEdit: boolean;
+};
+
+const settingDefaultValue = (isEdit: boolean, uid: string) => {
+  // FIXME: ルー化の有効化
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  // const loginStatus = useRecoilValue(loginState);
+
+  // isEdit === true の場合、API から取得してきたデータを初期値とする
+  if (isEdit === false) {
+    return {
+      company: "",
+      year: -1,
+      internType: -1,
+      period: -1,
+      jobType: -1,
+      salary: -1,
+      internContents: "",
+      evaluation: -1, //1-5
+      developEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
+      internEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
+      internTestPreparation: "",
+      isSelectionExemption: -1, // 0 or 1
+      selectionExemptionContents: "",
+      impressions: "",
+      userId: uid,
+    };
+  } else {
+    return {
+      company: "#####",
+      year: 1,
+      internType: 1,
+      period: 1,
+      jobType: 1,
+      salary: 1,
+      internContents: "#####",
+      evaluation: 1, //1-5
+      developEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
+      internEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
+      internTestPreparation: "##########",
+      isSelectionExemption: 1, // 0 or 1
+      selectionExemptionContents: "",
+      impressions: "#########",
+      userId: uid,
+    };
+  }
+};
+export const InputForm = ({ isEdit }: Props) => {
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
-  const [enteredInfo, setEnteredInfo] = useState<EnteredInfoType>({
-    company: "",
-    year: -1,
-    internType: -1,
-    period: -1,
-    jobType: -1,
-    salary: -1,
-    internContents: "",
-    evaluation: -1, //1-5
-    developEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
-    internEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
-    internTestPreparation: "",
-    isSelectionExemption: -1, // 0 or 1
-    selectionExemptionContents: "",
-    impressions: "",
-    userId: "",
+  const loginStatus = useRecoilValue(loginState);
+  const [enteredInfo, setEnteredInfo] = useState<EnteredInfoType>(() => {
+    return settingDefaultValue(isEdit, loginStatus.uid);
   });
-  const [radioButtonValue, setValue] = useState<string>("");
+  const [radioButtonValue, setValue] = useState<string>(() => {
+    if (isEdit === false) {
+      return "";
+    } else {
+      return enteredInfo.isSelectionExemption === -1
+        ? ""
+        : (enteredInfo.isSelectionExemption as unknown as string); // FIXME: 型の修正
+    }
+  });
 
   // style 用の変数の定義
   const WLarge = "85%";
@@ -103,6 +149,7 @@ export const InputForm = () => {
         <Input
           w={WLarge}
           placeholder="企業名"
+          defaultValue={enteredInfo.company}
           onChange={(event) => {
             let newData = { ...enteredInfo };
             newData.company = event.target.value;
@@ -116,6 +163,11 @@ export const InputForm = () => {
         <Select
           w={WLarge}
           placeholder="年"
+          defaultValue={
+            enteredInfo.year === -1
+              ? ""
+              : (enteredInfo.year as unknown as string)
+          }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
@@ -141,6 +193,11 @@ export const InputForm = () => {
         <Select
           w={WLarge}
           placeholder="インターン種別"
+          defaultValue={
+            enteredInfo.internType === -1
+              ? ""
+              : (enteredInfo.internType as unknown as string)
+          }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
@@ -166,6 +223,11 @@ export const InputForm = () => {
         <Select
           w={WLarge}
           placeholder="期間"
+          defaultValue={
+            enteredInfo.period === -1
+              ? ""
+              : (enteredInfo.period as unknown as string)
+          }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
@@ -191,6 +253,11 @@ export const InputForm = () => {
         <Select
           w={WLarge}
           placeholder="職種"
+          defaultValue={
+            enteredInfo.jobType === -1
+              ? ""
+              : (enteredInfo.jobType as unknown as string)
+          }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
@@ -218,6 +285,7 @@ export const InputForm = () => {
             <Input
               type="number"
               placeholder="時給"
+              defaultValue={enteredInfo.salary !== -1 ? enteredInfo.salary : ""}
               onChange={(event) => {
                 let newData = { ...enteredInfo };
                 newData.salary = event.target.value as unknown as number; //FIXME: 型の修正
@@ -235,6 +303,7 @@ export const InputForm = () => {
           w={WLarge}
           size="lg"
           placeholder="インターン内容"
+          defaultValue={enteredInfo.internContents}
           onChange={(event) => {
             let newData = { ...enteredInfo };
             newData.internContents = event.target.value;
@@ -248,6 +317,11 @@ export const InputForm = () => {
         <Select
           w={WLarge}
           placeholder="総合評価"
+          defaultValue={
+            enteredInfo.evaluation === -1
+              ? ""
+              : (enteredInfo.evaluation as unknown as string)
+          }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
@@ -277,6 +351,11 @@ export const InputForm = () => {
         <Select
           w={"70%"}
           placeholder="開発経験"
+          defaultValue={
+            enteredInfo.developEx === -1
+              ? ""
+              : (enteredInfo.developEx as unknown as string)
+          }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
@@ -302,6 +381,11 @@ export const InputForm = () => {
         <Select
           w={"70%"}
           placeholder="インターンへの参加経験"
+          defaultValue={
+            enteredInfo.internEx === -1
+              ? ""
+              : (enteredInfo.internEx as unknown as string)
+          }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
@@ -327,6 +411,7 @@ export const InputForm = () => {
       <Textarea
         size="lg"
         placeholder="内容"
+        defaultValue={enteredInfo.internTestPreparation}
         onChange={(event) => {
           let newData = { ...enteredInfo };
           newData.internTestPreparation = event.target.value;
@@ -336,7 +421,8 @@ export const InputForm = () => {
       <VSpacer size={spaceBetweenItems} />
       <Text>インターンに参加したことでその先の選考の免除があったか</Text>
       <VSpacer size={spaceBetweenItems} />
-      <RadioGroup onChange={setValue}>
+
+      <RadioGroup onChange={setValue} value={`${radioButtonValue}`}>
         <HStack>
           <Radio value="1">あり</Radio>
           <Radio value="0">なし</Radio>
@@ -346,6 +432,7 @@ export const InputForm = () => {
       <Textarea
         size="lg"
         placeholder="免除となった内容"
+        defaultValue={enteredInfo.selectionExemptionContents}
         onChange={(event) => {
           let newData = { ...enteredInfo };
           newData.selectionExemptionContents = event.target.value;
@@ -362,6 +449,7 @@ export const InputForm = () => {
       <Textarea
         size="lg"
         placeholder="感想"
+        defaultValue={enteredInfo.impressions}
         onChange={(event) => {
           let newData = { ...enteredInfo };
           newData.impressions = event.target.value;

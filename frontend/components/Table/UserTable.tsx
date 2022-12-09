@@ -1,4 +1,9 @@
+// FIXME: ルールの有効化
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from "react";
+import { useRouter } from "next/router";
+import { useRecoilValue } from "recoil";
+import { loginState } from "../../store/Recoil";
 import {
   Table,
   Thead,
@@ -39,13 +44,11 @@ const handleDelete = (id: number) => {
 };
 
 const tableBody = (props: TableItem) => {
-  // FIXME: ルールの有効化
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const cancelRef = useRef();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const toast = useToast();
+  const router = useRouter();
+  const loginStatus = useRecoilValue(loginState);
 
   return (
     <Tr>
@@ -55,7 +58,12 @@ const tableBody = (props: TableItem) => {
       <Td>{props.jobType}</Td>
       <Td>{props.salary}</Td>
       <Td>
-        <Icon as={FiEdit} />
+        <Icon
+          as={FiEdit}
+          onClick={() => {
+            router.push(`/edit/${loginStatus.uid}/${props.id}`);
+          }}
+        />
       </Td>
       <Td>
         <Icon as={RiDeleteBinLine} onClick={onOpen} />
@@ -73,6 +81,7 @@ const tableBody = (props: TableItem) => {
               </AlertDialogBody>
 
               <AlertDialogFooter>
+                {/* // FIXME: 警告を削除する */}
                 <Button ref={cancelRef} onClick={onClose}>
                   キャンセル
                 </Button>
