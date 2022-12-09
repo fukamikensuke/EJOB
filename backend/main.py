@@ -114,14 +114,14 @@ def post_intern_info():  # testcode
     print(env_list)
     input.post_intern_info(
         env_list,
-        "株式会社無理なもんは無理",
+        "株式会社会式株",
         1,  # year
-        1,  # internType
-        1,  # period
-        1,  # jobType
+        4,  # internType
+        4,  # period
+        4,  # jobType
         1600,
         "API設計を行った",
-        1,  # 評価
+        5,  # 評価
         3,
         2,
         "Atcorder",
