@@ -64,9 +64,9 @@ def get_intern_list_filter(
 
 
 @app.get("/intern-info-list-uid/{uid}")
-def get_intern_list_filter(uid: int):
-    info_list = {"data": intern_get_list.get_intern_info(env_list)}
-    return info_list["data"][0]["id"]
+def get_intern_list_uid(uid: int):  # testcode
+    info_list = {"data": intern_get_list.get_intern_info_uid(env_list, uid)}
+    return info_list
 
 
 @app.get("/intern-info/{id}")
@@ -110,18 +110,18 @@ def post_intern_info(intern_info: Intern_info):
 
 
 @app.get("/test")
-def post_intern_info():
+def post_intern_info():  # testcode
     print(env_list)
     input.post_intern_info(
         env_list,
-        "株式会社ゲームフリーク",
-        2,
-        1,
-        1,
-        1,
+        "株式会社無理なもんは無理",
+        1,  # year
+        1,  # internType
+        1,  # period
+        1,  # jobType
         1600,
         "API設計を行った",
-        3,
+        1,  # 評価
         3,
         2,
         "Atcorder",
