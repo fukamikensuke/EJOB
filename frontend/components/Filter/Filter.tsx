@@ -15,14 +15,30 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
-import { filterData } from "../../store/dummyData";
 import { CustomAccordionItem } from "./CustomAccordionItem";
+import axios from "axios";
 
 export const Filter = () => {
+  const [filterDataAPI, setFilterDataAPI] = useState({ data: [] });
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
   const [selectedFilterData, setSelectedFilterData] = useState<
     (number | null)[]
   >([null, null, null, null, null]);
+
+  // API からデータの取得
+  useEffect(() => {
+    const url = "http://localhost:8000/search-status";
+    axios
+      .get(url)
+      .then((res) => {
+        setFilterDataAPI(res.data);
+      })
+      // eslint-disable-next-line no-unused-vars
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error("api error /search-status");
+      });
+  }, []);
 
   useEffect(() => {
     setIsSearchDisable(selectedFilterData.every((x) => x === null));
@@ -40,9 +56,12 @@ export const Filter = () => {
       <VStack>
         <Accordion allowMultiple>
           {/* XXX: Array であることは保証されているはずなのに…  */}
-          {filterData.data.map(
+          {filterDataAPI.data.map(
             (
-              data: { id: string; data: { id: number; text: string }[] },
+              data: {
+                displayName: string;
+                data: { id: number; text: string }[];
+              },
               index: number
             ) => {
               if (index <= 3) {
