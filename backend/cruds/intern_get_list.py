@@ -3,7 +3,7 @@ import pyodbc
 from dotenv import load_dotenv
 
 
-def get_intern_info(env_list: list):
+def get_intern_info(env_list: list, filter_dict: dict):
     # TODO cnxn 自体が引数にできそう（修正Lｖ.1)
     cnxn = pyodbc.connect(
         "DRIVER="
@@ -19,9 +19,17 @@ def get_intern_info(env_list: list):
     )
     cur = cnxn.cursor()
     _cur = cnxn.cursor()
-    cur.execute("SELECT * FROM intern_detail")
+    where_str = None
+    for n in filter_dict:
+        if filter_dict[n] != None:
+            if where_str == None:
+                where_str = "WHERE " + n + " = %d " % filter_dict[n]
+            else:
+                where_str = where_str + " AND " + n + " = %d " % filter_dict[n]
+    cur.execute("SELECT * FROM intern_detail %s" % where_str)
     output_data = []
     rows = cur.fetchall()
+    # TODO DBへの挙動がアヤシシ（修正Lv.3)
     for row in rows:
         print(row)
         _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])

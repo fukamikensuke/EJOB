@@ -10,7 +10,7 @@ database = os.getenv("DATABASE")
 username = os.getenv("USERNAME_CUS")
 password = os.getenv("PASSWORD")
 driver = os.getenv("DRIVER")
-
+# TODO DB名のAPIに合わせる(Lv.1)
 cnxn = pyodbc.connect(
     "DRIVER="
     + driver
