@@ -21,16 +21,17 @@ def get_intern_info(env_list: list):
     _cur = cnxn.cursor()
     cur.execute("SELECT * FROM intern_detail")
     output_data = []
-    for row in cur:
+    rows = cur.fetchall()
+    for row in rows:
         print(row)
-        # _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])
-        # (year_data,) = _cur.fetchone()
-        # _cur.execute("SELECT job_name FROM job_type WHERE id = %d" % row[5])
-        # (job_data,) = _cur.fetchone()
-        # _cur.execute("SELECT season_name FROM season WHERE id = %d" % row[3])
-        # (season_data,) = _cur.fetchone()
-        # _cur.execute("SELECT period_text FROM period WHERE id = %d" % row[4])
-        # (period_data,) = _cur.fetchone()
+        _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])
+        (year_data,) = _cur.fetchone()
+        _cur.execute("SELECT job_name FROM job_type WHERE id = %d" % row[5])
+        (job_data,) = _cur.fetchone()
+        _cur.execute("SELECT season_name FROM season WHERE id = %d" % row[3])
+        (season_data,) = _cur.fetchone()
+        _cur.execute("SELECT period_text FROM period WHERE id = %d" % row[4])
+        (period_data,) = _cur.fetchone()
         _cur.execute("SELECT text FROM evaluation WHERE id = %d" % row[8])
         (evaluation_data,) = _cur.fetchone()
         output_data.append(
@@ -38,10 +39,10 @@ def get_intern_info(env_list: list):
                 "id": row[0],
                 "companyName": row[1],
                 "evaluation": evaluation_data,
-                "year": row[2],  # year_data,
-                "internType": row[3],  # season_data,
-                "period": row[4],  # period_data,
-                "job": row[5],  # job_data,
+                "year": year_data,
+                "internType": season_data,
+                "period": period_data,
+                "job": job_data,
                 "salary": row[6],
             }
         )
