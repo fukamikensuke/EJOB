@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   Box,
   HStack,
@@ -33,6 +33,7 @@ type Size = {
 export const Header = () => {
   const { login, logout } = useAuth();
   const loginStatus = useRecoilValue(loginState);
+  const setLogin = useSetRecoilState(loginState);
   const router = useRouter();
 
   const mediaType = useBreakpointValue({ base: "phone", md: "pc" });
@@ -67,6 +68,22 @@ export const Header = () => {
       });
     }
   }, [mediaType]);
+
+  // ログイン情報が保存されている場合復元する
+  useEffect(() => {
+    const saveLoginStatusText = localStorage.getItem("loginStatus");
+
+    if (saveLoginStatusText !== null) {
+      // FIXME: 復元されるデータは理想的なものを想定しているため、zod などを使った型のチェックが必要
+      const restoreLoginData = JSON.parse(saveLoginStatusText);
+      setLogin({
+        isLogin: true,
+        name: restoreLoginData.name,
+        photoURL: restoreLoginData.photoURL,
+        uid: restoreLoginData.uid,
+      });
+    }
+  }, []);
 
   return (
     <>
