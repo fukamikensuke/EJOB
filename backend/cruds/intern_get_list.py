@@ -18,7 +18,15 @@ def get_intern_info(env_list: list):
         + env_list[3]
     )
     cur = cnxn.cursor()
-    cur.execute("SELECT * FROM intern_detail")
+    _cur = cnxn.cursor()
+    where_str = None
+    for n in filter_dict:
+        if filter_dict[n] != None:  # TODO一回直したがエラーでるから修正する（修正Lv.5)
+            if where_str == None:
+                where_str = "WHERE " + n + " = %d " % filter_dict[n]
+            else:
+                where_str = where_str + " AND " + n + " = %d " % filter_dict[n]
+    cur.execute("SELECT * FROM intern_detail %s" % where_str)
     output_data = []
     for row in cur:
         print(row[0], row[1])
