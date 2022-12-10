@@ -21,6 +21,7 @@ import { loginState } from "../../store/Recoil";
 import { FcGoogle } from "react-icons/fc";
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { useAuth } from "../../hooks/useAuth";
+import { VSpacer } from "../Spacer/Spacer";
 
 type Size = {
   imageSize: number;
@@ -87,11 +88,22 @@ export const Header = () => {
 
   return (
     <>
-      <Box bg="blue.100" p={2}>
+      <Box bg="blue.800" p={2}>
         <HStack>
           <HStack w={size.stackSizeLarge}>
+            {/* FIXME: スタイルをレスポンシブに対応させる */}
+            <VSpacer size={4} />
             <Image boxSize={size.imageSize} src="/logo.png" alt="logo" />
-            <Text fontSize={size.headerTextSize} as="b">
+            <VSpacer size={4} />
+            <Text
+              fontSize={size.headerTextSize}
+              as="b"
+              color="white"
+              _hover={{ cursor: "pointer" }}
+              onClick={() => {
+                router.push("/");
+              }}
+            >
               EJOB
             </Text>
           </HStack>
@@ -99,6 +111,8 @@ export const Header = () => {
             <HStack w={size.stackSizeSmall}>
               <PlusSquareIcon
                 boxSize={size.imageSize}
+                color="white"
+                _hover={{ cursor: "pointer" }}
                 onClick={() => {
                   router.push("/post");
                 }}
@@ -110,15 +124,17 @@ export const Header = () => {
                     size={size.avatarSize}
                     name={loginStatus.name}
                     src={loginStatus.photoURL}
+                    _hover={{ cursor: "pointer" }}
                   />
                 </PopoverTrigger>
-                <PopoverContent p={0}>
+                <PopoverContent>
                   <PopoverArrow />
                   <PopoverCloseButton />
                   <PopoverBody>
                     <VStack>
                       <Button
-                        variant="ghost"
+                        variant="link"
+                        colorScheme="black"
                         onClick={() => {
                           router.push(`/user/${loginStatus.uid}`);
                         }}
@@ -126,7 +142,8 @@ export const Header = () => {
                         投稿情報
                       </Button>
                       <Button
-                        variant="ghost"
+                        variant="link"
+                        colorScheme="black"
                         onClick={() => {
                           logout();
                         }}
@@ -141,10 +158,11 @@ export const Header = () => {
           ) : (
             <Button
               w={size.stackSizeSmall}
-              leftIcon={<FcGoogle />}
-              borderColor="white"
-              variant="outline"
+              leftIcon={<FcGoogle size={24} />}
+              color="white"
+              variant="ghost"
               size={size.loginButtonSize}
+              _hover={{ textColor: "black", bg: "white" }}
               onClick={() => {
                 login();
               }}
