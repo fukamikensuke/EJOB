@@ -47,7 +47,7 @@ export const useAuth = () => {
     });
 
     // ログイン情報の削除
-    localStorage.remove("loginStatus");
+    localStorage.removeItem("loginStatus");
   };
 
   return { login, logout };
