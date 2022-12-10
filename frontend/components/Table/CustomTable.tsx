@@ -1,5 +1,4 @@
 import React from "react";
-import { NextRouter, useRouter } from "next/router";
 import {
   Table,
   Thead,
@@ -20,13 +19,9 @@ type TableItem = {
   salary: string;
 };
 
-const tableBody = (props: TableItem, router: NextRouter) => {
+const tableBody = (props: TableItem) => {
   return (
-    <Tr
-      onClick={() => {
-        router.push(`/intern-info/${props.id}`);
-      }}
-    >
+    <Tr>
       <Td>{props.company}</Td>
       <Td>{props.evaluation}</Td>
       <Td>{props.period}</Td>
@@ -37,7 +32,6 @@ const tableBody = (props: TableItem, router: NextRouter) => {
 };
 
 export const CustomTable = () => {
-  const router = useRouter();
   return (
     <TableContainer>
       <Table variant="simple">
@@ -53,7 +47,7 @@ export const CustomTable = () => {
         <Tbody>
           {tableDataList.map((tableData) => {
             // XXX: undefined がどこに起因してるのかわからない
-            return tableBody(tableData, router);
+            return tableBody(tableData);
           })}
         </Tbody>
       </Table>

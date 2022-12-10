@@ -10,7 +10,7 @@ database = os.getenv("DATABASE")
 username = os.getenv("USERNAME_CUS")
 password = os.getenv("PASSWORD")
 driver = os.getenv("DRIVER")
-
+# TODO DB名のAPIに合わせる(Lv.1)
 cnxn = pyodbc.connect(
     "DRIVER="
     + driver
@@ -36,7 +36,9 @@ cur = cnxn.cursor()
 # cur.execute("DROP TABLE IF EXISTS develop_ex")
 # cur.execute("DROP TABLE IF EXISTS intern_ex")
 
-# cur.execute("CREATE TABLE intern_detail(id INT IDENTITY PRIMARY KEY,company_name NVARCHAR(128) NOT NULL,year INT NOT NULL ,internType INT NOT NULL, period_id INT NOT NULL,jpb_id INT NOT NULL,salary INT NOT NULL,internContents NVARCHAR(256),evaluation INT NOT NULL,thoughts NVARCHAR(256) NOT NULL,sum_output INT NOT NULL ,sum_intern INT NOT NULL ,prepare_text NVARCHAR(256),skip_presence  INT NOT NULL ,skip_detail NVARCHAR(256),user_id INT NOT NULL)")
+# cur.execute(
+#     "CREATE TABLE intern_detail(id INT IDENTITY PRIMARY KEY,company NVARCHAR(128) NOT NULL,year INT NOT NULL ,internType INT NOT NULL, period INT NOT NULL,jobType INT NOT NULL,salary INT NOT NULL,internContents NVARCHAR(256),evaluation INT NOT NULL,thoughts NVARCHAR(256) NOT NULL,sum_output INT NOT NULL ,sum_intern INT NOT NULL ,prepare_text NVARCHAR(256),skip_presence  INT NOT NULL ,skip_detail NVARCHAR(256),user_id INT NOT NULL)"
+# )
 # cur.execute("CREATE TABLE selection_detail (id  INT IDENTITY PRIMARY KEY,sum_output INT NOT NULL,sum_intern INT NOT NULL,prepare_text NVARCHAR(256),skip_presence INT NOT NULL ,skip_detail NVARCHAR(256))")
 # cur.execute(
 #     "CREATE TABLE job_type (id  INT IDENTITY PRIMARY KEY,job_name NVARCHAR(256) NOT NULL)"

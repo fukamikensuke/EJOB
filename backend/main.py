@@ -9,7 +9,7 @@ import cruds.select_get_filed as select_get_filed
 import cruds.input_select_filed as input_select_field
 from dotenv import load_dotenv
 import os
-
+import pyodbc 
 
 # 環境変数の読み込み
 
@@ -79,12 +79,6 @@ def get_intern_list_id(id: int):
 def get_search_status():
     search_data = {"data": select_get_filed.select_get_filed(env_list)}
     return search_data
-
-
-@app.delete("/intern-info/delete/{intern_id}")
-def get_intern_list_id(intern_id: int):
-    delete.delete_intern_info(env_list, intern_id)
-    return {200: "OK"}
 
 
 @app.get("/input-select-filed")

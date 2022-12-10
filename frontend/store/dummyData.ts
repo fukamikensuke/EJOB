@@ -1,3 +1,47 @@
+export const filterData = {
+  data: {
+    evaluation: [
+      { id: 1, text: "1(とても不満足)" },
+      { id: 2, text: "2(少し不満足)" },
+      { id: 3, text: "3(普通)" },
+      { id: 4, text: "4(良かった)" },
+      { id: 5, text: "5(とても良かった)" },
+    ],
+    internType: [
+      { id: 1, text: "サマーインターン" },
+      { id: 2, text: "ウィンターインターン" },
+      { id: 3, text: "通年インターン" },
+      { id: 4, text: "その他" },
+    ],
+    period: [
+      { id: 1, text: "1日" },
+      { id: 2, text: "2日" },
+      { id: 3, text: "3日" },
+      { id: 4, text: "4日" },
+      { id: 5, text: "5日" },
+      { id: 6, text: "1週間" },
+      { id: 7, text: "2週間" },
+      { id: 8, text: "3週間" },
+      { id: 9, text: "4週間" },
+      { id: 10, text: "それ以上" },
+    ],
+    jobType: [
+      { id: 1, text: "SE" },
+      { id: 2, text: "Web エンジニア" },
+      { id: 3, text: "ネイティブアプリエンジニア" },
+      { id: 4, text: "フロントエンドエンジニア" },
+      { id: 5, text: "バックエンドエンジニア" },
+      { id: 6, text: "インフラエンジニア" },
+      { id: 7, text: "フルスタックエンジニア" },
+      { id: 8, text: "組み込みソフトウェアエンジニア" },
+      { id: 9, text: "機械学習エンジニア" },
+      { id: 10, text: "データサイエンティスト" },
+      { id: 11, text: "その他" },
+    ],
+    salary: [], // 選択としないため null で良い
+  },
+};
+
 export const inputFormData = {
   evaluation: [
     { id: 1, text: "1(とても不満足)" },
@@ -80,8 +124,6 @@ export const tableDataList = [
     id: 1,
     company: "ONE CAREER",
     evaluation: "4(良かった)",
-    year: "2022年",
-    internType: "サマーインターン",
     period: "2日間",
     jobType: "Web エンジニア",
     salary: "なし",
@@ -91,8 +133,6 @@ export const tableDataList = [
     id: 2,
     company: "BrainPad",
     evaluation: "4(良かった)",
-    year: "2022年",
-    internType: "サマーインターン",
     period: "5日間",
     jobType: "Web エンジニア",
     salary: "1500円",
@@ -102,8 +142,6 @@ export const tableDataList = [
     id: 3,
     company: "DWANGO",
     evaluation: "4(良かった)",
-    year: "2022年",
-    internType: "通年インターン",
     period: "1ヶ月以上",
     jobType: "フロントエンドエンジニア",
     salary: "1000円",

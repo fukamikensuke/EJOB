@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   Box,
   HStack,
@@ -33,8 +32,6 @@ type Size = {
 export const Header = () => {
   const { login, logout } = useAuth();
   const loginStatus = useRecoilValue(loginState);
-  const setLogin = useSetRecoilState(loginState);
-  const router = useRouter();
 
   const mediaType = useBreakpointValue({ base: "phone", md: "pc" });
   const [size, setSize] = useState<Size>({
@@ -45,8 +42,6 @@ export const Header = () => {
     loginButtonSize: "md",
     avatarSize: "md",
   });
-
-  // mediaType の変更による style の変更
   useEffect(() => {
     if (mediaType === "phone") {
       setSize({
@@ -69,22 +64,6 @@ export const Header = () => {
     }
   }, [mediaType]);
 
-  // ログイン情報が保存されている場合復元する
-  useEffect(() => {
-    const saveLoginStatusText = localStorage.getItem("loginStatus");
-
-    if (saveLoginStatusText !== null) {
-      // FIXME: 復元されるデータは理想的なものを想定しているため、zod などを使った型のチェックが必要
-      const restoreLoginData = JSON.parse(saveLoginStatusText);
-      setLogin({
-        isLogin: true,
-        name: restoreLoginData.name,
-        photoURL: restoreLoginData.photoURL,
-        uid: restoreLoginData.uid,
-      });
-    }
-  }, []);
-
   return (
     <>
       <Box bg="blue.100" p={2}>
@@ -92,7 +71,7 @@ export const Header = () => {
           <HStack w={size.stackSizeLarge}>
             <Image
               boxSize={size.imageSize}
-              // NOTE: ヘッダー画像を追加する
+              // NOTE: ログイン時の画像 URL は isLogin に応じてこのファイルで取得する(Recoil を使用する予定)
               src="https://bit.ly/dan-abramov"
               alt="logo"
             />
@@ -101,19 +80,14 @@ export const Header = () => {
           </HStack>
           {loginStatus.isLogin ? (
             <HStack w={size.stackSizeSmall}>
-              <PlusSquareIcon
-                boxSize={size.imageSize}
-                onClick={() => {
-                  router.push("/post");
-                }}
-              />
+              <PlusSquareIcon boxSize={size.imageSize} />
               <Popover>
                 <PopoverTrigger>
                   {/* TODO: _hover を作用させる */}
                   <Avatar
                     size={size.avatarSize}
-                    name={loginStatus.name}
-                    src={loginStatus.photoURL}
+                    name="###"
+                    src="https://bit.ly/dan-abramov"
                   />
                 </PopoverTrigger>
                 <PopoverContent p={0}>
@@ -121,14 +95,7 @@ export const Header = () => {
                   <PopoverCloseButton />
                   <PopoverBody>
                     <VStack>
-                      <Button
-                        variant="ghost"
-                        onClick={() => {
-                          router.push(`/user/${loginStatus.uid}`);
-                        }}
-                      >
-                        投稿情報
-                      </Button>
+                      <Button variant="ghost">投稿情報</Button>
                       <Button
                         variant="ghost"
                         onClick={() => {
