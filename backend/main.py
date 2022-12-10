@@ -133,18 +133,18 @@ def post_intern_info(intern_info: Intern_info):
 
 
 @app.get("/test")
-def post_intern_info():
+def post_intern_info():  # testcode
     print(env_list)
     input.post_intern_info(
         env_list,
-        "株式会社ゲームフリーク",
-        2,
-        3,
-        1,
-        1,
-        1600,
-        "API設計を行った",
-        3,
+        "株式会社バックエンド開発しかかたん",
+        2,  # year ~4
+        3,  # internType ~4
+        6,  # period ~ 10
+        5,  # jobType ~11
+        1500,
+        "バックエンド開発をおこなった",
+        5,  # 評価
         3,
         2,
         "Atcorder",
