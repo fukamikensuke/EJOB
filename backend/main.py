@@ -25,7 +25,7 @@ env_list.append(os.getenv("DRIVER"))
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000/"
+    "http://localhost:3000"
 ]
 
 app.add_middleware(
