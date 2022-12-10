@@ -90,7 +90,7 @@ const settingDefaultValue = (isEdit: boolean, uid: string) => {
       developEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
       internEx: -1, // 入力は必須ではないため、未入力のときは -1 を送る
       internTestPreparation: "##########",
-      isSelectionExemption: 1, // 0 or 1
+      isSelectionExemption: -1, // 0 or 1
       selectionExemptionContents: "",
       impressions: "#########",
       userId: uid,
@@ -163,6 +163,10 @@ export const InputForm = ({ isEdit }: Props) => {
       enteredInfo.salary !== -1 &&
       enteredInfo.internContents !== "" &&
       enteredInfo.evaluation != -1 &&
+      enteredInfo.developEx !== -1 &&
+      enteredInfo.internEx !== -1 &&
+      enteredInfo.internTestPreparation !== "" &&
+      enteredInfo.isSelectionExemption !== -1 &&
       enteredInfo.impressions !== ""
     ) {
       setIsSearchDisable(false);
@@ -182,6 +186,7 @@ export const InputForm = ({ isEdit }: Props) => {
         }
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.error("POST/", error);
       });
   };
@@ -189,10 +194,9 @@ export const InputForm = ({ isEdit }: Props) => {
   return (
     <>
       <Text fontSize="2xl">インターン情報について教えて下さい</Text>
-      <Text fontSize="md">※は必須項目です</Text>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>企業名※</Text>
+        <Text w={WSmall}>企業名</Text>
         <Input
           w={WLarge}
           placeholder="企業名"
@@ -206,7 +210,7 @@ export const InputForm = ({ isEdit }: Props) => {
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>参加年度※</Text>
+        <Text w={WSmall}>参加年度</Text>
         <Select
           w={WLarge}
           placeholder="年"
@@ -236,7 +240,7 @@ export const InputForm = ({ isEdit }: Props) => {
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>インターン種別※</Text>
+        <Text w={WSmall}>インターン種別</Text>
         <Select
           w={WLarge}
           placeholder="インターン種別"
@@ -266,7 +270,7 @@ export const InputForm = ({ isEdit }: Props) => {
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>期間※</Text>
+        <Text w={WSmall}>期間</Text>
         <Select
           w={WLarge}
           placeholder="期間"
@@ -296,7 +300,7 @@ export const InputForm = ({ isEdit }: Props) => {
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>職種※</Text>
+        <Text w={WSmall}>職種</Text>
         <Select
           w={WLarge}
           placeholder="職種"
@@ -326,7 +330,7 @@ export const InputForm = ({ isEdit }: Props) => {
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>報酬(時給換算)※</Text>
+        <Text w={WSmall}>報酬(時給換算)</Text>
         <HStack w={WLarge}>
           <InputGroup size="md">
             <Input
@@ -345,7 +349,7 @@ export const InputForm = ({ isEdit }: Props) => {
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>インターンの内容※</Text>
+        <Text w={WSmall}>インターンの内容</Text>
         <Textarea
           w={WLarge}
           size="lg"
@@ -360,7 +364,7 @@ export const InputForm = ({ isEdit }: Props) => {
       </HStack>
       <VSpacer size={spaceBetweenItems} />
       <HStack>
-        <Text w={WSmall}>総合評価※</Text>
+        <Text w={WSmall}>総合評価</Text>
         <Select
           w={WLarge}
           placeholder="総合評価"
@@ -491,7 +495,7 @@ export const InputForm = ({ isEdit }: Props) => {
 
       <Text fontSize="2xl">最後に</Text>
       <VSpacer size={spaceBetweenItems} />
-      <Text>全体の感想(参加して良かったことや改善点など)※</Text>
+      <Text>全体の感想(参加して良かったことや改善点など)</Text>
       <VSpacer size={spaceBetweenItems} />
       <Textarea
         size="lg"
