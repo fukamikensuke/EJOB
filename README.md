@@ -1,5 +1,5 @@
-# EJOB![image](https://user-images.githubusercontent.com/77095417/206849775-1bf915fa-7a0b-4755-b7ff-8c08d0a201f5.png)
-
+# EJOB
+<img src="https://user-images.githubusercontent.com/77095417/206850005-54308e91-4d55-4062-a1d7-9173f6d8cb1a.png" width="230">
 
 EJOB はインターンシップを探している就活生支援サービスです。
 
