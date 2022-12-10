@@ -66,9 +66,9 @@ def get_intern_list_filter(
 
 
 @app.get("/intern-info-list-uid/{uid}")
-def get_intern_list_filter(uid: int):
-    info_list = {"data": intern_get_list.get_intern_info(env_list)}
-    return info_list["data"][0]["id"]
+def get_intern_list_uid(uid: int):
+    info_list = {"data": intern_get_list.get_intern_info_uid(env_list, uid)}
+    return info_list
 
 
 @app.get("/intern-info/{id}")
