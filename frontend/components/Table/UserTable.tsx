@@ -40,11 +40,18 @@ type Props = {
   id: string;
 };
 
-const handleDelete = (id: number) => {
+const handleDelete = async (id: number) => {
   // TODO: 削除に関する API の記述
-  console.log(`delete of id:${id}`);
+  await console.log(`delete of id:${id}`);
+  const baseUrl = `http://localhost:8000/intern-info/delete/${id}`;
+  const res = await axios.delete(baseUrl);
+  console.log(res);
 
-  return true;
+  if (res.data.data === 200) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 const tableBody = (props: TableItem) => {
