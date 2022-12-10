@@ -175,7 +175,7 @@ export const InputForm = ({ isEdit }: Props) => {
 
   const handlePost = () => {
     // XXX: POST を使用した場合 Axios Network Error となりうまく接続できなかった
-    const url = `http://localhost:8000/post-intern-info?company=${enteredInfo.company}&year=${enteredInfo.year}&internType=${enteredInfo.internType}&period=${enteredInfo.period}&jobType=${enteredInfo.jobType}&salary=${enteredInfo.salary}&internContents=${enteredInfo.internContents}&evaluation=${enteredInfo.evaluation}&developEx=${enteredInfo.developEx}&internEx=${enteredInfo.internEx}&internTestPreparation=${enteredInfo.internTestPreparation}&isSelectionExemption=${enteredInfo.isSelectionExemption}&selectionExemptionContents=${enteredInfo.selectionExemptionContents}&impressions=${enteredInfo.impressions}&uid=${enteredInfo.uid}`;
+    const url = `http://localhost:8000/post-intern-info?company=${enteredInfo.company}&year=${enteredInfo.year}&internType=${enteredInfo.internType}&period=${enteredInfo.period}&jobType=${enteredInfo.jobType}&salary=${enteredInfo.salary}&internContents=${enteredInfo.internContents}&evaluation=${enteredInfo.evaluation}&developEx=${enteredInfo.developEx}&internEx=${enteredInfo.internEx}&internTestPreparation=${enteredInfo.internTestPreparation}&isSelectionExemption=${enteredInfo.isSelectionExemption}&selectionExemptionContents=${enteredInfo.selectionExemptionContents}&impressions=${enteredInfo.impressions}&uid=${enteredInfo.userId}`;
 
     const encodeUrl = encodeURI(url);
     axios
