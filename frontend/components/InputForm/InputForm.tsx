@@ -2,6 +2,7 @@
 // 時給入力の「円」を child として渡しているとこで出ている
 /* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../store/Recoil";
 import {
@@ -19,7 +20,6 @@ import {
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
 import axios from "axios";
-// import { inputFormData } from "../../store/dummyData";
 
 type EnteredInfoType = {
   company: string;
@@ -97,7 +97,9 @@ const settingDefaultValue = (isEdit: boolean, uid: string) => {
     };
   }
 };
+
 export const InputForm = ({ isEdit }: Props) => {
+  const router = useRouter();
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
   const loginStatus = useRecoilValue(loginState);
   const [inputFormDataAPI, setInputFormDataAPI] = useState<inputSelect>({
@@ -131,7 +133,7 @@ export const InputForm = ({ isEdit }: Props) => {
   // ラジオボタンの変更の検出
   useEffect(() => {
     let newData = { ...enteredInfo };
-    newData.isSelectionExemption = radioButtonValue as unknown as number; //FIXME: 型の修正
+    newData.isSelectionExemption = Number(radioButtonValue); //FIXME: 型の修正
     setEnteredInfo(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioButtonValue]);
@@ -145,13 +147,13 @@ export const InputForm = ({ isEdit }: Props) => {
         setInputFormDataAPI(res.data.data);
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
         console.log("GET/input-select-filed", error);
       });
   }, []);
 
   // 必須項目がすべて選択されているかの判定
   useEffect(() => {
-    console.log(enteredInfo);
     if (
       enteredInfo.company !== "" &&
       enteredInfo.year !== -1 &&
@@ -164,10 +166,25 @@ export const InputForm = ({ isEdit }: Props) => {
       enteredInfo.impressions !== ""
     ) {
       setIsSearchDisable(false);
-    } else {
-      setIsSearchDisable(true);
     }
   }, [enteredInfo]);
+
+  const handlePost = () => {
+    // XXX: POST を使用した場合 Axios Network Error となりうまく接続できなかった
+    const url = `http://localhost:8000/post-intern-info?company=${enteredInfo.company}&year=${enteredInfo.year}&internType=${enteredInfo.internType}&period=${enteredInfo.period}&jobType=${enteredInfo.jobType}&salary=${enteredInfo.salary}&internContents=${enteredInfo.internContents}&evaluation=${enteredInfo.evaluation}&developEx=${enteredInfo.developEx}&internEx=${enteredInfo.internEx}&internTestPreparation=${enteredInfo.internTestPreparation}&isSelectionExemption=${enteredInfo.isSelectionExemption}&selectionExemptionContents=${enteredInfo.selectionExemptionContents}&impressions=${enteredInfo.impressions}&uid=${enteredInfo.uid}`;
+
+    const encodeUrl = encodeURI(url);
+    axios
+      .get(encodeUrl)
+      .then((res) => {
+        if (res.data === 200) {
+          router.push("/");
+        }
+      })
+      .catch((error) => {
+        console.error("POST/", error);
+      });
+  };
 
   return (
     <>
@@ -203,7 +220,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.year = -1;
             } else {
-              newData.year = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.year = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -226,14 +243,14 @@ export const InputForm = ({ isEdit }: Props) => {
           defaultValue={
             enteredInfo.internType === -1
               ? ""
-              : (enteredInfo.internType as unknown as string)
+              : (enteredInfo.internType as unknown as string) //FIXME: 型の修正
           }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
               newData.internType = -1;
             } else {
-              newData.internType = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.internType = Number(event.target.value);
             }
             setEnteredInfo(newData);
           }}
@@ -256,14 +273,14 @@ export const InputForm = ({ isEdit }: Props) => {
           defaultValue={
             enteredInfo.period === -1
               ? ""
-              : (enteredInfo.period as unknown as string)
+              : (enteredInfo.period as unknown as string) //FIXME: 型の修正
           }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
               newData.period = -1;
             } else {
-              newData.period = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.period = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -286,14 +303,14 @@ export const InputForm = ({ isEdit }: Props) => {
           defaultValue={
             enteredInfo.jobType === -1
               ? ""
-              : (enteredInfo.jobType as unknown as string)
+              : (enteredInfo.jobType as unknown as string) //FIXME: 型の修正
           }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
               newData.jobType = -1;
             } else {
-              newData.jobType = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.jobType = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -318,7 +335,7 @@ export const InputForm = ({ isEdit }: Props) => {
               defaultValue={enteredInfo.salary !== -1 ? enteredInfo.salary : ""}
               onChange={(event) => {
                 let newData = { ...enteredInfo };
-                newData.salary = event.target.value as unknown as number; //FIXME: 型の修正
+                newData.salary = Number(event.target.value); //FIXME: 型の修正
                 setEnteredInfo(newData);
               }}
             />
@@ -357,7 +374,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.evaluation = -1;
             } else {
-              newData.evaluation = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.evaluation = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -391,7 +408,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.developEx = -1;
             } else {
-              newData.developEx = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.developEx = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -421,7 +438,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.internEx = -1;
             } else {
-              newData.internEx = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.internEx = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -489,7 +506,11 @@ export const InputForm = ({ isEdit }: Props) => {
 
       <VSpacer size={spaceBetweenItems} />
       <Center>
-        <Button colorScheme="blue" isDisabled={isSearchDisable}>
+        <Button
+          colorScheme="blue"
+          isDisabled={isSearchDisable}
+          onClick={handlePost}
+        >
           送信
         </Button>
       </Center>

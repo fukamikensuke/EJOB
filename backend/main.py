@@ -24,9 +24,7 @@ env_list.append(os.getenv("DRIVER"))
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000"
-]
+origins = ["http://localhost:3000"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,6 +33,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class Intern_info(BaseModel):
     company: str
@@ -51,7 +50,7 @@ class Intern_info(BaseModel):
     isSelectionExemption: int
     selectionExemptionContents: Union[str, None] = None
     impressions: str
-    uid : str
+    uid: str
 
 
 @app.get("/intern-info-list/")
@@ -126,6 +125,45 @@ def post_intern_info(intern_info: Intern_info):
         intern_info.uid,
     )
     return intern_info
+
+
+@app.get("/post-intern-info")
+def post_intern_info_get(
+    company: str,
+    year: int,
+    internType: int,
+    period: int,
+    jobType: int,
+    salary: int,
+    internContents: str,
+    evaluation: int,
+    developEx: int,
+    internEx: int,
+    internTestPreparation: Union[str, None],
+    isSelectionExemption: int,
+    selectionExemptionContents: Union[str, None],
+    impressions: str,
+    uid: str,
+):
+    input.post_intern_info(
+        env_list,
+        company,
+        year,
+        internType,
+        period,
+        jobType,
+        salary,
+        internContents,
+        evaluation,
+        developEx,
+        internEx,
+        internTestPreparation,
+        isSelectionExemption,
+        selectionExemptionContents,
+        impressions,
+        uid,
+    )
+    return 200
 
 
 # @app.get("/test")
