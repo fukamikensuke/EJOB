@@ -131,7 +131,7 @@ export const InputForm = ({ isEdit }: Props) => {
   // ラジオボタンの変更の検出
   useEffect(() => {
     let newData = { ...enteredInfo };
-    newData.isSelectionExemption = radioButtonValue as unknown as number; //FIXME: 型の修正
+    newData.isSelectionExemption = Number(radioButtonValue); //FIXME: 型の修正
     setEnteredInfo(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioButtonValue]);
@@ -230,7 +230,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.year = -1;
             } else {
-              newData.year = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.year = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -253,14 +253,14 @@ export const InputForm = ({ isEdit }: Props) => {
           defaultValue={
             enteredInfo.internType === -1
               ? ""
-              : (enteredInfo.internType as unknown as string)
+              : (enteredInfo.internType as unknown as string) //FIXME: 型の修正
           }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
               newData.internType = -1;
             } else {
-              newData.internType = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.internType = Number(event.target.value);
             }
             setEnteredInfo(newData);
           }}
@@ -283,14 +283,14 @@ export const InputForm = ({ isEdit }: Props) => {
           defaultValue={
             enteredInfo.period === -1
               ? ""
-              : (enteredInfo.period as unknown as string)
+              : (enteredInfo.period as unknown as string) //FIXME: 型の修正
           }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
               newData.period = -1;
             } else {
-              newData.period = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.period = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -313,14 +313,14 @@ export const InputForm = ({ isEdit }: Props) => {
           defaultValue={
             enteredInfo.jobType === -1
               ? ""
-              : (enteredInfo.jobType as unknown as string)
+              : (enteredInfo.jobType as unknown as string) //FIXME: 型の修正
           }
           onChange={(event) => {
             let newData = { ...enteredInfo };
             if (event.target.value === "") {
               newData.jobType = -1;
             } else {
-              newData.jobType = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.jobType = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -345,7 +345,7 @@ export const InputForm = ({ isEdit }: Props) => {
               defaultValue={enteredInfo.salary !== -1 ? enteredInfo.salary : ""}
               onChange={(event) => {
                 let newData = { ...enteredInfo };
-                newData.salary = event.target.value as unknown as number; //FIXME: 型の修正
+                newData.salary = Number(event.target.value); //FIXME: 型の修正
                 setEnteredInfo(newData);
               }}
             />
@@ -384,7 +384,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.evaluation = -1;
             } else {
-              newData.evaluation = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.evaluation = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -418,7 +418,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.developEx = -1;
             } else {
-              newData.developEx = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.developEx = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
@@ -448,7 +448,7 @@ export const InputForm = ({ isEdit }: Props) => {
             if (event.target.value === "") {
               newData.internEx = -1;
             } else {
-              newData.internEx = event.target.value as unknown as number; //FIXME: 型の修正
+              newData.internEx = Number(event.target.value); //FIXME: 型の修正
             }
             setEnteredInfo(newData);
           }}
