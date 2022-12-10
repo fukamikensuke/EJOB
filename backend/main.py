@@ -1,5 +1,4 @@
-from fastapi import FastAPI, Form
-import sqlite3
+from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Union
 import cruds.input as input
@@ -10,8 +9,6 @@ import cruds.input_select_filed as input_select_field
 import cruds.delete as delete
 from dotenv import load_dotenv
 import os
-import pyodbc
-from dotenv import load_dotenv
 
 # 環境変数の読み込み
 
@@ -23,8 +20,7 @@ env_list.append(os.getenv("DATABASE"))
 env_list.append(os.getenv("USERNAME_CUS"))
 env_list.append(os.getenv("PASSWORD"))
 env_list.append(os.getenv("DRIVER"))
-print(os.getenv("SERVER"))
-print(env_list)
+
 app = FastAPI()
 
 
@@ -93,21 +89,6 @@ def get_select_filed():
 def get_intern_list_id(intern_id: int):
     delete.delete_intern_info(env_list, intern_id)
     return {200: "OK"}
-
-
-@app.get("/input-select-filed")
-def get_select_filed():
-    out_put = {
-        "data": {
-            "year": {"id": 1, "text": "サマーインターン"},
-            "internType": {"id": 1, "text": "サマーインターン"},
-            "period": {"id": 1, "text": "2週間"},
-            "jobType": {"id": 1, "text": "フロントエンジニア"},
-            "developEx": {"id": 1, "text": "０回"},
-            "internEx": {"id": 1, "text": "0回"},
-        }
-    }
-    return out_put
 
 
 @app.post("/intern-info")
