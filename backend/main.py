@@ -83,6 +83,12 @@ def get_search_status():
     return search_data
 
 
+@app.get("/input-select-filed")
+def get_select_filed():
+    select_filed = {"data": input_select_field.select_get_filed(env_list)}
+    return select_filed
+
+
 @app.delete("/intern-info/delete/{intern_id}")
 def get_intern_list_id(intern_id: int):
     delete.delete_intern_info(env_list, intern_id)
