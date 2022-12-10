@@ -37,7 +37,7 @@ cur = cnxn.cursor()
 # cur.execute("DROP TABLE IF EXISTS intern_ex")
 
 # cur.execute(
-#     "CREATE TABLE intern_detail(id INT IDENTITY PRIMARY KEY,company NVARCHAR(128) NOT NULL,year INT NOT NULL ,internType INT NOT NULL, period INT NOT NULL,jobType INT NOT NULL,salary INT NOT NULL,internContents NVARCHAR(256),evaluation INT NOT NULL,thoughts NVARCHAR(256) NOT NULL,sum_output INT NOT NULL ,sum_intern INT NOT NULL ,prepare_text NVARCHAR(256),skip_presence  INT NOT NULL ,skip_detail NVARCHAR(256),user_id INT NOT NULL)"
+#     "CREATE TABLE intern_detail(id INT IDENTITY PRIMARY KEY,company NVARCHAR(128) NOT NULL,year INT NOT NULL ,internType INT NOT NULL, period INT NOT NULL,jobType INT NOT NULL,salary INT NOT NULL,internContents NVARCHAR(256),evaluation INT NOT NULL,thoughts NVARCHAR(256) NOT NULL,sum_output INT NOT NULL ,sum_intern INT NOT NULL ,prepare_text NVARCHAR(256),skip_presence  INT NOT NULL ,skip_detail NVARCHAR(256),user_id NVARCHAR(256)  NOT NULL)"
 # )
 # cur.execute("CREATE TABLE selection_detail (id  INT IDENTITY PRIMARY KEY,sum_output INT NOT NULL,sum_intern INT NOT NULL,prepare_text NVARCHAR(256),skip_presence INT NOT NULL ,skip_detail NVARCHAR(256))")
 # cur.execute(

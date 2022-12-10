@@ -20,6 +20,7 @@ def post_intern_info(
     isSelectionExemption: int,
     selectionExemptionContents: str,
     impressions: str,
+    uid : str
 ):
     cnxn = pyodbc.connect(
     "DRIVER="
@@ -36,7 +37,7 @@ def post_intern_info(
     print("OK")
     cur = cnxn.cursor()
     intern_sql = ("INSERT INTO intern_detail VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
-    intern_data = (company,year,internType,period,jobType,salary,internContents,evaluation,impressions,developEx,internEx,internTestPreparation,isSelectionExemption,selectionExemptionContents,0)
+    intern_data = (company,year,internType,period,jobType,salary,internContents,evaluation,impressions,developEx,internEx,internTestPreparation,isSelectionExemption,selectionExemptionContents,uid)
     cur.execute(intern_sql,intern_data)
     cur.commit()
 
