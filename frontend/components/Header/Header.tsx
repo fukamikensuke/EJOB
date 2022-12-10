@@ -59,10 +59,10 @@ export const Header = () => {
       });
     } else if (mediaType === "pc") {
       setSize({
-        imageSize: 12,
-        stackSizeLarge: "90%",
-        stackSizeSmall: "10%",
-        headerTextSize: "xl",
+        imageSize: 14,
+        stackSizeLarge: "92%",
+        stackSizeSmall: "%",
+        headerTextSize: "4xl",
         loginButtonSize: "md",
         avatarSize: "md",
       });
@@ -91,6 +91,9 @@ export const Header = () => {
         <HStack>
           <HStack w={size.stackSizeLarge}>
             <Image boxSize={size.imageSize} src="/logo.png" alt="logo" />
+            <Text fontSize={size.headerTextSize} as="b">
+              EJOB
+            </Text>
           </HStack>
           {loginStatus.isLogin ? (
             <HStack w={size.stackSizeSmall}>
