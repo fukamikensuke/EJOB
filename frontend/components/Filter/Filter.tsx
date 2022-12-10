@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -18,12 +18,23 @@ import { VSpacer } from "../Spacer/Spacer";
 import { CustomAccordionItem } from "./CustomAccordionItem";
 import axios from "axios";
 
-export const Filter = () => {
+type Props = {
+  selectedFilterData: (number | null)[];
+  setSelectedFilterData: Dispatch<SetStateAction<(number | null)[]>>;
+  isPostFilter: boolean;
+  setIsPostFilter: Dispatch<SetStateAction<boolean>>;
+};
+export const Filter = ({
+  selectedFilterData,
+  setSelectedFilterData,
+  isPostFilter,
+  setIsPostFilter,
+}: Props) => {
   const [filterDataAPI, setFilterDataAPI] = useState({ data: [] });
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
-  const [selectedFilterData, setSelectedFilterData] = useState<
-    (number | null)[]
-  >([null, null, null, null, null]);
+  // const [selectedFilterData, setSelectedFilterData] = useState<
+  //   (number | null)[]
+  // >([null, null, null, null, null]);
 
   // API からデータの取得
   useEffect(() => {
@@ -44,11 +55,9 @@ export const Filter = () => {
     setIsSearchDisable(selectedFilterData.every((x) => x === null));
   }, [selectedFilterData]);
 
-  // TODO: filterData を API で取得 (GET search-status/)
-
   const handleClick = () => {
-    // TODO: ボタン選択時に postFilterData を送信する
-    console.log(selectedFilterData);
+    // TODO: この実装をもう少しいい感じする
+    setIsPostFilter(!isPostFilter);
   };
 
   return (
