@@ -1,5 +1,4 @@
-from fastapi import FastAPI, Form
-import sqlite3
+from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Union
 import cruds.input as input
@@ -10,7 +9,6 @@ import cruds.input_select_filed as input_select_field
 import cruds.delete as delete
 from dotenv import load_dotenv
 import os
-import pyodbc 
 
 # 環境変数の読み込み
 
@@ -86,10 +84,12 @@ def get_select_filed():
     select_filed = {"data": input_select_field.select_get_filed(env_list)}
     return select_filed
 
+
 @app.delete("/intern-info/delete/{intern_id}")
 def get_intern_list_id(intern_id: int):
     delete.delete_intern_info(env_list, intern_id)
     return {200: "OK"}
+
 
 @app.post("/intern-info")
 def post_intern_info(intern_info: Intern_info):
