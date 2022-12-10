@@ -19,11 +19,12 @@ def get_intern_info(env_list: list, filter_dict: dict):
     _cur = cnxn.cursor()
     where_str = None
     for n in filter_dict:
-        if filter_dict[n] != None:  # TODO一回直したがエラーでるから修正する（修正Lv.5)
-            if where_str == None:
+        if filter_dict[n] : 
+            if not where_str:
                 where_str = "WHERE " + n + " = %d " % filter_dict[n]
             else:
                 where_str = where_str + " AND " + n + " = %d " % filter_dict[n]
+    #TODO  変数 < の値でのWHERE文を書く（修正Lv.2)
     cur.execute("SELECT * FROM intern_detail %s" % where_str)
     output_data = []
     rows = cur.fetchall()
@@ -51,7 +52,6 @@ def get_intern_info(env_list: list, filter_dict: dict):
                 "salary": row[6],
             }
         )
-    # TODO ここ index じゃなくて、カラム名とかからデータとれないのだろうか！？(取れそう)
     cur.commit()
     _cur.commit()
     cnxn.close()
@@ -101,7 +101,6 @@ def get_intern_info_uid(env_list: list, uid: str):
                 "salary": row[6],
             }
         )
-    # TODO ここ index じゃなくて、カラム名とかからデータとれないのだろうか！？(取れそう)
     cur.commit()
     _cur.commit()
     cnxn.close()

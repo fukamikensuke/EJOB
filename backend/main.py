@@ -39,7 +39,7 @@ app.add_middleware(
 class Intern_info(BaseModel):
     company: str
     year: int
-    intenrType: int
+    internType: int
     period: int
     jobType: int
     salary: int
@@ -111,7 +111,7 @@ def post_intern_info(intern_info: Intern_info):
         env_list,
         intern_info.company,
         intern_info.year,
-        intern_info.intenrType,
+        intern_info.internType,
         intern_info.period,
         intern_info.jobType,
         intern_info.salary,
@@ -128,24 +128,24 @@ def post_intern_info(intern_info: Intern_info):
     return intern_info
 
 
-@app.get("/test")
-def post_intern_info():  # testcode
-    print(env_list)
-    input.post_intern_info(
-        env_list,
-        "株式会社バックエンド開発しかかたん",
-        2,  # year ~4
-        3,  # internType ~4
-        6,  # period ~ 10
-        5,  # jobType ~11
-        1500,
-        "バックエンド開発をおこなった",
-        5,  # 評価
-        3,
-        2,
-        "Atcorder",
-        1,
-        "1発内々定",
-        "余裕う",
-    )
-    return "OK"
+# @app.get("/test")
+# def post_intern_info():  # testcode
+#     print(env_list)
+#     input.post_intern_info(
+#         env_list,
+#         "株式会社バックエンド開発しかかたん",
+#         2,  # year ~4
+#         3,  # internType ~4
+#         6,  # period ~ 10
+#         5,  # jobType ~11
+#         1500,
+#         "バックエンド開発をおこなった",
+#         5,  # 評価
+#         3,
+#         2,
+#         "Atcorder",
+#         1,
+#         "1発内々定",
+#         "余裕う",
+#     )
+#     return "OK"
