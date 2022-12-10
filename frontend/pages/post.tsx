@@ -11,7 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { loginState } from "../store/Recoil";
 import { Header } from "../components/Header/Header";
-import { InputForm } from "../components/InputForm/InputForm";
+// FIXME: ファイル名の修正(大文字のキャメルケース)
+import { InputForm } from "../components/inputForm/InputForm";
 import { VSpacer } from "../components/Spacer/Spacer";
 import { IoMdInformationCircle } from "react-icons/io";
 
@@ -23,7 +24,7 @@ export default function Post() {
       <Header />
       <Container maxW="3xl">
         {loginStatus.isLogin ? (
-          <InputForm isEdit={false}/>
+          <InputForm isEdit={false} />
         ) : (
           <Container maxW="xl">
             <VSpacer size={8} />

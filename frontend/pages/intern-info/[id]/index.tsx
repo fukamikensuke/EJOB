@@ -1,7 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Container } from "@chakra-ui/react";
-import { InternInfo } from "../../../components/InternInfo/InternInfo";
+// FIXME: ファイル名の修正(大文字始まりのキャメルケースとする)
+import { InternInfo } from "../../../components/internInfo/InternInfo";
 import { Header } from "../../../components/Header/Header";
 export default function DisplayInternInfo() {
   const router = useRouter();
@@ -11,8 +12,7 @@ export default function DisplayInternInfo() {
     <>
       <Header />
       <Container maxW="2xl">
-        <p>id {id} に関するインターン情報</p>
-        <InternInfo />
+        <InternInfo id={id} />
       </Container>
     </>
   );

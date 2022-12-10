@@ -58,23 +58,6 @@ export const inputFormData = {
   ],
 };
 
-export const displayInternInfo = {
-  company: "株式会社#####",
-  year: "2022年",
-  internType: "サマーインターン",
-  period: "5日間",
-  jobType: "Web エンジニア",
-  salary: "1500円",
-  internContents: "インターンの内容",
-  evaluation: "4(良かった)",
-  developEx: "1回",
-  internEx: "",
-  internTestPreparation: "",
-  isSelectionExemption: "あり",
-  selectionExemptionContents: "こんな免除があったよ",
-  impressions: "総じて満足！",
-};
-
 export const tableDataList = [
   {
     id: 1,
