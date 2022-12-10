@@ -90,14 +90,7 @@ export const Header = () => {
       <Box bg="blue.100" p={2}>
         <HStack>
           <HStack w={size.stackSizeLarge}>
-            <Image
-              boxSize={size.imageSize}
-              // NOTE: ヘッダー画像を追加する
-              src="https://bit.ly/dan-abramov"
-              alt="logo"
-            />
-            {/* TODO: サービス名を入れる */}
-            <Text fontSize={size.headerTextSize}>すごいヘッダー</Text>
+            <Image boxSize={size.imageSize} src="/logo.png" alt="logo" />
           </HStack>
           {loginStatus.isLogin ? (
             <HStack w={size.stackSizeSmall}>
