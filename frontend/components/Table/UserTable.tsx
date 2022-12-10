@@ -29,10 +29,10 @@ import axios from "axios";
 
 type TableItem = {
   id: number;
-  company: string;
+  companyName: string;
   evaluation: string;
   period: string;
-  jobType: string;
+  job: string;
   salary: string;
 };
 
@@ -40,99 +40,24 @@ type Props = {
   id: string;
 };
 
-const handleDelete = (id: number) => {
-  // TODO: 削除に関する API の記述
-  console.log(`delete of id:${id}`);
+const handleDelete = async (id: number) => {
+  const baseUrl = `http://localhost:8000/intern-info/delete/${id}`;
+  const res = await axios.delete(baseUrl);
 
-  return true;
+  if (res.status === 200) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
-const tableBody = (props: TableItem) => {
+export const UserTable = ({ id }: Props) => {
+  const [tableDataListAPI, setTableDataListAPI] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
   const toast = useToast();
   const router = useRouter();
   const loginStatus = useRecoilValue(loginState);
-
-  return (
-    <Tr>
-      <Td>{props.company}</Td>
-      <Td>{props.evaluation}</Td>
-      <Td>{props.period}</Td>
-      <Td>{props.jobType}</Td>
-      <Td>{props.salary}</Td>
-      <Td>
-        <Icon
-          as={FiEdit}
-          onClick={() => {
-            router.push(`/edit/${loginStatus.uid}/${props.id}`);
-          }}
-        />
-      </Td>
-      <Td>
-        <Icon as={RiDeleteBinLine} onClick={onOpen} />
-        <AlertDialog
-          isOpen={isOpen}
-          // FIXME: 警告を削除する
-          leastDestructiveRef={cancelRef}
-          onClose={onClose}
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <VSpacer size={10} />
-              <AlertDialogBody>
-                {props.company} に関する投稿を削除してよろしいですか？
-              </AlertDialogBody>
-
-              <AlertDialogFooter>
-                {/* // FIXME: 警告を削除する */}
-                <Button ref={cancelRef} onClick={onClose}>
-                  キャンセル
-                </Button>
-                <Button
-                  colorScheme="red"
-                  onClick={() => {
-                    const isDelete = handleDelete(props.id);
-
-                    onClose();
-
-                    if (isDelete) {
-                      toast({
-                        title: "Delete is Success",
-                        description: `${props.company} に関する投稿を削除しました`,
-                        status: "success",
-                        duration: 7000,
-                        position: "top",
-                        isClosable: true,
-                      });
-
-                      // TODO: 表示するデータを更新するレンダーが必要かも！？
-                    } else {
-                      toast({
-                        title: "Error",
-                        description: `${props.company} に関する投稿を削除に失敗しました`,
-                        status: "error",
-                        duration: 7000,
-                        position: "top",
-                        isClosable: true,
-                      });
-                    }
-                  }}
-                  ml={3}
-                >
-                  削除
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
-      </Td>
-    </Tr>
-  );
-};
-
-export const UserTable = ({ id }: Props) => {
-  const [tableDataListAPI, setTableDataListAPI] = useState([]);
 
   useEffect(() => {
     const baseUrl = `http://localhost:8000/intern-info-list-uid/${id}`;
@@ -148,6 +73,86 @@ export const UserTable = ({ id }: Props) => {
       ]);
   }, []);
 
+  const tableBody = (props: TableItem) => {
+    return (
+      <Tr>
+        <Td>{props.companyName}</Td>
+        <Td>{props.evaluation}</Td>
+        <Td>{props.period}</Td>
+        <Td>{props.job}</Td>
+        <Td>{props.salary}</Td>
+        <Td>
+          <Icon
+            as={FiEdit}
+            onClick={() => {
+              router.push(`/edit/${loginStatus.uid}/${props.id}`);
+            }}
+          />
+        </Td>
+        <Td>
+          <Icon as={RiDeleteBinLine} onClick={onOpen} />
+          <AlertDialog
+            isOpen={isOpen}
+            // FIXME: 警告を削除する
+            leastDestructiveRef={cancelRef}
+            onClose={onClose}
+          >
+            <AlertDialogOverlay>
+              <AlertDialogContent>
+                <VSpacer size={10} />
+                <AlertDialogBody>
+                  {props.companyName} に関する投稿を削除してよろしいですか？
+                </AlertDialogBody>
+
+                <AlertDialogFooter>
+                  {/* // FIXME: 警告を削除する */}
+                  <Button ref={cancelRef} onClick={onClose}>
+                    キャンセル
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    onClick={async () => {
+                      const isDelete = handleDelete(props.id);
+
+                      onClose();
+
+                      if (await isDelete) {
+                        toast({
+                          title: "Delete is Success",
+                          description: `${props.companyName} に関する投稿を削除しました`,
+                          status: "success",
+                          duration: 7000,
+                          position: "top",
+                          isClosable: true,
+                        });
+
+                        // TODO: render を走らせたい
+                        router.push("/");
+
+                        // TODO: 表示するデータを更新するレンダーが必要かも！？
+                      } else {
+                        toast({
+                          title: "Error",
+                          description: `${props.companyName} に関する投稿を削除に失敗しました`,
+                          status: "error",
+                          duration: 7000,
+                          position: "top",
+                          isClosable: true,
+                        });
+                      }
+                    }}
+                    ml={3}
+                  >
+                    削除
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialogOverlay>
+          </AlertDialog>
+        </Td>
+      </Tr>
+    );
+  };
   return (
     <TableContainer>
       <Table variant="simple">
