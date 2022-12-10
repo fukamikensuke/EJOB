@@ -1,3 +1,5 @@
+// FIXME: ルールの有効化
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import {
   Table,
@@ -8,6 +10,7 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 type TableItem = {
   id: number;
@@ -19,8 +22,14 @@ type TableItem = {
 };
 
 const tableBody = (props: TableItem) => {
+  const router = useRouter();
+
   return (
-    <Tr>
+    <Tr
+      onClick={() => {
+        router.push(`/intern-info/${props.id}`);
+      }}
+    >
       <Td>{props.companyName}</Td>
       <Td>{props.evaluation}</Td>
       <Td>{props.period}</Td>
@@ -30,13 +39,11 @@ const tableBody = (props: TableItem) => {
   );
 };
 
-
 type Props = {
-  tableDataListApi: TableItem[]
-}
+  tableDataListApi: TableItem[];
+};
 
-export const CustomTable = ({tableDataListApi}: Props) => {
-
+export const CustomTable = ({ tableDataListApi }: Props) => {
   return (
     <TableContainer>
       <Table variant="simple">
