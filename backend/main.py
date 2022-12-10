@@ -127,6 +127,45 @@ def post_intern_info(intern_info: Intern_info):
     return intern_info
 
 
+@app.get("/post-intern-info")
+def post_intern_info_get(
+    company: str,
+    year: int,
+    internType: int,
+    period: int,
+    jobType: int,
+    salary: int,
+    internContents: str,
+    evaluation: int,
+    developEx: int,
+    internEx: int,
+    internTestPreparation: Union[str, None],
+    isSelectionExemption: int,
+    selectionExemptionContents: Union[str, None],
+    impressions: str,
+    uid: str,
+):
+    input.post_intern_info(
+        env_list,
+        company,
+        year,
+        internType,
+        period,
+        jobType,
+        salary,
+        internContents,
+        evaluation,
+        developEx,
+        internEx,
+        internTestPreparation,
+        isSelectionExemption,
+        selectionExemptionContents,
+        impressions,
+        uid,
+    )
+    return 200
+
+
 # @app.get("/test")
 # def post_intern_info():  # testcode
 #     print(env_list)
