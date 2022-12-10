@@ -2,6 +2,7 @@
 // 時給入力の「円」を child として渡しているとこで出ている
 /* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../store/Recoil";
 import {
@@ -19,6 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
 import { inputFormData } from "../../store/dummyData";
+import axios, { AxiosRequestConfig } from "axios";
 
 type EnteredInfoType = {
   company: string;
@@ -138,6 +140,32 @@ export const InputForm = ({ isEdit }: Props) => {
       setIsSearchDisable(true);
     }
   }, [enteredInfo]);
+
+  const handlePost = async () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const router = useRouter();
+    const baseUrl = "https://localhost:8000/intern-info";
+
+    const options: AxiosRequestConfig = {
+      url: `${baseUrl}`,
+      method: "POST",
+      params: enteredInfo,
+    };
+
+    axios(options)
+      .then((res) => {
+        if (res.data.data !== 200) {
+          // eslint-disable-next-line no-console
+          console.error("post error");
+        }
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error("error POST/intern-info", error);
+      });
+
+    router.push("/");
+  };
 
   return (
     <>
@@ -459,7 +487,11 @@ export const InputForm = ({ isEdit }: Props) => {
 
       <VSpacer size={spaceBetweenItems} />
       <Center>
-        <Button colorScheme="blue" isDisabled={isSearchDisable}>
+        <Button
+          colorScheme="blue"
+          isDisabled={isSearchDisable}
+          onClick={handlePost}
+        >
           送信
         </Button>
       </Center>
