@@ -1,5 +1,5 @@
-import React from "react";
-import { NextRouter, useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import axios, { AxiosRequestConfig } from "axios";
 import {
   Table,
   Thead,
@@ -9,35 +9,47 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
-import { tableDataList } from "../../store/dummyData";
 
 type TableItem = {
   id: number;
-  company: string;
+  companyName: string;
   evaluation: string;
   period: string;
-  jobType: string;
+  job: string;
   salary: string;
 };
 
-const tableBody = (props: TableItem, router: NextRouter) => {
+const tableBody = (props: TableItem) => {
   return (
-    <Tr
-      onClick={() => {
-        router.push(`/intern-info/${props.id}`);
-      }}
-    >
-      <Td>{props.company}</Td>
+    <Tr>
+      <Td>{props.companyName}</Td>
       <Td>{props.evaluation}</Td>
       <Td>{props.period}</Td>
-      <Td>{props.jobType}</Td>
+      <Td>{props.job}</Td>
       <Td>{props.salary}</Td>
     </Tr>
   );
 };
 
 export const CustomTable = () => {
-  const router = useRouter();
+  const [tableDataListApi, setTableDataList] = useState([]);
+
+  useEffect(() => {
+    const baseUrl = "http://localhost:8000/intern-info-list";
+    const params = {};
+
+    const options: AxiosRequestConfig = {
+      url: `${baseUrl}`,
+      method: "GET",
+      params: params,
+    };
+
+    axios(options).then((res) => {
+      console.log("option", res);
+      setTableDataList(res.data.data);
+    });
+  }, []);
+
   return (
     <TableContainer>
       <Table variant="simple">
@@ -51,9 +63,9 @@ export const CustomTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {tableDataList.map((tableData) => {
+          {tableDataListApi.map((tableData) => {
             // XXX: undefined がどこに起因してるのかわからない
-            return tableBody(tableData, router);
+            return tableBody(tableData);
           })}
         </Tbody>
       </Table>
