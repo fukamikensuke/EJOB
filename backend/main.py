@@ -9,6 +9,7 @@ import cruds.input_select_filed as input_select_field
 import cruds.delete as delete
 from dotenv import load_dotenv
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 # 環境変数の読み込み
 
@@ -23,6 +24,17 @@ env_list.append(os.getenv("DRIVER"))
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000/"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Intern_info(BaseModel):
     company: str
