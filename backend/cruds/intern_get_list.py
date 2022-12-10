@@ -21,10 +21,17 @@ def get_intern_info(env_list: list, filter_dict: dict):
     for n in filter_dict:
         if filter_dict[n] : 
             if not where_str:
-                where_str = "WHERE " + n + " = %d " % filter_dict[n]
+                if n == "salary":
+                    where_str = "WHERE " + n + " >= %d " % filter_dict[n]
+                else:
+                    where_str = "WHERE " + n + " = %d " % filter_dict[n]
+                
             else:
-                where_str = where_str + " AND " + n + " = %d " % filter_dict[n]
-    #TODO  変数 < の値でのWHERE文を書く（修正Lv.2)
+                if n == "salary":
+                    where_str = where_str + "AND " + n + " >= %d " % filter_dict[n]
+                else:    
+                    where_str = where_str + " AND " + n + " = %d " % filter_dict[n]
+                
     cur.execute("SELECT * FROM intern_detail %s" % where_str)
     output_data = []
     rows = cur.fetchall()
