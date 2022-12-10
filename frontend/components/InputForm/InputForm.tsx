@@ -19,7 +19,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 type EnteredInfoType = {
   company: string;
@@ -97,7 +97,9 @@ const settingDefaultValue = (isEdit: boolean, uid: string) => {
     };
   }
 };
+
 export const InputForm = ({ isEdit }: Props) => {
+  const router = useRouter();
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
   const loginStatus = useRecoilValue(loginState);
   const [inputFormDataAPI, setInputFormDataAPI] = useState<inputSelect>({
@@ -152,7 +154,6 @@ export const InputForm = ({ isEdit }: Props) => {
 
   // 必須項目がすべて選択されているかの判定
   useEffect(() => {
-    console.log(enteredInfo);
     if (
       enteredInfo.company !== "" &&
       enteredInfo.year !== -1 &&
@@ -165,35 +166,24 @@ export const InputForm = ({ isEdit }: Props) => {
       enteredInfo.impressions !== ""
     ) {
       setIsSearchDisable(false);
-    } else {
-      setIsSearchDisable(true);
     }
   }, [enteredInfo]);
 
-  const handlePost = async () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const router = useRouter();
-    const baseUrl = "https://localhost:8000/intern-info";
+  const handlePost = () => {
+    // XXX: POST を使用した場合 Axios Network Error となりうまく接続できなかった
+    const url = `http://localhost:8000/post-intern-info?company=${enteredInfo.company}&year=${enteredInfo.year}&internType=${enteredInfo.internType}&period=${enteredInfo.period}&jobType=${enteredInfo.jobType}&salary=${enteredInfo.salary}&internContents=${enteredInfo.internContents}&evaluation=${enteredInfo.evaluation}&developEx=${enteredInfo.developEx}&internEx=${enteredInfo.internEx}&internTestPreparation=${enteredInfo.internTestPreparation}&isSelectionExemption=${enteredInfo.isSelectionExemption}&selectionExemptionContents=${enteredInfo.selectionExemptionContents}&impressions=${enteredInfo.impressions}&uid=${enteredInfo.uid}`;
 
-    const options: AxiosRequestConfig = {
-      url: `${baseUrl}`,
-      method: "POST",
-      params: enteredInfo,
-    };
-
-    axios(options)
+    const encodeUrl = encodeURI(url);
+    axios
+      .get(encodeUrl)
       .then((res) => {
-        if (res.data.data !== 200) {
-          // eslint-disable-next-line no-console
-          console.error("post error");
+        if (res.data === 200) {
+          router.push("/");
         }
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error("error POST/intern-info", error);
+        console.error("POST/", error);
       });
-
-    router.push("/");
   };
 
   return (
