@@ -36,3 +36,5 @@ frontend/*.tsbuildinfo
 frontend/next-env.d.ts
 
 backend/.env
+
+backend/_pycache_/
