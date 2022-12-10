@@ -22,8 +22,7 @@ env_list.append(os.getenv("DATABASE"))
 env_list.append(os.getenv("USERNAME_CUS"))
 env_list.append(os.getenv("PASSWORD"))
 env_list.append(os.getenv("DRIVER"))
-print(os.getenv("SERVER"))
-print(env_list)
+
 app = FastAPI()
 
 
