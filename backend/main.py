@@ -9,7 +9,7 @@ import cruds.select_get_filed as select_get_filed
 import cruds.input_select_filed as input_select_field
 from dotenv import load_dotenv
 import os
-import pyodbc
+import pyodbc 
 
 # 環境変数の読み込み
 
