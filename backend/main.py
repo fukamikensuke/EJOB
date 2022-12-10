@@ -45,10 +45,24 @@ class Intern_info(BaseModel):
     impressions: str
 
 
-@app.get("/intern-info-list/{filter}")
-def get_intern_list_filter(filter: str):
-    info_list = {"data": intern_get_list.get_intern_info(env_list)}
-    return info_list["data"][0]["id"]
+@app.get("/intern-info-list/")
+def get_intern_list_filter(
+    evaluation: Union[int, None] = None,
+    jobType: Union[int, None] = None,
+    internType: Union[int, None] = None,
+    period: Union[int, None] = None,
+    salary: Union[int, None] = None,
+):
+
+    filter_dict = {
+        "evaluation": evaluation,
+        "jobType": jobType,
+        "internType": internType,
+        "period": period,
+        "salary": salary,
+    }
+    info_list = {"data": intern_get_list.get_intern_info(env_list, filter_dict)}
+    return info_list
 
 
 @app.get("/intern-info-list-uid/{uid}")
