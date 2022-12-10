@@ -3,6 +3,11 @@ import sqlite3
 from pydantic import BaseModel
 from typing import Union
 import cruds.input as input
+import cruds.intern_get_list as intern_get_list
+import cruds.intern_get_detail as intern_get_detail
+import cruds.select_get_filed as select_get_filed
+import cruds.input_select_filed as input_select_field
+import cruds.delete as delete
 from dotenv import load_dotenv
 import os
 import pyodbc
