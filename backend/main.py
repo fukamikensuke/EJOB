@@ -7,6 +7,7 @@ import cruds.intern_get_list as intern_get_list
 import cruds.intern_get_detail as intern_get_detail
 import cruds.select_get_filed as select_get_filed
 import cruds.input_select_filed as input_select_field
+import cruds.delete as delete
 from dotenv import load_dotenv
 import os
 import pyodbc 
@@ -86,6 +87,10 @@ def get_select_filed():
     select_filed = {"data": input_select_field.select_get_filed(env_list)}
     return select_filed
 
+@app.delete("/intern-info/delete/{intern_id}")
+def get_intern_list_id(intern_id: int):
+    delete.delete_intern_info(env_list, intern_id)
+    return {200: "OK"}
 
 @app.post("/intern-info")
 def post_intern_info(intern_info: Intern_info):
