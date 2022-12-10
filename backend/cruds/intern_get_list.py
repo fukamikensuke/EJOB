@@ -19,8 +19,8 @@ def get_intern_info(env_list: list, filter_dict: dict):
     _cur = cnxn.cursor()
     where_str = None
     for n in filter_dict:
-        if filter_dict[n] != None:  # TODO一回直したがエラーでるから修正する（修正Lv.5)
-            if where_str == None:
+        if filter_dict[n] : 
+            if not where_str:
                 where_str = "WHERE " + n + " = %d " % filter_dict[n]
             else:
                 where_str = where_str + " AND " + n + " = %d " % filter_dict[n]
