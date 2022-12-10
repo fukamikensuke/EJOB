@@ -33,6 +33,7 @@ def post_intern_info(
     + ";PWD="
     + env_list[3]
     )
+    print("OK")
     cur = cnxn.cursor()
     intern_sql = ("INSERT INTO intern_detail VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
     intern_data = (company,year,internType,period,jobType,salary,internContents,evaluation,impressions,developEx,internEx,internTestPreparation,isSelectionExemption,selectionExemptionContents,0)
@@ -40,3 +41,5 @@ def post_intern_info(
     cur.commit()
 
     cur.close()
+
+    return "OK"

@@ -105,22 +105,23 @@ def get_intern_list_id(intern_id: int):
 
 @app.post("/intern-info")
 def post_intern_info(intern_info: Intern_info):
+    print(Intern_info)
     input.post_intern_info(
         env_list,
-        Intern_info.company,
-        Intern_info.year,
-        Intern_info.intenrType,
-        Intern_info.period,
-        Intern_info.jobType,
-        Intern_info.salary,
-        Intern_info.internContents,
-        Intern_info.evaluation,
-        Intern_info.developEx,
-        Intern_info.internEx,
-        Intern_info.internTestPreparation,
-        Intern_info.isSelectionExemption,
-        Intern_info.selectionExemptionContents,
-        Intern_info.impressions,
+        intern_info.company,
+        intern_info.year,
+        intern_info.intenrType,
+        intern_info.period,
+        intern_info.jobType,
+        intern_info.salary,
+        intern_info.internContents,
+        intern_info.evaluation,
+        intern_info.developEx,
+        intern_info.internEx,
+        intern_info.internTestPreparation,
+        intern_info.isSelectionExemption,
+        intern_info.selectionExemptionContents,
+        intern_info.impressions,
     )
     return intern_info
 
