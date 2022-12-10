@@ -8,6 +8,11 @@ export default {
   component: InputForm,
 } as ComponentMeta<typeof InputForm>;
 
-const Template: ComponentStory<typeof InputForm> = () => <InputForm />;
+const Template: ComponentStory<typeof InputForm> = (args) => (
+  <InputForm {...args} />
+);
 
 export const Sample = Template.bind({});
+Sample.args = {
+  isEdit: false,
+};
