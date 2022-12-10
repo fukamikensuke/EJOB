@@ -27,7 +27,6 @@ def get_intern_info(env_list: list, filter_dict: dict):
     cur.execute("SELECT * FROM intern_detail %s" % where_str)
     output_data = []
     rows = cur.fetchall()
-    # TODO DBへの挙動がアヤシシ（修正Lv.3)
     for row in rows:
         print(row)
         _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])
@@ -78,7 +77,6 @@ def get_intern_info_uid(env_list: list, uid: int):
     cur.execute("SELECT * FROM intern_detail WHERE user_id= %d" % uid)
     output_data = []
     rows = cur.fetchall()
-    # TODO DBへの挙動がアヤシシ（修正Lv.3)
     for row in rows:
         print(row)
         _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])
