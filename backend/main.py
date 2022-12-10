@@ -24,9 +24,7 @@ env_list.append(os.getenv("DRIVER"))
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000"
-]
+origins = ["http://localhost:3000"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -35,6 +33,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class Intern_info(BaseModel):
     company: str
@@ -51,7 +50,7 @@ class Intern_info(BaseModel):
     isSelectionExemption: int
     selectionExemptionContents: Union[str, None] = None
     impressions: str
-    uid : str
+    uid: str
 
 
 @app.get("/intern-info-list/")
