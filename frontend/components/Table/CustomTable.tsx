@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios, { AxiosRequestConfig } from "axios";
+import React from "react";
 import {
   Table,
   Thead,
@@ -31,24 +30,12 @@ const tableBody = (props: TableItem) => {
   );
 };
 
-export const CustomTable = () => {
-  const [tableDataListApi, setTableDataList] = useState([]);
 
-  useEffect(() => {
-    const baseUrl = "http://localhost:8000/intern-info-list";
-    const params = {};
+type Props = {
+  tableDataListApi: TableItem[]
+}
 
-    const options: AxiosRequestConfig = {
-      url: `${baseUrl}`,
-      method: "GET",
-      params: params,
-    };
-
-    axios(options).then((res) => {
-      console.log("option", res);
-      setTableDataList(res.data.data);
-    });
-  }, []);
+export const CustomTable = ({tableDataListApi}: Props) => {
 
   return (
     <TableContainer>
