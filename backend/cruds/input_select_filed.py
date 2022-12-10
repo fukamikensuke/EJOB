@@ -39,16 +39,23 @@ def select_get_filed(env_list: list):
     develop_ex_data = []
     for row in cur:
         develop_ex_data.append({"id": row[0], "text": row[1]})
-
+    
+    
     cur.execute("SELECT * FROM intern_ex ")
     intern_ex_data = []
     for row in cur:
         intern_ex_data.append({"id": row[0], "text": row[1]})
+
+    cur.execute("SELECT * FROM evaluation ")
+    evaluation_data = []
+    for row in cur:
+        evaluation_data.append({"id": row[0], "text": row[1]})
     output_data = {
         "year": year_data,
         "internType": season_data,
         "period": period_data,
         "jobType": job_data,
+        "evaluation":evaluation_data,
         "developEx": develop_ex_data,
         "internEx": intern_ex_data,
     }
