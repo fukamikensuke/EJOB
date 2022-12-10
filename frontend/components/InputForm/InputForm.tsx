@@ -19,7 +19,6 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
-import { inputFormData } from "../../store/dummyData";
 import axios, { AxiosRequestConfig } from "axios";
 
 type EnteredInfoType = {
@@ -47,11 +46,17 @@ type Props = {
   isEdit: boolean;
 };
 
-const settingDefaultValue = (isEdit: boolean, uid: string) => {
-  // FIXME: ルー化の有効化
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  // const loginStatus = useRecoilValue(loginState);
+type inputSelect = {
+  evaluation: { id: number; text: string }[];
+  year: { id: number; text: string }[];
+  internType: { id: number; text: string }[];
+  period: { id: number; text: string }[];
+  jobType: { id: number; text: string }[];
+  developEx: { id: number; text: string }[];
+  internEx: { id: number; text: string }[];
+};
 
+const settingDefaultValue = (isEdit: boolean, uid: string) => {
   // isEdit === true の場合、API から取得してきたデータを初期値とする
   if (isEdit === false) {
     return {
@@ -72,6 +77,7 @@ const settingDefaultValue = (isEdit: boolean, uid: string) => {
       userId: uid,
     };
   } else {
+    // TODO: 編集の場合に API からデータを取得してくるようにする
     return {
       company: "#####",
       year: 1,
@@ -94,6 +100,15 @@ const settingDefaultValue = (isEdit: boolean, uid: string) => {
 export const InputForm = ({ isEdit }: Props) => {
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
   const loginStatus = useRecoilValue(loginState);
+  const [inputFormDataAPI, setInputFormDataAPI] = useState<inputSelect>({
+    evaluation: [],
+    year: [],
+    internType: [],
+    period: [],
+    jobType: [],
+    developEx: [],
+    internEx: [],
+  });
   const [enteredInfo, setEnteredInfo] = useState<EnteredInfoType>(() => {
     return settingDefaultValue(isEdit, loginStatus.uid);
   });
@@ -120,6 +135,20 @@ export const InputForm = ({ isEdit }: Props) => {
     setEnteredInfo(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioButtonValue]);
+
+  // 選択式の部分のデータの取得
+  useEffect(() => {
+    const baseUrl = "http://localhost:8000/input-select-filed";
+    axios
+      .get(baseUrl)
+      .then((res) => {
+        setInputFormDataAPI(res.data.data);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log("GET/input-select-filed", error);
+      });
+  }, []);
 
   // 必須項目がすべて選択されているかの判定
   useEffect(() => {
@@ -206,7 +235,7 @@ export const InputForm = ({ isEdit }: Props) => {
             setEnteredInfo(newData);
           }}
         >
-          {inputFormData.year.map((item) => {
+          {inputFormDataAPI.year.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.text}
@@ -236,7 +265,7 @@ export const InputForm = ({ isEdit }: Props) => {
             setEnteredInfo(newData);
           }}
         >
-          {inputFormData.internType.map((item) => {
+          {inputFormDataAPI.internType.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.text}
@@ -266,7 +295,7 @@ export const InputForm = ({ isEdit }: Props) => {
             setEnteredInfo(newData);
           }}
         >
-          {inputFormData.period.map((item) => {
+          {inputFormDataAPI.period.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.text}
@@ -296,7 +325,7 @@ export const InputForm = ({ isEdit }: Props) => {
             setEnteredInfo(newData);
           }}
         >
-          {inputFormData.jobType.map((item) => {
+          {inputFormDataAPI.jobType.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.text}
@@ -360,7 +389,7 @@ export const InputForm = ({ isEdit }: Props) => {
             setEnteredInfo(newData);
           }}
         >
-          {inputFormData.evaluation.map((item) => {
+          {inputFormDataAPI.evaluation.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.text}
@@ -394,7 +423,7 @@ export const InputForm = ({ isEdit }: Props) => {
             setEnteredInfo(newData);
           }}
         >
-          {inputFormData.developEx.map((item) => {
+          {inputFormDataAPI.developEx.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.text}
@@ -424,7 +453,7 @@ export const InputForm = ({ isEdit }: Props) => {
             setEnteredInfo(newData);
           }}
         >
-          {inputFormData.internEx.map((item) => {
+          {inputFormDataAPI.internEx.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.text}

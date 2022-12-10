@@ -21,7 +21,10 @@ def get_intern_detail(id: int, env_list: list):
     cur.execute("SELECT * FROM intern_detail WHERE id = %d" % id)
 
     for row in cur:
+
+        print(row[2])
         _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])
+        
         (year_data,) = _cur.fetchone()
         _cur.execute("SELECT job_name FROM job_type WHERE id = %d" % row[5])
         (job_data,) = _cur.fetchone()
@@ -36,19 +39,25 @@ def get_intern_detail(id: int, env_list: list):
         _cur.execute("SELECT text FROM intern_ex WHERE id = %d" % row[11])
         (intern_data,) = _cur.fetchone()
         (year_data)
+        if row[13] == 0:
+            selection_ex = "有"
+        elif row[13] == 1:
+            selection_ex = "無"
+        else :
+            selection_ex = "" 
         output_data = {
             "companyName": row[1],
             "year": year_data,
             "internType": season_data,
             "period": period_data,
             "job": job_data,
-            "salary": row[6],
+            "salary": str(row[6]) + "円",
             "internContents": row[7],
             "evaluation": evaluation_data,
             "developEx": develop_data,
             "internEx": intern_data,
             "internTestPreparation": row[12],
-            "isSelectionExemption": row[13],
+            "isSelectionExemption": selection_ex,
             "selectionExemptionContents": row[14],
             "impressions": row[9],
         }

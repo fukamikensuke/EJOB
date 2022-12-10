@@ -51,6 +51,7 @@ class Intern_info(BaseModel):
     isSelectionExemption: int
     selectionExemptionContents: Union[str, None] = None
     impressions: str
+    uid : str
 
 
 @app.get("/intern-info-list/")
@@ -74,7 +75,7 @@ def get_intern_list_filter(
 
 
 @app.get("/intern-info-list-uid/{uid}")
-def get_intern_list_uid(uid: int):
+def get_intern_list_uid(uid: str):
     info_list = {"data": intern_get_list.get_intern_info_uid(env_list, uid)}
     return info_list
 
@@ -122,6 +123,7 @@ def post_intern_info(intern_info: Intern_info):
         intern_info.isSelectionExemption,
         intern_info.selectionExemptionContents,
         intern_info.impressions,
+        intern_info.uid,
     )
     return intern_info
 

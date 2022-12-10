@@ -58,7 +58,7 @@ def get_intern_info(env_list: list, filter_dict: dict):
     return output_data
 
 
-def get_intern_info_uid(env_list: list, uid: int):
+def get_intern_info_uid(env_list: list, uid: str):
     # TODO cnxn 自体が引数にできそう（修正Lｖ.1)
     cnxn = pyodbc.connect(
         "DRIVER="
@@ -74,7 +74,7 @@ def get_intern_info_uid(env_list: list, uid: int):
     )
     cur = cnxn.cursor()
     _cur = cnxn.cursor()
-    cur.execute("SELECT * FROM intern_detail WHERE user_id= %d" % uid)
+    cur.execute("SELECT * FROM intern_detail WHERE user_id = '%s'" %uid )
     output_data = []
     rows = cur.fetchall()
     for row in rows:
