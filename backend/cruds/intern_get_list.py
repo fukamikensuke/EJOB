@@ -74,8 +74,7 @@ def get_intern_info_uid(env_list: list, uid: str):
     )
     cur = cnxn.cursor()
     _cur = cnxn.cursor()
-    print(uid)
-    cur.execute("SELECT * FROM intern_detail WHERE user_id = %s" % uid)
+    cur.execute("SELECT * FROM intern_detail WHERE user_id = '%s'" %uid )
     output_data = []
     rows = cur.fetchall()
     for row in rows:
