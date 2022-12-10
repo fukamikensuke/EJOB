@@ -3,10 +3,6 @@ import sqlite3
 from pydantic import BaseModel
 from typing import Union
 import cruds.input as input
-import cruds.intern_get_list as intern_get_list
-import cruds.intern_get_detail as intern_get_detail
-import cruds.select_get_filed as select_get_filed
-import cruds.input_select_filed as input_select_field
 from dotenv import load_dotenv
 import os
 
@@ -43,30 +39,16 @@ class Intern_info(BaseModel):
     impressions: str
 
 
-@app.get("/intern-info-list/")
-def get_intern_list_filter(
-    evaluation: Union[int, None] = None,
-    jobType: Union[int, None] = None,
-    internType: Union[int, None] = None,
-    period: Union[int, None] = None,
-    salary: Union[int, None] = None,
-):
-
-    filter_dict = {
-        "evaluation": evaluation,
-        "jobType": jobType,
-        "internType": internType,
-        "period": period,
-        "salary": salary,
-    }
-    info_list = {"data": intern_get_list.get_intern_info(env_list, filter_dict)}
-    return info_list
+@app.get("/intern-info-list/{filter}")
+def get_intern_list_filter(filter: str):
+    info_list = {"data": intern_get_list.get_intern_info(env_list)}
+    return info_list["data"][0]["id"]
 
 
 @app.get("/intern-info-list-uid/{uid}")
-def get_intern_list_uid(uid: int):  # testcode
-    info_list = {"data": intern_get_list.get_intern_info_uid(env_list, uid)}
-    return info_list
+def get_intern_list_filter(uid: int):
+    info_list = {"data": intern_get_list.get_intern_info(env_list)}
+    return info_list["data"][0]["id"]
 
 
 @app.get("/intern-info/{id}")
@@ -89,8 +71,17 @@ def get_intern_list_id(intern_id: int):
 
 @app.get("/input-select-filed")
 def get_select_filed():
-    select_filed = {"data": input_select_field.select_get_filed(env_list)}
-    return select_filed
+    out_put = {
+        "data": {
+            "year": {"id": 1, "text": "サマーインターン"},
+            "internType": {"id": 1, "text": "サマーインターン"},
+            "period": {"id": 1, "text": "2週間"},
+            "jobType": {"id": 1, "text": "フロントエンジニア"},
+            "developEx": {"id": 1, "text": "０回"},
+            "internEx": {"id": 1, "text": "0回"},
+        }
+    }
+    return out_put
 
 
 @app.post("/intern-info")
@@ -116,18 +107,18 @@ def post_intern_info(intern_info: Intern_info):
 
 
 @app.get("/test")
-def post_intern_info():  # testcode
+def post_intern_info():
     print(env_list)
     input.post_intern_info(
         env_list,
-        "株式会社会式株",
-        1,  # year
-        4,  # internType
-        4,  # period
-        4,  # jobType
+        "株式会社ゲームフリーク",
+        2,
+        3,
+        1,
+        1,
         1600,
         "API設計を行った",
-        5,  # 評価
+        3,
         3,
         2,
         "Atcorder",
