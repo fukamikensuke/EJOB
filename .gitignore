@@ -38,3 +38,5 @@ frontend/next-env.d.ts
 backend/.env
 
 backend/_pycache_/
+
+backend/cruds/__pycache__/
