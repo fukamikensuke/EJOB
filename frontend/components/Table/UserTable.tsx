@@ -1,6 +1,6 @@
 // FIXME: ルールの有効化
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../store/Recoil";
@@ -22,10 +22,10 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { tableDataList } from "../../store/dummyData";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { VSpacer } from "../Spacer/Spacer";
+import axios from "axios";
 
 type TableItem = {
   id: number;
@@ -34,6 +34,10 @@ type TableItem = {
   period: string;
   jobType: string;
   salary: string;
+};
+
+type Props = {
+  id: string;
 };
 
 const handleDelete = (id: number) => {
@@ -127,7 +131,23 @@ const tableBody = (props: TableItem) => {
   );
 };
 
-export const UserTable = () => {
+export const UserTable = ({ id }: Props) => {
+  const [tableDataListAPI, setTableDataListAPI] = useState([]);
+
+  useEffect(() => {
+    const baseUrl = `http://localhost:8000/intern-info-list-uid/${id}`;
+
+    axios
+      .get(baseUrl)
+      .then((res) => {
+        setTableDataListAPI(res.data.data);
+      })
+      .catch((error) => [
+        // eslint-disable-next-line no-console
+        console.error("error GET/intern-info-list-uid", error),
+      ]);
+  }, []);
+
   return (
     <TableContainer>
       <Table variant="simple">
@@ -143,7 +163,7 @@ export const UserTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {tableDataList.map((tableData) => {
+          {tableDataListAPI.map((tableData) => {
             // XXX: undefined がどこに起因してるのかわからない
             return tableBody(tableData);
           })}

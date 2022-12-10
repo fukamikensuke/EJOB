@@ -57,38 +57,3 @@ export const inputFormData = {
     { id: 5, text: "4回以上" },
   ],
 };
-
-export const tableDataList = [
-  {
-    id: 1,
-    company: "ONE CAREER",
-    evaluation: "4(良かった)",
-    year: "2022年",
-    internType: "サマーインターン",
-    period: "2日間",
-    jobType: "Web エンジニア",
-    salary: "なし",
-  },
-  ,
-  {
-    id: 2,
-    company: "BrainPad",
-    evaluation: "4(良かった)",
-    year: "2022年",
-    internType: "サマーインターン",
-    period: "5日間",
-    jobType: "Web エンジニア",
-    salary: "1500円",
-  },
-  ,
-  {
-    id: 3,
-    company: "DWANGO",
-    evaluation: "4(良かった)",
-    year: "2022年",
-    internType: "通年インターン",
-    period: "1ヶ月以上",
-    jobType: "フロントエンドエンジニア",
-    salary: "1000円",
-  },
-];
