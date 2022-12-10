@@ -39,7 +39,7 @@ app.add_middleware(
 class Intern_info(BaseModel):
     company: str
     year: int
-    intenrType: int
+    internType: int
     period: int
     jobType: int
     salary: int
@@ -111,7 +111,7 @@ def post_intern_info(intern_info: Intern_info):
         env_list,
         intern_info.company,
         intern_info.year,
-        intern_info.intenrType,
+        intern_info.internType,
         intern_info.period,
         intern_info.jobType,
         intern_info.salary,
