@@ -51,7 +51,6 @@ def get_intern_info(env_list: list, filter_dict: dict):
                 "salary": row[6],
             }
         )
-    # TODO ここ index じゃなくて、カラム名とかからデータとれないのだろうか！？(取れそう)
     cur.commit()
     _cur.commit()
     cnxn.close()
@@ -101,7 +100,6 @@ def get_intern_info_uid(env_list: list, uid: str):
                 "salary": row[6],
             }
         )
-    # TODO ここ index じゃなくて、カラム名とかからデータとれないのだろうか！？(取れそう)
     cur.commit()
     _cur.commit()
     cnxn.close()
