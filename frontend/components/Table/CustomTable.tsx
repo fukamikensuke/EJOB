@@ -1,6 +1,6 @@
 // FIXME: ルールの有効化
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   Thead,
@@ -9,8 +9,13 @@ import {
   Th,
   Td,
   TableContainer,
+  Center,
+  Button,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { VSpacer } from "../Spacer/Spacer";
 
 type TableItem = {
   id: number;
@@ -62,25 +67,56 @@ type Props = {
 };
 
 export const CustomTable = ({ tableDataListApi }: Props) => {
+  const [pageNation, setPageNation] = useState<number>(15);
+
   return (
-    <TableContainer>
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>企業名</Th>
-            <Th>評価</Th>
-            <Th>期間</Th>
-            <Th>職種</Th>
-            <Th>給与</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {tableDataListApi.map((tableData) => {
-            // XXX: undefined がどこに起因してるのかわからない
-            return tableBody(tableData);
-          })}
-        </Tbody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>企業名</Th>
+              <Th>評価</Th>
+              <Th>期間</Th>
+              <Th>職種</Th>
+              <Th>給与</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {tableDataListApi.map((tableData, index) => {
+              if (pageNation - 14 <= index && index < pageNation) {
+                // XXX: undefined がどこに起因してるのかわからない
+                return tableBody(tableData);
+              }
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+      <Center>
+        <VStack>
+          <VSpacer size={4} />
+          <HStack>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setPageNation(14);
+              }}
+            >
+              1
+            </Button>
+            {14 < tableDataListApi.length && (
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setPageNation(28);
+                }}
+              >
+                2
+              </Button>
+            )}
+          </HStack>
+        </VStack>
+      </Center>
+    </>
   );
 };
