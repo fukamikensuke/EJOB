@@ -17,8 +17,11 @@ import {
   Textarea,
   Button,
   Select,
-  Box,
   useToast,
+  Card,
+  CardHeader,
+  CardBody,
+  Badge,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
 import axios from "axios";
@@ -127,12 +130,6 @@ export const InputForm = ({ isEdit }: Props) => {
     }
   });
 
-  // style 用の変数の定義
-  const WLarge = "85%";
-  const WSmall = "15%";
-  const spaceBetweenItems = 4;
-  const spaceBetweenTitle = 16;
-
   // ラジオボタンの変更の検出
   useEffect(() => {
     let newData = { ...enteredInfo };
@@ -204,29 +201,27 @@ export const InputForm = ({ isEdit }: Props) => {
   return (
     <>
       <VSpacer size={8} />
-      <Text fontSize="2xl" as="b">
-        インターン情報について教えて下さい
-      </Text>
-      <VSpacer size={4} />
-      <Box borderRadius="lg" borderWidth="1px" borderColor="black" p={6}>
-        <HStack>
-          <Text w={WSmall}>企業名</Text>
+      <Card>
+        <CardHeader>
+          <Badge fontSize="2xl"> インターン情報について教えて下さい</Badge>
+        </CardHeader>
+        <CardBody>
+          <Text>企業名</Text>
+          <VSpacer size={1} />
           <Input
-            w={WLarge}
             placeholder="企業名"
             defaultValue={enteredInfo.company}
+            borderColor="gray.200"
             onChange={(event) => {
               let newData = { ...enteredInfo };
               newData.company = event.target.value;
               setEnteredInfo(newData);
             }}
           />
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={WSmall}>参加年度</Text>
+          <VSpacer size={5} />
+          <Text>参加年度</Text>
+          <VSpacer size={1} />
           <Select
-            w={WLarge}
             placeholder="年"
             defaultValue={
               enteredInfo.year === -1
@@ -251,12 +246,10 @@ export const InputForm = ({ isEdit }: Props) => {
               );
             })}
           </Select>
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={WSmall}>インターン種別</Text>
+          <VSpacer size={5} />
+          <Text>インターン種別</Text>
+          <VSpacer size={1} />
           <Select
-            w={WLarge}
             placeholder="インターン種別"
             defaultValue={
               enteredInfo.internType === -1
@@ -281,12 +274,10 @@ export const InputForm = ({ isEdit }: Props) => {
               );
             })}
           </Select>
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={WSmall}>期間</Text>
+          <VSpacer size={5} />
+          <Text>期間</Text>
+          <VSpacer size={1} />
           <Select
-            w={WLarge}
             placeholder="期間"
             defaultValue={
               enteredInfo.period === -1
@@ -311,12 +302,10 @@ export const InputForm = ({ isEdit }: Props) => {
               );
             })}
           </Select>
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={WSmall}>職種</Text>
+          <VSpacer size={5} />
+          <Text>職種</Text>
+          <VSpacer size={1} />
           <Select
-            w={WLarge}
             placeholder="職種"
             defaultValue={
               enteredInfo.jobType === -1
@@ -341,11 +330,10 @@ export const InputForm = ({ isEdit }: Props) => {
               );
             })}
           </Select>
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={WSmall}>報酬(時給換算)</Text>
-          <HStack w={WLarge}>
+          <VSpacer size={5} />
+          <Text>給与(時給換算)</Text>
+          <VSpacer size={1} />
+          <HStack>
             <InputGroup size="md">
               <Input
                 type="number"
@@ -362,14 +350,13 @@ export const InputForm = ({ isEdit }: Props) => {
               <InputRightAddon children="円" />
             </InputGroup>
           </HStack>
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={WSmall}>インターンの内容</Text>
+          <VSpacer size={5} />
+          <Text>インターンの内容</Text>
+          <VSpacer size={1} />
           <Textarea
-            w={WLarge}
             size="lg"
             placeholder="インターン内容"
+            borderColor="gray.200"
             defaultValue={enteredInfo.internContents}
             onChange={(event) => {
               let newData = { ...enteredInfo };
@@ -377,12 +364,10 @@ export const InputForm = ({ isEdit }: Props) => {
               setEnteredInfo(newData);
             }}
           />
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={WSmall}>総合評価</Text>
+          <VSpacer size={5} />
+          <Text>総合評価</Text>
+          <VSpacer size={1} />
           <Select
-            w={WLarge}
             placeholder="総合評価"
             defaultValue={
               enteredInfo.evaluation === -1
@@ -407,20 +392,21 @@ export const InputForm = ({ isEdit }: Props) => {
               );
             })}
           </Select>
-        </HStack>
-      </Box>
+        </CardBody>
+      </Card>
 
-      <VSpacer size={spaceBetweenTitle} />
+      <VSpacer size={16} />
 
-      <Text fontSize="2xl" as="b">
-        インターン選考時の状況について教えてください
-      </Text>
-      <VSpacer size={4} />
-      <Box borderRadius="lg" borderWidth="1px" borderColor="black" p={6}>
-        <HStack>
-          <Text w={"40%"}>選考時の趣味開発やハッカソン等での開発経験</Text>
+      <Card>
+        <CardHeader>
+          <Badge fontSize="2xl">
+            インターン選考時の状況について教えてください
+          </Badge>
+        </CardHeader>
+        <CardBody>
+          <Text>選考時の趣味開発やハッカソン等での開発経験</Text>
+          <VSpacer size={1} />
           <Select
-            w={"60%"}
             placeholder="開発経験"
             defaultValue={
               enteredInfo.developEx === -1
@@ -445,12 +431,10 @@ export const InputForm = ({ isEdit }: Props) => {
               );
             })}
           </Select>
-        </HStack>
-        <VSpacer size={spaceBetweenItems} />
-        <HStack>
-          <Text w={"40%"}>選考時のインターンへの参加経験</Text>
+          <VSpacer size={5} />
+          <Text>選考時のインターンへの参加経験</Text>
+          <VSpacer size={1} />
           <Select
-            w={"60%"}
             placeholder="インターンへの参加経験"
             defaultValue={
               enteredInfo.internEx === -1
@@ -475,68 +459,71 @@ export const InputForm = ({ isEdit }: Props) => {
               );
             })}
           </Select>
-        </HStack>
-        <VSpacer size={8} />
-        <Text>インターンの選考対策として行ったことがあれば教えてください</Text>
-        <VSpacer size={spaceBetweenItems} />
-        <Textarea
-          size="lg"
-          placeholder="内容"
-          borderColor="gray.200"
-          defaultValue={enteredInfo.internTestPreparation}
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            newData.internTestPreparation = event.target.value;
-            setEnteredInfo(newData);
-          }}
-        />
-        <VSpacer size={8} />
-        <Text>インターンに参加したことでその先の選考の免除があったか</Text>
-        <VSpacer size={spaceBetweenItems} />
+          <VSpacer size={8} />
+          <Text>
+            インターンの選考対策として行ったことがあれば教えてください
+          </Text>
+          <VSpacer size={1} />
+          <Textarea
+            size="lg"
+            placeholder="内容"
+            borderColor="gray.200"
+            defaultValue={enteredInfo.internTestPreparation}
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              newData.internTestPreparation = event.target.value;
+              setEnteredInfo(newData);
+            }}
+          />
+          <VSpacer size={8} />
+          <Text>インターンに参加したことでその先の選考の免除があったか</Text>
+          <VSpacer size={5} />
 
-        <RadioGroup onChange={setValue} value={`${radioButtonValue}`}>
-          <HStack>
-            <Radio value="1">あり</Radio>
-            <Radio value="0">なし</Radio>
-          </HStack>
-        </RadioGroup>
-        <VSpacer size={spaceBetweenItems} />
-        <Textarea
-          size="lg"
-          placeholder="免除となった内容"
-          borderColor="gray.200"
-          defaultValue={enteredInfo.selectionExemptionContents}
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            newData.selectionExemptionContents = event.target.value;
-            setEnteredInfo(newData);
-          }}
-        />
-      </Box>
+          <RadioGroup onChange={setValue} value={`${radioButtonValue}`}>
+            <HStack>
+              <Radio value="1">あり</Radio>
+              <Radio value="0">なし</Radio>
+            </HStack>
+          </RadioGroup>
+          <VSpacer size={5} />
+          <Textarea
+            size="lg"
+            placeholder="免除となった内容"
+            borderColor="gray.200"
+            defaultValue={enteredInfo.selectionExemptionContents}
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              newData.selectionExemptionContents = event.target.value;
+              setEnteredInfo(newData);
+            }}
+          />
+        </CardBody>
+      </Card>
 
-      <VSpacer size={spaceBetweenTitle} />
+      <VSpacer size={16} />
 
-      <Text fontSize="2xl" as="b">
-        最後に
-      </Text>
-      <VSpacer size={spaceBetweenItems} />
-      <Box borderRadius="lg" borderWidth="1px" borderColor="black" p={6}>
-        <Text>全体の感想(参加して良かったことや改善点など)</Text>
-        <VSpacer size={spaceBetweenItems} />
-        <Textarea
-          size="lg"
-          placeholder="感想"
-          borderColor="gray.200"
-          defaultValue={enteredInfo.impressions}
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            newData.impressions = event.target.value;
-            setEnteredInfo(newData);
-          }}
-        />
-      </Box>
+      <Card>
+        <CardHeader>
+          <Badge fontSize="2xl">最後に</Badge>
+        </CardHeader>
+        <CardBody>
+          <Text>全体の感想(参加して良かったことや改善点など)</Text>
+          <VSpacer size={5} />
+          <Textarea
+            size="lg"
+            placeholder="感想"
+            borderColor="gray.200"
+            defaultValue={enteredInfo.impressions}
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              newData.impressions = event.target.value;
+              setEnteredInfo(newData);
+            }}
+          />
+        </CardBody>
+      </Card>
 
-      <VSpacer size={spaceBetweenItems} />
+      <VSpacer size={16} />
       <Center>
         <Button
           colorScheme="blue"
