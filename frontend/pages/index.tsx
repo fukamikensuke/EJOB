@@ -58,6 +58,7 @@ export default function Home() {
 
   return (
     <>
+      <VSpacer size={4} />
       <HStack>
         <Box w="18%" alignSelf="flex-start">
           <Filter
@@ -73,7 +74,6 @@ export default function Home() {
         </Box>
         <HSpacer size={8} />
       </HStack>
-      <VSpacer size={8} />
     </>
   );
 }
