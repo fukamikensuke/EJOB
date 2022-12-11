@@ -23,18 +23,36 @@ type TableItem = {
 
 const tableBody = (props: TableItem) => {
   const router = useRouter();
+  let displayEvaluation = "";
+
+  if (props.evaluation.match(/1/)) {
+    displayEvaluation = "★☆☆☆☆";
+  }
+  if (props.evaluation.match(/2/)) {
+    displayEvaluation = "★★☆☆☆";
+  }
+  if (props.evaluation.match(/3/)) {
+    displayEvaluation = "★★★☆☆";
+  }
+  if (props.evaluation.match(/4/)) {
+    displayEvaluation = "★★★★☆";
+  }
+  if (props.evaluation.match(/5/)) {
+    displayEvaluation = "★★★★★";
+  }
 
   return (
     <Tr
+      _hover={{ cursor: "pointer" }}
       onClick={() => {
         router.push(`/intern-info/${props.id}`);
       }}
     >
       <Td>{props.companyName}</Td>
-      <Td>{props.evaluation}</Td>
+      <Td>{displayEvaluation}</Td>
       <Td>{props.period}</Td>
       <Td>{props.job}</Td>
-      <Td>{props.salary}</Td>
+      <Td>{props.salary}円</Td>
     </Tr>
   );
 };
