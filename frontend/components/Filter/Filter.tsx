@@ -63,7 +63,7 @@ export const Filter = ({
   return (
     <>
       <VStack>
-        <Accordion allowMultiple>
+        <Accordion allowMultiple w="100%">
           {/* XXX: Array であることは保証されているはずなのに…  */}
           {filterDataAPI.data.map(
             (
@@ -95,24 +95,23 @@ export const Filter = ({
             </AccordionButton>
             <AccordionPanel p={4}>
               <Center>
-                <HStack>
-                  <Text>時給</Text>
-                  <InputGroup w={36}>
-                    <Input
-                      type="number"
-                      placeholder="時給"
-                      onChange={(event) => {
-                        let newArray = [...selectedFilterData];
-                        if (event.target.value === "") {
-                          newArray[4] = null;
-                        } else {
-                          newArray[4] = event.target.value as unknown as number;
-                        }
-                        setSelectedFilterData(newArray);
-                      }}
-                    />
-                  </InputGroup>
-                  <Text>円以上</Text>
+                <HStack w="100%">
+                  <Text w="20%">時給</Text>
+                  <Input
+                    w="50%"
+                    type="number"
+                    placeholder="時給"
+                    onChange={(event) => {
+                      let newArray = [...selectedFilterData];
+                      if (event.target.value === "") {
+                        newArray[4] = null;
+                      } else {
+                        newArray[4] = event.target.value as unknown as number;
+                      }
+                      setSelectedFilterData(newArray);
+                    }}
+                  />
+                  <Text w="30%">円以上</Text>
                 </HStack>
               </Center>
             </AccordionPanel>
