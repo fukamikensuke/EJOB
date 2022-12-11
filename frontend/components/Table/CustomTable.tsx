@@ -54,7 +54,7 @@ const tableBody = (props: TableItem) => {
       }}
     >
       <Td>{props.companyName}</Td>
-      <Td>{displayEvaluation}</Td>
+      <Td style={{ color: "orange" }}>{displayEvaluation}</Td>
       <Td>{props.period}</Td>
       <Td>{props.job}</Td>
       <Td>{props.salary}円</Td>
