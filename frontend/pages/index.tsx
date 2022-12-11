@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import { Header } from "../components/Header/Header";
 import { Filter } from "../components/Filter/Filter";
 import { Box, HStack } from "@chakra-ui/react";
 import { CustomTable } from "../components/Table/CustomTable";
@@ -54,11 +53,11 @@ export default function Home() {
         // eslint-disable-next-line no-console
         console.log("error of GET/intern-info-list", error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPostFilter]);
 
   return (
     <>
-      <Header />
       <HStack>
         <Box w="18%" alignSelf="flex-start">
           <Filter
