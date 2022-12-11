@@ -73,7 +73,7 @@ export const Filter = ({
               },
               index: number
             ) => {
-              if (index <= 3) {
+              if (index < 3) {
                 return (
                   <CustomAccordionItem
                     key={index}
@@ -89,7 +89,7 @@ export const Filter = ({
           <AccordionItem>
             <AccordionButton>
               <Box flex="1" textAlign="center">
-                報酬
+                給与
               </Box>
               <AccordionIcon />
             </AccordionButton>
