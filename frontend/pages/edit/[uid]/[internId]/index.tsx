@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../../../store/Recoil";
-import { Header } from "../../../../components/Header/Header";
-import { InputForm } from "../../../../components/InputForm/InputForm";
+// FIXME: ファイル名の先頭を大文字にする
+import { InputForm } from "../../../../components/inputForm/InputForm";
 
 export default function EditInternInfo() {
   const router = useRouter();
   const loginStatus = useRecoilValue(loginState);
-  const { uid, internId } = router.query;
+  const { uid } = router.query;
 
   useEffect(() => {
     if (uid !== loginStatus.uid) {
@@ -22,7 +22,6 @@ export default function EditInternInfo() {
     <>
       {uid === loginStatus.uid && (
         <>
-          <Header />
           <InputForm isEdit={true} />
         </>
       )}

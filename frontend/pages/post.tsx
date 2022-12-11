@@ -10,7 +10,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { loginState } from "../store/Recoil";
-import { Header } from "../components/Header/Header";
 // FIXME: ファイル名の修正(大文字のキャメルケース)
 import { InputForm } from "../components/inputForm/InputForm";
 import { VSpacer } from "../components/Spacer/Spacer";
@@ -21,7 +20,6 @@ export default function Post() {
 
   return (
     <>
-      <Header />
       <Container maxW="4xl">
         {loginStatus.isLogin ? (
           <InputForm isEdit={false} />
