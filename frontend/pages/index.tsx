@@ -4,6 +4,7 @@ import { Header } from "../components/Header/Header";
 import { Filter } from "../components/Filter/Filter";
 import { Box, HStack } from "@chakra-ui/react";
 import { CustomTable } from "../components/Table/CustomTable";
+import { VSpacer, HSpacer } from "../components/Spacer/Spacer";
 export default function Home() {
   const [tableDataListApi, setTableDataList] = useState([]);
   const [selectedFilterData, setSelectedFilterData] = useState<
@@ -59,7 +60,7 @@ export default function Home() {
     <>
       <Header />
       <HStack>
-        <Box w="25%" alignSelf="flex-start">
+        <Box w="18%" alignSelf="flex-start">
           <Filter
             selectedFilterData={selectedFilterData}
             setSelectedFilterData={setSelectedFilterData}
@@ -67,10 +68,13 @@ export default function Home() {
             setIsPostFilter={setIsPostFilter}
           />
         </Box>
-        <Box w="75%" alignSelf="flex-start">
+        <HSpacer size={8} />
+        <Box w="65%" alignSelf="flex-start">
           <CustomTable tableDataListApi={tableDataListApi} />
         </Box>
+        <HSpacer size={8} />
       </HStack>
+      <VSpacer size={8} />
     </>
   );
 }
