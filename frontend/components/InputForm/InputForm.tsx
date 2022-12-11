@@ -18,6 +18,7 @@ import {
   Button,
   Select,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
 import axios from "axios";
@@ -101,6 +102,7 @@ const settingDefaultValue = (isEdit: boolean, uid: string) => {
 
 export const InputForm = ({ isEdit }: Props) => {
   const router = useRouter();
+  const toast = useToast();
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
   const loginStatus = useRecoilValue(loginState);
   const [inputFormDataAPI, setInputFormDataAPI] = useState<inputSelect>({
@@ -183,6 +185,13 @@ export const InputForm = ({ isEdit }: Props) => {
       .get(encodeUrl)
       .then((res) => {
         if (res.data === 200) {
+          toast({
+            description: "インターン情報の投稿が完了しました！",
+            status: "success",
+            position: "top",
+            duration: 3000,
+            isClosable: false,
+          });
           router.push("/");
         }
       })
