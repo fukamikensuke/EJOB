@@ -51,24 +51,12 @@ def select_get_filed(env_list: list):
     for row in cur:
         year_data.append({"id": row[0], "text": row[1]})
 
-    cur.execute("SELECT * FROM develop_ex ")
-    develop_ex_data = []
-    for row in cur:
-        develop_ex_data.append({"id": row[0], "text": row[1]})
 
-    cur.execute("SELECT * FROM intern_ex ")
-    intern_ex_data = []
-    for row in cur:
-        intern_ex_data.append({"id": row[0], "text": row[1]})
 
     output_data = [
-        {"displayName": "期間", "tableName": "period", "data": period_data},
-        {"displayName": "インターン種別", "tableName": "season", "data": season_data},
-        {"displayName": "職種", "tableName": "job_type", "data": job_data},
         {"displayName": "評価", "tableName": "evaluation", "data": evaluation_data},
-        {"displayName": "年度", "tableName": "year", "data": year_data},
-        {"displayName": "開発回数", "tableName": "develop_ex", "data": develop_ex_data},
-        {"displayName": "インターン回数", "tableName": "intern_ex", "data": intern_ex_data},
+        {"displayName": "期間", "tableName": "period", "data": period_data},
+        {"displayName": "職種", "tableName": "job_type", "data": job_data},
     ]
     cur.commit()
     return output_data
