@@ -24,19 +24,16 @@ export default function Home() {
     const params: PostFilter = {};
 
     if (selectedFilterData[0] !== null) {
-      params.period = selectedFilterData[0];
+      params.evaluation = selectedFilterData[0];
     }
     if (selectedFilterData[1] !== null) {
-      params.internType = selectedFilterData[1];
+      params.period = selectedFilterData[1];
     }
     if (selectedFilterData[2] !== null) {
       params.jobType = selectedFilterData[2];
     }
     if (selectedFilterData[3] !== null) {
-      params.evaluation = selectedFilterData[3];
-    }
-    if (selectedFilterData[4] !== null) {
-      params.salary = selectedFilterData[4];
+      params.salary = selectedFilterData[3];
     }
 
     const options: AxiosRequestConfig = {
