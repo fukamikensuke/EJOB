@@ -22,7 +22,7 @@ export default function Post() {
   return (
     <>
       <Header />
-      <Container maxW="3xl">
+      <Container maxW="4xl">
         {loginStatus.isLogin ? (
           <InputForm isEdit={false} />
         ) : (

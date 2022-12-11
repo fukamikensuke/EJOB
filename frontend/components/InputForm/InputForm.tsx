@@ -17,6 +17,7 @@ import {
   Textarea,
   Button,
   Select,
+  Box,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
 import axios from "axios";
@@ -193,320 +194,338 @@ export const InputForm = ({ isEdit }: Props) => {
 
   return (
     <>
-      <Text fontSize="2xl">インターン情報について教えて下さい</Text>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>企業名</Text>
-        <Input
-          w={WLarge}
-          placeholder="企業名"
-          defaultValue={enteredInfo.company}
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            newData.company = event.target.value;
-            setEnteredInfo(newData);
-          }}
-        />
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>参加年度</Text>
-        <Select
-          w={WLarge}
-          placeholder="年"
-          defaultValue={
-            enteredInfo.year === -1
-              ? ""
-              : (enteredInfo.year as unknown as string)
-          }
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            if (event.target.value === "") {
-              newData.year = -1;
-            } else {
-              newData.year = Number(event.target.value); //FIXME: 型の修正
-            }
-            setEnteredInfo(newData);
-          }}
-        >
-          {inputFormDataAPI.year.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.text}
-              </option>
-            );
-          })}
-        </Select>
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>インターン種別</Text>
-        <Select
-          w={WLarge}
-          placeholder="インターン種別"
-          defaultValue={
-            enteredInfo.internType === -1
-              ? ""
-              : (enteredInfo.internType as unknown as string) //FIXME: 型の修正
-          }
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            if (event.target.value === "") {
-              newData.internType = -1;
-            } else {
-              newData.internType = Number(event.target.value);
-            }
-            setEnteredInfo(newData);
-          }}
-        >
-          {inputFormDataAPI.internType.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.text}
-              </option>
-            );
-          })}
-        </Select>
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>期間</Text>
-        <Select
-          w={WLarge}
-          placeholder="期間"
-          defaultValue={
-            enteredInfo.period === -1
-              ? ""
-              : (enteredInfo.period as unknown as string) //FIXME: 型の修正
-          }
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            if (event.target.value === "") {
-              newData.period = -1;
-            } else {
-              newData.period = Number(event.target.value); //FIXME: 型の修正
-            }
-            setEnteredInfo(newData);
-          }}
-        >
-          {inputFormDataAPI.period.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.text}
-              </option>
-            );
-          })}
-        </Select>
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>職種</Text>
-        <Select
-          w={WLarge}
-          placeholder="職種"
-          defaultValue={
-            enteredInfo.jobType === -1
-              ? ""
-              : (enteredInfo.jobType as unknown as string) //FIXME: 型の修正
-          }
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            if (event.target.value === "") {
-              newData.jobType = -1;
-            } else {
-              newData.jobType = Number(event.target.value); //FIXME: 型の修正
-            }
-            setEnteredInfo(newData);
-          }}
-        >
-          {inputFormDataAPI.jobType.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.text}
-              </option>
-            );
-          })}
-        </Select>
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>報酬(時給換算)</Text>
-        <HStack w={WLarge}>
-          <InputGroup size="md">
-            <Input
-              type="number"
-              placeholder="時給"
-              defaultValue={enteredInfo.salary !== -1 ? enteredInfo.salary : ""}
-              onChange={(event) => {
-                let newData = { ...enteredInfo };
-                newData.salary = Number(event.target.value); //FIXME: 型の修正
-                setEnteredInfo(newData);
-              }}
-            />
-            <InputRightAddon children="円" />
-          </InputGroup>
-        </HStack>
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>インターンの内容</Text>
-        <Textarea
-          w={WLarge}
-          size="lg"
-          placeholder="インターン内容"
-          defaultValue={enteredInfo.internContents}
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            newData.internContents = event.target.value;
-            setEnteredInfo(newData);
-          }}
-        />
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={WSmall}>総合評価</Text>
-        <Select
-          w={WLarge}
-          placeholder="総合評価"
-          defaultValue={
-            enteredInfo.evaluation === -1
-              ? ""
-              : (enteredInfo.evaluation as unknown as string)
-          }
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            if (event.target.value === "") {
-              newData.evaluation = -1;
-            } else {
-              newData.evaluation = Number(event.target.value); //FIXME: 型の修正
-            }
-            setEnteredInfo(newData);
-          }}
-        >
-          {inputFormDataAPI.evaluation.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.text}
-              </option>
-            );
-          })}
-        </Select>
-      </HStack>
-      <VSpacer size={spaceBetweenTitle} />
-
-      <Text fontSize="2xl">インターン選考時の状況について教えてください</Text>
-
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={"30%"}>選考時の趣味開発やハッカソン等での開発経験</Text>
-        <Select
-          w={"70%"}
-          placeholder="開発経験"
-          defaultValue={
-            enteredInfo.developEx === -1
-              ? ""
-              : (enteredInfo.developEx as unknown as string)
-          }
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            if (event.target.value === "") {
-              newData.developEx = -1;
-            } else {
-              newData.developEx = Number(event.target.value); //FIXME: 型の修正
-            }
-            setEnteredInfo(newData);
-          }}
-        >
-          {inputFormDataAPI.developEx.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.text}
-              </option>
-            );
-          })}
-        </Select>
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <HStack>
-        <Text w={"30%"}>選考時のインターンへの参加経験</Text>
-        <Select
-          w={"70%"}
-          placeholder="インターンへの参加経験"
-          defaultValue={
-            enteredInfo.internEx === -1
-              ? ""
-              : (enteredInfo.internEx as unknown as string)
-          }
-          onChange={(event) => {
-            let newData = { ...enteredInfo };
-            if (event.target.value === "") {
-              newData.internEx = -1;
-            } else {
-              newData.internEx = Number(event.target.value); //FIXME: 型の修正
-            }
-            setEnteredInfo(newData);
-          }}
-        >
-          {inputFormDataAPI.internEx.map((item) => {
-            return (
-              <option key={item.id} value={item.id}>
-                {item.text}
-              </option>
-            );
-          })}
-        </Select>
-      </HStack>
-      <VSpacer size={spaceBetweenItems} />
-      <Text>インターンの選考対策として行ったことがあれば教えてください</Text>
-      <VSpacer size={spaceBetweenItems} />
-      <Textarea
-        size="lg"
-        placeholder="内容"
-        defaultValue={enteredInfo.internTestPreparation}
-        onChange={(event) => {
-          let newData = { ...enteredInfo };
-          newData.internTestPreparation = event.target.value;
-          setEnteredInfo(newData);
-        }}
-      />
-      <VSpacer size={spaceBetweenItems} />
-      <Text>インターンに参加したことでその先の選考の免除があったか</Text>
-      <VSpacer size={spaceBetweenItems} />
-
-      <RadioGroup onChange={setValue} value={`${radioButtonValue}`}>
+      <VSpacer size={8} />
+      <Text fontSize="2xl" as="b">
+        インターン情報について教えて下さい
+      </Text>
+      <VSpacer size={4} />
+      <Box borderRadius="lg" borderWidth="1px" borderColor="black" p={6}>
         <HStack>
-          <Radio value="1">あり</Radio>
-          <Radio value="0">なし</Radio>
+          <Text w={WSmall}>企業名</Text>
+          <Input
+            w={WLarge}
+            placeholder="企業名"
+            defaultValue={enteredInfo.company}
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              newData.company = event.target.value;
+              setEnteredInfo(newData);
+            }}
+          />
         </HStack>
-      </RadioGroup>
-      <VSpacer size={spaceBetweenItems} />
-      <Textarea
-        size="lg"
-        placeholder="免除となった内容"
-        defaultValue={enteredInfo.selectionExemptionContents}
-        onChange={(event) => {
-          let newData = { ...enteredInfo };
-          newData.selectionExemptionContents = event.target.value;
-          setEnteredInfo(newData);
-        }}
-      />
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={WSmall}>参加年度</Text>
+          <Select
+            w={WLarge}
+            placeholder="年"
+            defaultValue={
+              enteredInfo.year === -1
+                ? ""
+                : (enteredInfo.year as unknown as string)
+            }
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              if (event.target.value === "") {
+                newData.year = -1;
+              } else {
+                newData.year = Number(event.target.value); //FIXME: 型の修正
+              }
+              setEnteredInfo(newData);
+            }}
+          >
+            {inputFormDataAPI.year.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              );
+            })}
+          </Select>
+        </HStack>
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={WSmall}>インターン種別</Text>
+          <Select
+            w={WLarge}
+            placeholder="インターン種別"
+            defaultValue={
+              enteredInfo.internType === -1
+                ? ""
+                : (enteredInfo.internType as unknown as string) //FIXME: 型の修正
+            }
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              if (event.target.value === "") {
+                newData.internType = -1;
+              } else {
+                newData.internType = Number(event.target.value);
+              }
+              setEnteredInfo(newData);
+            }}
+          >
+            {inputFormDataAPI.internType.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              );
+            })}
+          </Select>
+        </HStack>
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={WSmall}>期間</Text>
+          <Select
+            w={WLarge}
+            placeholder="期間"
+            defaultValue={
+              enteredInfo.period === -1
+                ? ""
+                : (enteredInfo.period as unknown as string) //FIXME: 型の修正
+            }
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              if (event.target.value === "") {
+                newData.period = -1;
+              } else {
+                newData.period = Number(event.target.value); //FIXME: 型の修正
+              }
+              setEnteredInfo(newData);
+            }}
+          >
+            {inputFormDataAPI.period.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              );
+            })}
+          </Select>
+        </HStack>
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={WSmall}>職種</Text>
+          <Select
+            w={WLarge}
+            placeholder="職種"
+            defaultValue={
+              enteredInfo.jobType === -1
+                ? ""
+                : (enteredInfo.jobType as unknown as string) //FIXME: 型の修正
+            }
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              if (event.target.value === "") {
+                newData.jobType = -1;
+              } else {
+                newData.jobType = Number(event.target.value); //FIXME: 型の修正
+              }
+              setEnteredInfo(newData);
+            }}
+          >
+            {inputFormDataAPI.jobType.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              );
+            })}
+          </Select>
+        </HStack>
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={WSmall}>報酬(時給換算)</Text>
+          <HStack w={WLarge}>
+            <InputGroup size="md">
+              <Input
+                type="number"
+                placeholder="時給"
+                defaultValue={
+                  enteredInfo.salary !== -1 ? enteredInfo.salary : ""
+                }
+                onChange={(event) => {
+                  let newData = { ...enteredInfo };
+                  newData.salary = Number(event.target.value); //FIXME: 型の修正
+                  setEnteredInfo(newData);
+                }}
+              />
+              <InputRightAddon children="円" />
+            </InputGroup>
+          </HStack>
+        </HStack>
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={WSmall}>インターンの内容</Text>
+          <Textarea
+            w={WLarge}
+            size="lg"
+            placeholder="インターン内容"
+            defaultValue={enteredInfo.internContents}
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              newData.internContents = event.target.value;
+              setEnteredInfo(newData);
+            }}
+          />
+        </HStack>
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={WSmall}>総合評価</Text>
+          <Select
+            w={WLarge}
+            placeholder="総合評価"
+            defaultValue={
+              enteredInfo.evaluation === -1
+                ? ""
+                : (enteredInfo.evaluation as unknown as string)
+            }
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              if (event.target.value === "") {
+                newData.evaluation = -1;
+              } else {
+                newData.evaluation = Number(event.target.value); //FIXME: 型の修正
+              }
+              setEnteredInfo(newData);
+            }}
+          >
+            {inputFormDataAPI.evaluation.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              );
+            })}
+          </Select>
+        </HStack>
+      </Box>
 
       <VSpacer size={spaceBetweenTitle} />
 
-      <Text fontSize="2xl">最後に</Text>
+      <Text fontSize="2xl" as="b">
+        インターン選考時の状況について教えてください
+      </Text>
+      <VSpacer size={4} />
+      <Box borderRadius="lg" borderWidth="1px" borderColor="black" p={6}>
+        <HStack>
+          <Text w={"40%"}>選考時の趣味開発やハッカソン等での開発経験</Text>
+          <Select
+            w={"60%"}
+            placeholder="開発経験"
+            defaultValue={
+              enteredInfo.developEx === -1
+                ? ""
+                : (enteredInfo.developEx as unknown as string)
+            }
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              if (event.target.value === "") {
+                newData.developEx = -1;
+              } else {
+                newData.developEx = Number(event.target.value); //FIXME: 型の修正
+              }
+              setEnteredInfo(newData);
+            }}
+          >
+            {inputFormDataAPI.developEx.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              );
+            })}
+          </Select>
+        </HStack>
+        <VSpacer size={spaceBetweenItems} />
+        <HStack>
+          <Text w={"40%"}>選考時のインターンへの参加経験</Text>
+          <Select
+            w={"60%"}
+            placeholder="インターンへの参加経験"
+            defaultValue={
+              enteredInfo.internEx === -1
+                ? ""
+                : (enteredInfo.internEx as unknown as string)
+            }
+            onChange={(event) => {
+              let newData = { ...enteredInfo };
+              if (event.target.value === "") {
+                newData.internEx = -1;
+              } else {
+                newData.internEx = Number(event.target.value); //FIXME: 型の修正
+              }
+              setEnteredInfo(newData);
+            }}
+          >
+            {inputFormDataAPI.internEx.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.text}
+                </option>
+              );
+            })}
+          </Select>
+        </HStack>
+        <VSpacer size={8} />
+        <Text>インターンの選考対策として行ったことがあれば教えてください</Text>
+        <VSpacer size={spaceBetweenItems} />
+        <Textarea
+          size="lg"
+          placeholder="内容"
+          borderColor="gray.200"
+          defaultValue={enteredInfo.internTestPreparation}
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.internTestPreparation = event.target.value;
+            setEnteredInfo(newData);
+          }}
+        />
+        <VSpacer size={8} />
+        <Text>インターンに参加したことでその先の選考の免除があったか</Text>
+        <VSpacer size={spaceBetweenItems} />
+
+        <RadioGroup onChange={setValue} value={`${radioButtonValue}`}>
+          <HStack>
+            <Radio value="1">あり</Radio>
+            <Radio value="0">なし</Radio>
+          </HStack>
+        </RadioGroup>
+        <VSpacer size={spaceBetweenItems} />
+        <Textarea
+          size="lg"
+          placeholder="免除となった内容"
+          borderColor="gray.200"
+          defaultValue={enteredInfo.selectionExemptionContents}
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.selectionExemptionContents = event.target.value;
+            setEnteredInfo(newData);
+          }}
+        />
+      </Box>
+
+      <VSpacer size={spaceBetweenTitle} />
+
+      <Text fontSize="2xl" as="b">
+        最後に
+      </Text>
       <VSpacer size={spaceBetweenItems} />
-      <Text>全体の感想(参加して良かったことや改善点など)</Text>
-      <VSpacer size={spaceBetweenItems} />
-      <Textarea
-        size="lg"
-        placeholder="感想"
-        defaultValue={enteredInfo.impressions}
-        onChange={(event) => {
-          let newData = { ...enteredInfo };
-          newData.impressions = event.target.value;
-          setEnteredInfo(newData);
-        }}
-      />
+      <Box borderRadius="lg" borderWidth="1px" borderColor="black" p={6}>
+        <Text>全体の感想(参加して良かったことや改善点など)</Text>
+        <VSpacer size={spaceBetweenItems} />
+        <Textarea
+          size="lg"
+          placeholder="感想"
+          borderColor="gray.200"
+          defaultValue={enteredInfo.impressions}
+          onChange={(event) => {
+            let newData = { ...enteredInfo };
+            newData.impressions = event.target.value;
+            setEnteredInfo(newData);
+          }}
+        />
+      </Box>
 
       <VSpacer size={spaceBetweenItems} />
       <Center>
@@ -518,6 +537,7 @@ export const InputForm = ({ isEdit }: Props) => {
           送信
         </Button>
       </Center>
+      <VSpacer size={8} />
     </>
   );
 };
