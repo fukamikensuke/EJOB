@@ -7,8 +7,7 @@ EJOB はインターンシップを探している就活生支援サービスで
 <br />
 
 # 🎥 DEMO
-
-<!-- 動画 or GIF を挿入する -->
+デモはこちら ➡️ [デモ](https://drive.google.com/file/d/1RC3jlUQ7PvPaAFi8EYXdNtcIC6B83_zL/view?usp=share_link)
 
 <br />
 
