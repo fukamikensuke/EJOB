@@ -52,7 +52,10 @@ export const Filter = ({
   }, []);
 
   useEffect(() => {
-    setIsSearchDisable(selectedFilterData.every((x) => x === null));
+    // TODO: storybook で undefined を避けるため
+    if (selectedFilterData) {
+      setIsSearchDisable(selectedFilterData.every((x) => x === null));
+    }
   }, [selectedFilterData]);
 
   const handleClick = () => {
