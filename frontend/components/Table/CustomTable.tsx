@@ -1,5 +1,3 @@
-// FIXME: ルールの有効化
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import {
   Table,
@@ -14,7 +12,7 @@ import {
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { VSpacer } from "../Spacer/Spacer";
 
 type TableItem = {
@@ -26,8 +24,7 @@ type TableItem = {
   salary: string;
 };
 
-const tableBody = (props: TableItem) => {
-  const router = useRouter();
+const tableBody = (props: TableItem, router: NextRouter) => {
   let displayEvaluation = "";
 
   if (props.evaluation.match(/1/)) {
@@ -48,6 +45,7 @@ const tableBody = (props: TableItem) => {
 
   return (
     <Tr
+      key={props.id}
       _hover={{ cursor: "pointer" }}
       onClick={() => {
         router.push(`/intern-info/${props.id}`);
@@ -67,6 +65,7 @@ type Props = {
 };
 
 export const CustomTable = ({ tableDataListApi }: Props) => {
+  const router = useRouter();
   const PAGE_NATION = 15; // マジックナンバー
   const [pageNation, setPageNation] = useState<number>(PAGE_NATION);
 
@@ -87,7 +86,7 @@ export const CustomTable = ({ tableDataListApi }: Props) => {
           <Tbody>
             {tableDataListApi.map((tableData, index) => {
               if (pageNation - PAGE_NATION <= index && index < pageNation) {
-                return tableBody(tableData);
+                return tableBody(tableData, router);
               }
             })}
           </Tbody>
