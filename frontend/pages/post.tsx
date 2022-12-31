@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { loginState } from "../store/Recoil";
 // FIXME: ファイル名の修正(大文字のキャメルケース)
-import { InputForm } from "../components/inputForm/InputForm";
+import { InputForm } from "../components/InputForm/InputForm";
 import { VSpacer } from "../components/Spacer/Spacer";
 import { IoMdInformationCircle } from "react-icons/io";
 

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../../../store/Recoil";
 // FIXME: ファイル名の先頭を大文字にする
-import { InputForm } from "../../../../components/inputForm/InputForm";
+import { InputForm } from "../../../../components/InputForm/InputForm";
 
 export default function EditInternInfo() {
   const router = useRouter();
