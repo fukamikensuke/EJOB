@@ -29,16 +29,6 @@ export const CustomAccordionItem = ({
       <AccordionButton>
         <Box flex="1" textAlign="center">
           {item.displayName}
-          {/* {
-            AccordionItemDict[
-              item.id as
-                | "evaluation"
-                | "internType"
-                | "period"
-                | "jobType"
-                | "salary"
-            ]
-          } */}
         </Box>
         <AccordionIcon />
       </AccordionButton>

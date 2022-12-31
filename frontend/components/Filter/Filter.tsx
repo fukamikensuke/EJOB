@@ -1,124 +1,86 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-  Button,
-  Center,
-  VStack,
-  HStack,
-  InputGroup,
-  Input,
-  Text,
-} from "@chakra-ui/react";
+import axios, { AxiosRequestConfig } from "axios";
+import { Accordion, Button, Center, VStack } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
 import { CustomAccordionItem } from "./CustomAccordionItem";
-import axios from "axios";
+import { Salary } from "./Salary";
+import { DOMAIN } from "../../share/share";
+import { FilterData } from "../../types/FilterData";
+
+type PostFilter = {
+  evaluation: number | null;
+  period: number | null;
+  jobType: number | null;
+  // internType: number | null;
+  salary: number | null;
+};
 
 type Props = {
-  selectedFilterData: (number | null)[];
-  setSelectedFilterData: Dispatch<SetStateAction<(number | null)[]>>;
-  isPostFilter: boolean;
-  setIsPostFilter: Dispatch<SetStateAction<boolean>>;
+  filterDataList: FilterData[] | null;
+  setTableDataList: Dispatch<SetStateAction<never[]>>;
 };
-export const Filter = ({
-  selectedFilterData,
-  setSelectedFilterData,
-  isPostFilter,
-  setIsPostFilter,
-}: Props) => {
-  const [filterDataAPI, setFilterDataAPI] = useState({ data: [] });
+
+export const Filter = ({ filterDataList, setTableDataList }: Props) => {
   const [isSearchDisable, setIsSearchDisable] = useState<boolean>(true);
-  // const [selectedFilterData, setSelectedFilterData] = useState<
-  //   (number | null)[]
-  // >([null, null, null, null, null]);
+  const [selectedFilterData, setSelectedFilterData] = useState<
+    (number | null)[]
+  >([null, null, null, null]);
 
-  // API からデータの取得
+  // 少なくとも1つでも検索条件が入力されている場合検索ボタンを活性化する
   useEffect(() => {
-    const url = "http://localhost:8000/search-status";
-    axios
-      .get(url)
-      .then((res) => {
-        setFilterDataAPI(res.data);
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error("api error /search-status");
-      });
-  }, []);
-
-  useEffect(() => {
-    // TODO: storybook で undefined を避けるため
     if (selectedFilterData) {
       setIsSearchDisable(selectedFilterData.every((x) => x === null));
     }
   }, [selectedFilterData]);
 
+  // 検索ボタンが押された場合に表示する情報を絞り込む
   const handleClick = () => {
-    // TODO: この実装をもう少しいい感じする
-    setIsPostFilter(!isPostFilter);
+    const baseUrl = DOMAIN + "intern-info-list";
+
+    const params: PostFilter = {
+      evaluation: selectedFilterData[0],
+      jobType: selectedFilterData[1],
+      period: selectedFilterData[2],
+      salary: selectedFilterData[3],
+    };
+
+    const options: AxiosRequestConfig = {
+      url: `${baseUrl}`,
+      method: "GET",
+      params: params,
+    };
+
+    axios(options)
+      .then((res) => {
+        // FIXME: バックエンド側から return される値を res.data で受け取れるようにする
+        setTableDataList(res.data.data);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error("error of GET/intern-info-list", error);
+      });
   };
 
   return (
     <>
       <VStack>
         <Accordion allowMultiple w="100%">
-          {/* XXX: Array であることは保証されているはずなのに…  */}
-          {filterDataAPI.data.map(
-            (
-              data: {
-                displayName: string;
-                data: { id: number; text: string }[];
-              },
-              index: number
-            ) => {
-              if (index < 3) {
-                return (
-                  <CustomAccordionItem
-                    key={index}
-                    index={index}
-                    item={data}
-                    selectedData={selectedFilterData}
-                    setState={setSelectedFilterData}
-                  />
-                );
-              }
-            }
-          )}
-          <AccordionItem>
-            <AccordionButton>
-              <Box flex="1" textAlign="center">
-                給与
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel p={4}>
-              <Center>
-                <HStack w="100%">
-                  <Text w="20%">時給</Text>
-                  <Input
-                    w="50%"
-                    type="number"
-                    placeholder="時給"
-                    onChange={(event) => {
-                      let newArray = [...selectedFilterData];
-                      if (event.target.value === "") {
-                        newArray[4] = null;
-                      } else {
-                        newArray[4] = event.target.value as unknown as number;
-                      }
-                      setSelectedFilterData(newArray);
-                    }}
-                  />
-                  <Text w="30%">円以上</Text>
-                </HStack>
-              </Center>
-            </AccordionPanel>
-          </AccordionItem>
+          {filterDataList &&
+            filterDataList.map((filterData: FilterData, index: number) => {
+              return (
+                <CustomAccordionItem
+                  key={index}
+                  index={index}
+                  item={filterData}
+                  selectedData={selectedFilterData}
+                  setState={setSelectedFilterData}
+                />
+              );
+            })}
+          <Salary
+            selectedFilterData={selectedFilterData}
+            setSelectedFilterData={setSelectedFilterData}
+          />
         </Accordion>
         <VSpacer size={2} />
         <Center>
