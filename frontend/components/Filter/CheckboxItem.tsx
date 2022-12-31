@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { VStack, Checkbox } from "@chakra-ui/react";
 
 // TODO: setState のバケツリレーを辞めたい
@@ -6,7 +6,7 @@ type Props = {
   index: number;
   AccordionData: { id: number; text: string }[];
   selectedData: (number | null)[];
-  setState: React.Dispatch<React.SetStateAction<(number | null)[]>>;
+  setState: Dispatch<SetStateAction<(number | null)[]>>;
 };
 
 export const CheckboxItem = ({

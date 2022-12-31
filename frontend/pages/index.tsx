@@ -11,11 +11,24 @@ export default function Home() {
   const [tableDataListApi, setTableDataList] = useState([]);
   const [filterData, setFilterData] = useState<FilterData[] | null>(null);
 
-  // API からフィルターデータの取得
   useEffect(() => {
-    const url = DOMAIN + "search-status";
+    // インターン情報の初期値の取得
+    const fetchInternInfoDataUrl = DOMAIN + "intern-info-list";
     axios
-      .get(url)
+      .get(fetchInternInfoDataUrl)
+      .then((res) => {
+        setTableDataList(res.data.data);
+        // setFilterData(res.data.data);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error("api error /intern-info-list", error);
+      });
+
+    // API からフィルターデータの取得
+    const fetchFilterDataUrl = DOMAIN + "search-status";
+    axios
+      .get(fetchFilterDataUrl)
       .then((res) => {
         setFilterData(res.data.data);
       })
