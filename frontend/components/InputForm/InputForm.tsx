@@ -3,6 +3,7 @@
 /* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../store/Recoil";
 import {
@@ -24,7 +25,7 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { VSpacer } from "../Spacer/Spacer";
-import axios from "axios";
+import { DOMAIN } from "../../share/share";
 
 type EnteredInfoType = {
   company: string;
@@ -34,18 +35,15 @@ type EnteredInfoType = {
   jobType: number;
   salary: number;
   internContents: string;
-  evaluation: number; //1-5
-  developEx: number; // 入力は必須ではないため、未入力のときは -1 を送る
-  internEx: number; // 入力は必須ではないため、未入力のときは -1 を送る
+  evaluation: number;
+  developEx: number;
+  internEx: number;
   internTestPreparation: string;
   isSelectionExemption: number; // 0 or 1
   selectionExemptionContents: string;
   impressions: string;
   userId: string;
 };
-
-// TODO: 入力周りの refactor する
-// TODO: render が多すぎて performance が低い
 
 type Props = {
   isEdit: boolean;
@@ -126,21 +124,21 @@ export const InputForm = ({ isEdit }: Props) => {
     } else {
       return enteredInfo.isSelectionExemption === -1
         ? ""
-        : (enteredInfo.isSelectionExemption as unknown as string); // FIXME: 型の修正
+        : String(enteredInfo.isSelectionExemption);
     }
   });
 
   // ラジオボタンの変更の検出
   useEffect(() => {
     let newData = { ...enteredInfo };
-    newData.isSelectionExemption = Number(radioButtonValue); //FIXME: 型の修正
+    newData.isSelectionExemption = Number(radioButtonValue);
     setEnteredInfo(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [radioButtonValue]);
 
   // 選択式の部分のデータの取得
   useEffect(() => {
-    const baseUrl = "http://localhost:8000/input-select-filed";
+    const baseUrl = DOMAIN + "input-select-filed";
     axios
       .get(baseUrl)
       .then((res) => {
@@ -175,7 +173,9 @@ export const InputForm = ({ isEdit }: Props) => {
 
   const handlePost = () => {
     // XXX: POST を使用した場合 Axios Network Error となりうまく接続できなかった
-    const url = `http://localhost:8000/post-intern-info?company=${enteredInfo.company}&year=${enteredInfo.year}&internType=${enteredInfo.internType}&period=${enteredInfo.period}&jobType=${enteredInfo.jobType}&salary=${enteredInfo.salary}&internContents=${enteredInfo.internContents}&evaluation=${enteredInfo.evaluation}&developEx=${enteredInfo.developEx}&internEx=${enteredInfo.internEx}&internTestPreparation=${enteredInfo.internTestPreparation}&isSelectionExemption=${enteredInfo.isSelectionExemption}&selectionExemptionContents=${enteredInfo.selectionExemptionContents}&impressions=${enteredInfo.impressions}&uid=${enteredInfo.userId}`;
+    const url =
+      DOMAIN +
+      `post-intern-info?company=${enteredInfo.company}&year=${enteredInfo.year}&internType=${enteredInfo.internType}&period=${enteredInfo.period}&jobType=${enteredInfo.jobType}&salary=${enteredInfo.salary}&internContents=${enteredInfo.internContents}&evaluation=${enteredInfo.evaluation}&developEx=${enteredInfo.developEx}&internEx=${enteredInfo.internEx}&internTestPreparation=${enteredInfo.internTestPreparation}&isSelectionExemption=${enteredInfo.isSelectionExemption}&selectionExemptionContents=${enteredInfo.selectionExemptionContents}&impressions=${enteredInfo.impressions}&uid=${enteredInfo.userId}`;
 
     const encodeUrl = encodeURI(url);
     axios
@@ -224,16 +224,14 @@ export const InputForm = ({ isEdit }: Props) => {
           <Select
             placeholder="年"
             defaultValue={
-              enteredInfo.year === -1
-                ? ""
-                : (enteredInfo.year as unknown as string)
+              enteredInfo.year === -1 ? "" : String(enteredInfo.year)
             }
             onChange={(event) => {
               let newData = { ...enteredInfo };
               if (event.target.value === "") {
                 newData.year = -1;
               } else {
-                newData.year = Number(event.target.value); //FIXME: 型の修正
+                newData.year = Number(event.target.value);
               }
               setEnteredInfo(newData);
             }}
@@ -254,7 +252,7 @@ export const InputForm = ({ isEdit }: Props) => {
             defaultValue={
               enteredInfo.internType === -1
                 ? ""
-                : (enteredInfo.internType as unknown as string) //FIXME: 型の修正
+                : String(enteredInfo.internType)
             }
             onChange={(event) => {
               let newData = { ...enteredInfo };
@@ -280,16 +278,14 @@ export const InputForm = ({ isEdit }: Props) => {
           <Select
             placeholder="期間"
             defaultValue={
-              enteredInfo.period === -1
-                ? ""
-                : (enteredInfo.period as unknown as string) //FIXME: 型の修正
+              enteredInfo.period === -1 ? "" : String(enteredInfo.period)
             }
             onChange={(event) => {
               let newData = { ...enteredInfo };
               if (event.target.value === "") {
                 newData.period = -1;
               } else {
-                newData.period = Number(event.target.value); //FIXME: 型の修正
+                newData.period = Number(event.target.value);
               }
               setEnteredInfo(newData);
             }}
@@ -308,16 +304,14 @@ export const InputForm = ({ isEdit }: Props) => {
           <Select
             placeholder="職種"
             defaultValue={
-              enteredInfo.jobType === -1
-                ? ""
-                : (enteredInfo.jobType as unknown as string) //FIXME: 型の修正
+              enteredInfo.jobType === -1 ? "" : String(enteredInfo.jobType)
             }
             onChange={(event) => {
               let newData = { ...enteredInfo };
               if (event.target.value === "") {
                 newData.jobType = -1;
               } else {
-                newData.jobType = Number(event.target.value); //FIXME: 型の修正
+                newData.jobType = Number(event.target.value);
               }
               setEnteredInfo(newData);
             }}
@@ -343,7 +337,7 @@ export const InputForm = ({ isEdit }: Props) => {
                 }
                 onChange={(event) => {
                   let newData = { ...enteredInfo };
-                  newData.salary = Number(event.target.value); //FIXME: 型の修正
+                  newData.salary = Number(event.target.value); //
                   setEnteredInfo(newData);
                 }}
               />
@@ -372,14 +366,14 @@ export const InputForm = ({ isEdit }: Props) => {
             defaultValue={
               enteredInfo.evaluation === -1
                 ? ""
-                : (enteredInfo.evaluation as unknown as string)
+                : String(enteredInfo.evaluation)
             }
             onChange={(event) => {
               let newData = { ...enteredInfo };
               if (event.target.value === "") {
                 newData.evaluation = -1;
               } else {
-                newData.evaluation = Number(event.target.value); //FIXME: 型の修正
+                newData.evaluation = Number(event.target.value);
               }
               setEnteredInfo(newData);
             }}
@@ -409,16 +403,14 @@ export const InputForm = ({ isEdit }: Props) => {
           <Select
             placeholder="開発経験"
             defaultValue={
-              enteredInfo.developEx === -1
-                ? ""
-                : (enteredInfo.developEx as unknown as string)
+              enteredInfo.developEx === -1 ? "" : String(enteredInfo.developEx)
             }
             onChange={(event) => {
               let newData = { ...enteredInfo };
               if (event.target.value === "") {
                 newData.developEx = -1;
               } else {
-                newData.developEx = Number(event.target.value); //FIXME: 型の修正
+                newData.developEx = Number(event.target.value);
               }
               setEnteredInfo(newData);
             }}
@@ -437,16 +429,14 @@ export const InputForm = ({ isEdit }: Props) => {
           <Select
             placeholder="インターンへの参加経験"
             defaultValue={
-              enteredInfo.internEx === -1
-                ? ""
-                : (enteredInfo.internEx as unknown as string)
+              enteredInfo.internEx === -1 ? "" : String(enteredInfo.internEx)
             }
             onChange={(event) => {
               let newData = { ...enteredInfo };
               if (event.target.value === "") {
                 newData.internEx = -1;
               } else {
-                newData.internEx = Number(event.target.value); //FIXME: 型の修正
+                newData.internEx = Number(event.target.value);
               }
               setEnteredInfo(newData);
             }}
