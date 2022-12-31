@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { HStack, Text } from "@chakra-ui/react";
-import { VSpacer } from "../Spacer/Spacer";
-import { CustomText } from "./CustomText";
 import axios, { AxiosRequestConfig } from "axios";
-import { Badge } from "@chakra-ui/react";
 import {
+  Badge,
   Card,
   CardHeader,
   CardBody,
@@ -12,7 +9,12 @@ import {
   Stack,
   StackDivider,
   Box,
+  Text,
 } from "@chakra-ui/react";
+import { VSpacer } from "../Spacer/Spacer";
+import { CustomText } from "./CustomText";
+import { DOMAIN } from "../../share/share";
+
 type Props = {
   id: string | string[] | undefined;
 };
@@ -36,9 +38,6 @@ export const InternInfo = ({ id }: Props) => {
   });
 
   const WLarge = "85%";
-  const WSmall = "15%";
-  const spaceBetweenItems = 4;
-  const spaceBetweenTitle = 16;
 
   let displayEvaluation = "";
 
@@ -59,7 +58,7 @@ export const InternInfo = ({ id }: Props) => {
   }
 
   useEffect(() => {
-    const baseUrl = `http://localhost:8000/intern-info/${id}`;
+    const baseUrl = DOMAIN + `intern-info/${id}`;
 
     const options: AxiosRequestConfig = {
       url: `${baseUrl}`,
@@ -68,14 +67,13 @@ export const InternInfo = ({ id }: Props) => {
 
     axios(options)
       .then((res) => {
-        console.log(res.data);
         setDisplayInternInfoAPI(res.data.data);
       })
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.log("error of GET/intern-info", error);
       });
-  }, []);
+  }, [id]);
 
   return (
     <>
