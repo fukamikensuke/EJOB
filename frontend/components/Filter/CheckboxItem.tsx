@@ -19,7 +19,6 @@ export const CheckboxItem = ({
     <VStack>
       {AccordionData.map((prop) => {
         return (
-          // TODO: 型定義の修正 (as の使用をうまく避けたい)
           <Checkbox
             key={prop.id}
             onChange={() => {
