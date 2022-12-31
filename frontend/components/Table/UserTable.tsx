@@ -1,6 +1,7 @@
 // FIXME: ルールの有効化
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useRecoilValue } from "recoil";
 import { loginState } from "../../store/Recoil";
@@ -25,7 +26,7 @@ import {
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { VSpacer } from "../Spacer/Spacer";
-import axios from "axios";
+import { DOMAIN } from "../../share/share";
 
 type TableItem = {
   id: number;
@@ -41,7 +42,7 @@ type Props = {
 };
 
 const handleDelete = async (id: number) => {
-  const baseUrl = `http://localhost:8000/intern-info/delete/${id}`;
+  const baseUrl = DOMAIN + `intern-info/delete/${id}`;
   const res = await axios.delete(baseUrl);
 
   if (res.status === 200) {
@@ -54,13 +55,13 @@ const handleDelete = async (id: number) => {
 export const UserTable = ({ id }: Props) => {
   const [tableDataListAPI, setTableDataListAPI] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef();
+  const cancelRef = useRef(null);
   const toast = useToast();
   const router = useRouter();
   const loginStatus = useRecoilValue(loginState);
 
   useEffect(() => {
-    const baseUrl = `http://localhost:8000/intern-info-list-uid/${id}`;
+    const baseUrl = DOMAIN + `intern-info-list-uid/${id}`;
 
     axios
       .get(baseUrl)
@@ -71,7 +72,7 @@ export const UserTable = ({ id }: Props) => {
         // eslint-disable-next-line no-console
         console.error("error GET/intern-info-list-uid", error),
       ]);
-  }, []);
+  }, [id]);
 
   const tableBody = (props: TableItem) => {
     return (
@@ -93,7 +94,6 @@ export const UserTable = ({ id }: Props) => {
           <Icon as={RiDeleteBinLine} onClick={onOpen} />
           <AlertDialog
             isOpen={isOpen}
-            // FIXME: 警告を削除する
             leastDestructiveRef={cancelRef}
             onClose={onClose}
           >
@@ -105,7 +105,6 @@ export const UserTable = ({ id }: Props) => {
                 </AlertDialogBody>
 
                 <AlertDialogFooter>
-                  {/* // FIXME: 警告を削除する */}
                   <Button ref={cancelRef} onClick={onClose}>
                     キャンセル
                   </Button>
@@ -169,7 +168,6 @@ export const UserTable = ({ id }: Props) => {
         </Thead>
         <Tbody>
           {tableDataListAPI.map((tableData) => {
-            // XXX: undefined がどこに起因してるのかわからない
             return tableBody(tableData);
           })}
         </Tbody>

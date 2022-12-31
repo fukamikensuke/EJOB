@@ -67,7 +67,8 @@ type Props = {
 };
 
 export const CustomTable = ({ tableDataListApi }: Props) => {
-  const [pageNation, setPageNation] = useState<number>(15);
+  const PAGE_NATION = 15; // マジックナンバー
+  const [pageNation, setPageNation] = useState<number>(PAGE_NATION);
 
   return (
     <>
@@ -82,10 +83,10 @@ export const CustomTable = ({ tableDataListApi }: Props) => {
               <Th>給与</Th>
             </Tr>
           </Thead>
+          {/* FIXME: リリース前にページネーションをなんとかする */}
           <Tbody>
             {tableDataListApi.map((tableData, index) => {
-              if (pageNation - 14 <= index && index < pageNation) {
-                // XXX: undefined がどこに起因してるのかわからない
+              if (pageNation - PAGE_NATION <= index && index < pageNation) {
                 return tableBody(tableData);
               }
             })}
@@ -99,7 +100,7 @@ export const CustomTable = ({ tableDataListApi }: Props) => {
             <Button
               variant="outline"
               onClick={() => {
-                setPageNation(14);
+                setPageNation(PAGE_NATION);
               }}
             >
               1
@@ -108,7 +109,7 @@ export const CustomTable = ({ tableDataListApi }: Props) => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  setPageNation(28);
+                  setPageNation(PAGE_NATION * 2);
                 }}
               >
                 2
