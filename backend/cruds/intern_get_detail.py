@@ -1,8 +1,10 @@
+# FIXME: 不要な import の削除
 import os
 import pyodbc
 from dotenv import load_dotenv
 
 
+# FIXME: cnxn 自体を引数にして良さそう (delete.py と同様)
 def get_intern_detail(id: int, env_list: list):
     cnxn = pyodbc.connect(
         "DRIVER="
@@ -21,10 +23,9 @@ def get_intern_detail(id: int, env_list: list):
     cur.execute("SELECT * FROM intern_detail WHERE id = %d" % id)
 
     for row in cur:
-
+        # FIXME: おそらく作業用のコメントは不要であれば消す, 消したくないのであればその旨のコメントを残す
         print(row[2])
         _cur.execute("SELECT text FROM year WHERE id = %d" % row[2])
-        
         (year_data,) = _cur.fetchone()
         _cur.execute("SELECT job_name FROM job_type WHERE id = %d" % row[5])
         (job_data,) = _cur.fetchone()
@@ -43,8 +44,8 @@ def get_intern_detail(id: int, env_list: list):
             selection_ex = "有"
         elif row[13] == 1:
             selection_ex = "無"
-        else :
-            selection_ex = "" 
+        else:
+            selection_ex = ""
         output_data = {
             "companyName": row[1],
             "year": year_data,

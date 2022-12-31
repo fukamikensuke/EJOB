@@ -1,7 +1,9 @@
+# FIXME: 不要な import の削除
 import os
 import pyodbc
 from dotenv import load_dotenv
 
+# FIXME: 不要であれば削除, 今後の使う予定があればその旨のコメントが欲しい
 #    "data": {
 #         "year": {"id": 1, "text": "サマーインターン"},
 #         "internType": {"id": 1, "text": "サマーインターン"},
@@ -13,6 +15,7 @@ from dotenv import load_dotenv
 
 
 def select_get_filed(env_list: list):
+    # FIXME: cnxn 自体を引数にして良さそう (delete.py と同様)
     cnxn = pyodbc.connect(
         "DRIVER="
         + env_list[4]
@@ -50,8 +53,6 @@ def select_get_filed(env_list: list):
     year_data = []
     for row in cur:
         year_data.append({"id": row[0], "text": row[1]})
-
-
 
     output_data = [
         {"displayName": "評価", "tableName": "evaluation", "data": evaluation_data},

@@ -2,6 +2,7 @@ import pyodbc
 
 
 def get_intern_info(env_list: list, filter_dict: dict):
+    # FIXME: cnxn 自体を引数にして良さそう (delete.py と同様)
     # TODO cnxn 自体が引数にできそう（修正Lｖ.1)
     cnxn = pyodbc.connect(
         "DRIVER="
@@ -19,19 +20,19 @@ def get_intern_info(env_list: list, filter_dict: dict):
     _cur = cnxn.cursor()
     where_str = None
     for n in filter_dict:
-        if filter_dict[n] : 
+        if filter_dict[n]:
             if not where_str:
                 if n == "salary":
                     where_str = "WHERE " + n + " >= %d " % filter_dict[n]
                 else:
                     where_str = "WHERE " + n + " = %d " % filter_dict[n]
-                
+
             else:
                 if n == "salary":
                     where_str = where_str + "AND " + n + " >= %d " % filter_dict[n]
-                else:    
+                else:
                     where_str = where_str + " AND " + n + " = %d " % filter_dict[n]
-                
+
     cur.execute("SELECT * FROM intern_detail %s" % where_str)
     output_data = []
     rows = cur.fetchall()
@@ -66,6 +67,7 @@ def get_intern_info(env_list: list, filter_dict: dict):
 
 
 def get_intern_info_uid(env_list: list, uid: str):
+    # FIXME: cnxn 自体を引数にして良さそう (delete.py と同様)
     # TODO cnxn 自体が引数にできそう（修正Lｖ.1)
     cnxn = pyodbc.connect(
         "DRIVER="
@@ -81,7 +83,7 @@ def get_intern_info_uid(env_list: list, uid: str):
     )
     cur = cnxn.cursor()
     _cur = cnxn.cursor()
-    cur.execute("SELECT * FROM intern_detail WHERE user_id = '%s'" %uid )
+    cur.execute("SELECT * FROM intern_detail WHERE user_id = '%s'" % uid)
     output_data = []
     rows = cur.fetchall()
     for row in rows:

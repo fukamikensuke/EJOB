@@ -11,9 +11,11 @@ from dotenv import load_dotenv
 import os
 from fastapi.middleware.cors import CORSMiddleware
 
+# FIXME: この宙ぶらりんのコメントをどうにかする (シンプルに謎の改行いらなくね！？)
 # 環境変数の読み込み
 
 load_dotenv()
+# FIXME: リストではなく dict 型の方が良いのでは！？と思っている
 # TODO .env内容をリストして入力（修正Lｖ.1)
 env_list = []
 env_list.append(os.getenv("SERVER"))
@@ -98,6 +100,7 @@ def get_select_filed():
 
 
 @app.delete("/intern-info/delete/{intern_id}")
+# FIXME: 関数名の修正 (他と重複しているため)
 def get_intern_list_id(intern_id: int):
     delete.delete_intern_info(env_list, intern_id)
     return {200: "OK"}
@@ -166,6 +169,7 @@ def post_intern_info_get(
     return 200
 
 
+# FIXME: 不要であれば削除, 今後の使う予定があればその旨のコメントが欲しい
 # @app.get("/test")
 # def post_intern_info():  # testcode
 #     print(env_list)

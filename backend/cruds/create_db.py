@@ -2,6 +2,7 @@ import os
 import pyodbc
 from dotenv import load_dotenv
 
+# main.py と create_db の2箇所で同じように環境変数を読み出してるから共通化できそう
 # 環境変数の読み込み
 load_dotenv()
 
