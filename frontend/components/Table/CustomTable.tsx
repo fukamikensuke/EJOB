@@ -82,7 +82,6 @@ export const CustomTable = ({ tableDataListApi }: Props) => {
               <Th>給与</Th>
             </Tr>
           </Thead>
-          {/* FIXME: リリース前にページネーションをなんとかする */}
           <Tbody>
             {tableDataListApi.map((tableData, index) => {
               if (pageNation - PAGE_NATION <= index && index < pageNation) {
