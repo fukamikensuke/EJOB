@@ -11,32 +11,32 @@ const Template: ComponentStory<typeof CustomTable> = (args) => (
   <CustomTable {...args} />
 );
 
+type TableData = {
+  id: number;
+  companyName: string;
+  evaluation: string;
+  period: string;
+  job: string;
+  salary: string;
+};
+
+const createTableDataList = () => {
+  const dataset: TableData[] = [];
+  for (let i = 0; i <= 100; i++) {
+    const addData: TableData = {
+      id: i,
+      companyName: `${i + 1}社`,
+      evaluation: `${Math.round(Math.random() * (5 - 1) + 1)}`,
+      period: `${i}ヶ月`,
+      job: "エンジニア",
+      salary: `${i}`,
+    };
+    dataset.push(addData);
+  }
+  return dataset;
+};
+
 export const Sample = Template.bind({});
 Sample.args = {
-  tableDataListApi: [
-    {
-      id: 1,
-      companyName: "A社",
-      evaluation: "1",
-      period: "nヶ月",
-      job: "エンジニア",
-      salary: "1000",
-    },
-    {
-      id: 2,
-      companyName: "B社",
-      evaluation: "1",
-      period: "nヶ月",
-      job: "エンジニア",
-      salary: "1000",
-    },
-    {
-      id: 3,
-      companyName: "C社",
-      evaluation: "3",
-      period: "nヶ月",
-      job: "エンジニア",
-      salary: "1000",
-    },
-  ],
+  tableDataListApi: createTableDataList(),
 };
