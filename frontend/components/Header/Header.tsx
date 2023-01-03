@@ -132,7 +132,7 @@ export const Header = () => {
                   <PopoverCloseButton />
                   <PopoverBody>
                     <VStack>
-                      <Button
+                      {/* <Button
                         variant="link"
                         colorScheme="black"
                         onClick={() => {
@@ -140,7 +140,7 @@ export const Header = () => {
                         }}
                       >
                         投稿情報
-                      </Button>
+                      </Button> */}
                       <Button
                         variant="link"
                         colorScheme="black"
