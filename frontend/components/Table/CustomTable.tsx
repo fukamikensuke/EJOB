@@ -82,7 +82,6 @@ export const CustomTable = ({ tableDataListApi }: Props) => {
               <Th>給与</Th>
             </Tr>
           </Thead>
-          {/* FIXME: リリース前にページネーションをなんとかする */}
           <Tbody>
             {tableDataListApi.map((tableData, index) => {
               if (pageNation - PAGE_NATION <= index && index < pageNation) {
@@ -96,23 +95,21 @@ export const CustomTable = ({ tableDataListApi }: Props) => {
         <VStack>
           <VSpacer size={4} />
           <HStack>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setPageNation(PAGE_NATION);
-              }}
-            >
-              1
-            </Button>
-            {14 < tableDataListApi.length && (
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setPageNation(PAGE_NATION * 2);
-                }}
-              >
-                2
-              </Button>
+            {/* FIXME: ページネーション数が増えるとレイアウトが死ぬ */}
+            {[...Array(Math.ceil(tableDataListApi.length / PAGE_NATION))].map(
+              (_, index) => {
+                return (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    onClick={() => {
+                      setPageNation(PAGE_NATION * (index + 1));
+                    }}
+                  >
+                    {index + 1}
+                  </Button>
+                );
+              }
             )}
           </HStack>
         </VStack>
